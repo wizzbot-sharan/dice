@@ -162,7 +162,7 @@ export default function DevLogs() {
           <div className="h-5 w-px bg-white/10"></div>
           
           <div className="flex space-x-3 items-center">
-            <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors" />
+            <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} onClick={e => e.target.showPicker && e.target.showPicker()} className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors cursor-pointer" style={{ colorScheme: 'dark' }} />
             <select value={selectedCA} onChange={e => { setSelectedCA(e.target.value); setSelectedCandidate('ALL'); }} className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors">
               <option value="ALL">All CAs</option>
               {uniqueCAs.map(ca => <option key={ca} value={ca}>{ca}</option>)}

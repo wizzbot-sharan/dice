@@ -170,8 +170,11 @@ export default function Dashboard() {
                 <Calendar size={14} className="text-zinc-500 group-hover:text-white transition-colors shrink-0" />
                 <input 
                   type="date" 
-                  value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
-                  className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 w-[110px]"
+                  value={selectedDate} 
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                  onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                  className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 w-[130px]"
+                  style={{ colorScheme: 'dark' }}
                 />
               </div>
               <div className="w-px h-4 bg-white/10 mx-3 sm:mx-4 shrink-0"></div>
