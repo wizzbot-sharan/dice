@@ -84,7 +84,7 @@ export default function Dashboard() {
         {/* Top Section (Left Stuff) */}
         <div className="pt-6 pb-4 border-b border-white/5 flex items-center justify-between min-w-[224px]">
           <div className="flex items-center space-x-3">
-            <img src="/Applywizz logo.jpeg" alt="Applywizz Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm shrink-0" />
+            <img src="/Applywizz_logo.jpeg" alt="Applywizz Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm shrink-0" />
             <span className="font-semibold text-white tracking-wide truncate">DICE AutoEasyApply</span>
           </div>
           <button 
