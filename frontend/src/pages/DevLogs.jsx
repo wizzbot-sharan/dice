@@ -54,7 +54,7 @@ export default function DevLogs() {
     const originalFavicon = favicon ? favicon.href : '/Applywizz_logo.jpeg';
     
     document.title = "DevLogs";
-    if (favicon) favicon.href = "/code.png";
+    if (favicon) favicon.href = "/code.png?v=" + new Date().getTime();
     
     return () => {
       document.title = originalTitle;
