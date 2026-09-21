@@ -617,7 +617,7 @@ export default function Dashboard() {
                           <th className="px-6 py-4 font-medium">CA Email / ID</th>
                           <th className="px-6 py-4 font-medium">Total Clients</th>
                           <th className="px-6 py-4 font-medium">Active Sessions</th>
-                          <th className="px-6 py-4 font-medium">Applied Today</th>
+                          <th className="px-6 py-4 font-medium">Jobs Prompted</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
