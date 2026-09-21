@@ -1235,7 +1235,7 @@ async function runJobsLoop(chatId) {
     const activeClientJob = clientId
       ? await applyQueue.hasActiveClientJob(clientId)
       : false;
-    const allRecentJobsHandled = urls.length > 0 && !unhandledUrlFound && !activeClientJob;
+    const allRecentJobsHandled = urls.length === 0 || (!unhandledUrlFound && !activeClientJob);
     if (
       allRecentJobsHandled &&
       !state.completionNotified &&
@@ -1247,10 +1247,10 @@ async function runJobsLoop(chatId) {
         checkedAt: new Date().toISOString(),
       };
       await audit(chatId, 'all_jobs_completed', details);
-      const sent = await sendMessage(
-        chatId,
-        'All jobs from the CSV have been completed. I will wait for new job links.'
-      );
+      const messageText = urls.length === 0
+        ? 'Scanning Dice for new jobs. I will notify you when matching jobs appear.'
+        : 'All jobs from the CSV have been completed. I will wait for new job links.';
+      const sent = await sendMessage(chatId, messageText);
       if (sent) state.completionNotified = true;
     }
 
