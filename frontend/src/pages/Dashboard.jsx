@@ -98,12 +98,12 @@ export default function Dashboard() {
         </div>
 
         <nav className="flex-1 overflow-y-auto py-4 space-y-1 min-w-[224px]">
-          <button className="w-full flex items-center space-x-3 px-3 py-2 bg-white/10 text-white rounded-lg font-medium transition-colors border border-white/5">
-            <LayoutDashboard size={16} className="text-indigo-400" />
+          <button onClick={() => setMainTab('dashboard')} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'dashboard' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+            <LayoutDashboard size={16} className={mainTab === 'dashboard' ? "text-indigo-400" : "text-slate-500"} />
             <span>Dashboard</span>
           </button>
-          <button className="w-full flex items-center space-x-3 px-3 py-2 text-slate-400 hover:bg-white/5 hover:text-white rounded-lg font-medium transition-colors">
-            <BarChart2 size={16} className="text-slate-500" />
+          <button onClick={() => setMainTab('stats')} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'stats' ? 'bg-white/10 text-white border border-white/5' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+            <BarChart2 size={16} className={mainTab === 'stats' ? "text-indigo-400" : "text-slate-500"} />
             <span>Stats</span>
           </button>
         </nav>
