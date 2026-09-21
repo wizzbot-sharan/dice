@@ -20,7 +20,7 @@ export default function Dashboard() {
   const toggleCA = (caName) => setExpandedCAs(prev => ({ ...prev, [caName]: !prev[caName] }));
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-  const [selectedTimezone, setSelectedTimezone] = useState('UTC');
+  const [selectedTimezone, setSelectedTimezone] = useState('Browser local');
   const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
