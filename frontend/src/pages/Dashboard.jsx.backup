@@ -1,0 +1,255 @@
+
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import '../dashboard.css';
+
+export default function Dashboard() {
+  const { operator, logout } = useAuth();
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const res = await axios.get(`/api/dashboard?date=${today}&timezone=UTC&timezone_name=UTC`);
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
+  return (
+    <>
+      
+  <div className="app-container">
+    
+    <header className="master-header">
+      <div className="header-left">
+        <div className="brand">
+          <img src="/Applywizz logo.jpeg" alt="Applywizz Logo" className="brand-logo-img" />
+          <div className="brand-title">
+            <strong>DICE AutoEasyApply</strong>
+          </div>
+        </div>
+        <nav className="master-nav">
+          <button className="nav-tab active" id="nav-dashboard-tab" type="button">Dashboard</button>
+          <button className="nav-tab" id="nav-stats-tab" type="button">Stats</button>
+          <button className="nav-action-btn" id="copy-link-btn" type="button">Copy Link</button>
+          <button className="nav-action-btn" id="show-qr-btn" type="button">Show QR</button>
+        </nav>
+      </div>
+
+      <div className="header-right">
+        <div className="telemetry-pill yellow" id="telemetry-candidates">Candidates: <span id="candidates-count">0</span>
+        </div>
+        <div className="telemetry-pill blue" id="telemetry-jobs">Jobs: <span id="jobs-count">0</span></div>
+        <button className="icon-button" id="refresh-btn" type="button" title="Refresh Dashboard">↻</button>
+        <div className="operator-badge" id="operator-badge"><span className="op-tag">OP</span> <span
+            id="operator-name">Operator</span></div>
+        <a href="/dev" id="dev-portal-link" className="button small" style={{ background: '#7c3aed', color: '#fff', textDecoration: 'none', display: 'none' }} title="Open Developer Observability Portal">🚀 Dev Logs</a>
+        <button className="button secondary small" id="logout">Log out</button>
+      </div>
+    </header>
+
+    
+    <section className="controls-bar" aria-label="Dashboard controls">
+      <div className="controls-group">
+        <label>Date <input type="date" id="date" /></label>
+        <label>Timezone
+          <select id="timezone">
+            <option value="browser">Browser local</option>
+            <option value="UTC">UTC</option>
+            <option value="Pacific">Pacific</option>
+            <option value="Mountain">Mountain</option>
+            <option value="Central">Central</option>
+            <option value="Eastern">Eastern</option>
+          </select>
+        </label>
+        <button className="button secondary" type="button" id="sync-mappings-btn"
+          title="Sync yesterday's CA mappings from external API">⚡ Sync Mappings</button>
+      </div>
+      <div className="status-summary" id="status">Ready</div>
+    </section>
+
+    
+    {/* Login handled by React Router */}
+
+    
+    <div id="dashboard-view-container" className="main-workspace" hidden>
+      
+      <aside className="sidebar-panel" id="directory-panel">
+        <div className="sidebar-header">
+          <h3>Candidates Directory</h3>
+          <span className="count-badge" id="directory-count-badge">0 / 0</span>
+        </div>
+        <div className="search-box">
+          <input type="search" id="candidate-search" placeholder="🔍 Search name, AWL-ID, or CA..." />
+        </div>
+        <div className="candidate-list" id="candidate-list"></div>
+      </aside>
+
+      
+      <main className="workspace-panel" id="workspace-panel">
+        
+        <div className="empty-state" id="empty-workspace">
+          <div className="empty-icon">📂</div>
+          <h3>No Candidate Selected</h3>
+          <p className="muted">Select a candidate from the left directory to view their Dashboard and Jobs telemetry.</p>
+        </div>
+
+        
+        <div className="candidate-workspace" id="candidate-workspace" hidden>
+          <div className="workspace-subnav">
+            <button className="subnav-tab active" id="subnav-dashboard-btn" type="button">Dashboard</button>
+            <button className="subnav-tab" id="subnav-jobs-btn" type="button">Jobs</button>
+          </div>
+
+          
+          <div className="subtab-content" id="candidate-dashboard-tab-content">
+            <section className="panel-card">
+              <h4>Assigned Applications Queue</h4>
+              <div className="jobs-queue-list" id="candidate-jobs-queue"></div>
+            </section>
+
+            <section className="panel-card" id="job-details-card">
+              <div className="card-header-bar">
+                <span className="badge-pill blue" id="detail-job-company">Company</span>
+                <span className="badge-pill green" id="detail-job-status">Applied</span>
+              </div>
+              <h3 id="detail-job-title">Job Title</h3>
+              <p className="job-url-link"><a id="detail-job-url" href="#" target="_blank" rel="noopener">Open Job URL ↗</a>
+              </p>
+            </section>
+
+            <section className="panel-card">
+              <h4>Telegram Operational Window</h4>
+              <div className="session-metrics-grid" id="session-metrics-grid"></div>
+            </section>
+          </div>
+
+          
+          <div className="subtab-content" id="candidate-jobs-tab-content" hidden>
+            <div className="stats-cards-grid">
+              <div className="metric-card yellow">
+                <span>Total Prompts</span>
+                <strong id="cand-stat-total-prompts">0</strong>
+                <small>Bot prompts sent to Telegram</small>
+              </div>
+              <div className="metric-card green">
+                <span>Accepted (Yes)</span>
+                <strong id="cand-stat-accepted-prompts">0</strong>
+                <small>Approved by user</small>
+              </div>
+              <div className="metric-card red">
+                <span>Rejected (No)</span>
+                <strong id="cand-stat-rejected-prompts">0</strong>
+                <small>Rejected by user</small>
+              </div>
+              <div className="metric-card blue">
+                <span>Skipped / Expired</span>
+                <strong id="cand-stat-skipped-prompts">0</strong>
+                <small>Timed out or skipped</small>
+              </div>
+            </div>
+
+            <section className="panel-card margin-top">
+              <h4>Prompts Telemetry List</h4>
+              <div className="prompts-list" id="candidate-prompts-list"></div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    
+    <div id="stats-view-container" className="stats-workspace" hidden>
+      <h2>Applications Status</h2>
+
+      <div className="stats-cards-grid master">
+        <div className="metric-card yellow">
+          <span>TOTAL CANDIDATES</span>
+          <strong id="stats-total-candidates">0</strong>
+          <small>Ingested & registered</small>
+        </div>
+        <div className="metric-card blue">
+          <span>TOTAL APPLICATIONS</span>
+          <strong id="stats-total-applications">0</strong>
+          <small>Processed jobs</small>
+        </div>
+        <div className="metric-card green">
+          <span>ACCEPTED (YES)</span>
+          <strong id="stats-prompts-accepted">0</strong>
+          <small>User approved</small>
+        </div>
+        <div className="metric-card red">
+          <span>REJECTED (NO)</span>
+          <strong id="stats-prompts-rejected">0</strong>
+          <small>User declined</small>
+        </div>
+        <div className="metric-card gray">
+          <span>SKIPPED / EXPIRED</span>
+          <strong id="stats-prompts-skipped">0</strong>
+          <small>Timed out</small>
+        </div>
+      </div>
+
+      <div id="ca-stats-container" style={{ marginTop: '20px' }}>
+        
+      </div>
+
+      <section className="panel-card margin-top">
+        <div className="card-header-bar">
+          <h3>Master Jobs Directory</h3>
+          <input type="search" id="global-jobs-search" placeholder="🔍 Search candidate, job title, company..."
+            style={{ maxWidth: '300px' }} />
+        </div>
+        <div className="table-responsive">
+          <table className="data-table" id="master-jobs-table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>AWL-ID</th>
+                <th>Job Title / Company</th>
+                <th>Status</th>
+                <th>Applied At</th>
+                <th>Job Link</th>
+              </tr>
+            </thead>
+            <tbody id="master-jobs-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  
+  <div id="qr-modal" className="modal-overlay" hidden>
+    <div className="modal-backdrop" id="qr-modal-backdrop"></div>
+    <div className="modal-box">
+      <div className="modal-header">
+        <h3>Telegram Bot QR Code</h3>
+        <button className="modal-close-btn" id="close-qr-modal-btn" type="button">Close ✖</button>
+      </div>
+      <div className="modal-body">
+        <img src="/BotDice.png" alt="Telegram Bot QR Code" className="qr-modal-img" />
+        <p className="muted margin-top" style={{ textAlign: 'center', marginBottom: '0' }}>Scan code to open Telegram Bot chat
+        </p>
+      </div>
+    </div>
+  </div>
+
+  
+    </>
+  );
+}
