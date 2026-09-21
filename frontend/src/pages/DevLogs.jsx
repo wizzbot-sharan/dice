@@ -12,6 +12,7 @@ export default function DevLogs() {
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [selectedCA, setSelectedCA] = useState('ALL');
   const [selectedCandidate, setSelectedCandidate] = useState('ALL');
+  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString('en-CA'));
   const [logSearch, setLogSearch] = useState('');
   const [sidebarWidth, setSidebarWidth] = useState(256);
   const isResizing = useRef(false);
@@ -65,12 +66,13 @@ export default function DevLogs() {
   useEffect(() => {
     if (loading || !operator || (operator.role !== 'admin' && operator.role !== 'manager')) return;
 
-    fetch('/api/dev/overview')
+    const tzName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    fetch(`/api/dev/overview?date=${selectedDate}`)
       .then(res => res.json())
       .then(data => setOverview(data))
       .catch(err => console.error('Failed to fetch dev overview:', err));
       
-    fetch('/api/dashboard')
+    fetch(`/api/dashboard?date=${selectedDate}&timezone=browser&timezone_name=${encodeURIComponent(tzName)}`)
       .then(res => res.json())
       .then(data => setDashData(data))
       .catch(err => console.error('Failed to fetch dashboard data:', err));
@@ -85,7 +87,7 @@ export default function DevLogs() {
     });
     
     return () => es.close();
-  }, [operator, loading]);
+  }, [operator, loading, selectedDate]);
 
   useEffect(() => {
     if (isAutoScroll && activeTab === 'logs') {
@@ -97,7 +99,7 @@ export default function DevLogs() {
   if (!operator || (operator.role !== 'admin' && operator.role !== 'manager')) return <Navigate to="/" />;
 
   // Global filters
-  const uniqueCAs = useMemo(() => Array.from(new Set(overview?.active_users?.map(u => u.ca_name || 'Unassigned'))).filter(Boolean), [overview]);
+  const uniqueCAs = useMemo(() => Array.from(new Set((overview?.ca_accounts || []).map(ca => ca.name))).filter(Boolean), [overview]);
   
   // Apply filters to data
   const filteredUsers = useMemo(() => {
@@ -159,7 +161,8 @@ export default function DevLogs() {
           <span className="text-white font-semibold text-lg">Dice AutoEasyApply Admin Logs</span>
           <div className="h-5 w-px bg-white/10"></div>
           
-          <div className="flex space-x-3">
+          <div className="flex space-x-3 items-center">
+            <input type="date" value={selectedDate} onChange={e => setSelectedDate(e.target.value)} className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors" />
             <select value={selectedCA} onChange={e => { setSelectedCA(e.target.value); setSelectedCandidate('ALL'); }} className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors">
               <option value="ALL">All CAs</option>
               {uniqueCAs.map(ca => <option key={ca} value={ca}>{ca}</option>)}
