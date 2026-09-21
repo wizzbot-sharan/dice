@@ -20,7 +20,7 @@ export default function Dashboard() {
   const toggleCA = (caName) => setExpandedCAs(prev => ({ ...prev, [caName]: !prev[caName] }));
 
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-  const [selectedTimezone, setSelectedTimezone] = useState('Browser local');
+  const [selectedTimezone, setSelectedTimezone] = useState('browser');
   const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,8 @@ export default function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
-      const res = await axios.get(`/api/dashboard?date=${selectedDate}&timezone=${selectedTimezone}&timezone_name=${selectedTimezone}`);
+      const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const res = await axios.get(`/api/dashboard?date=${selectedDate}&timezone=${selectedTimezone}&timezone_name=${browserTz}`);
       setData(res.data);
     } catch (err) {
       console.error(err);
@@ -181,8 +182,8 @@ export default function Dashboard() {
               <div className="flex items-center space-x-2">
                 <Globe size={14} className="text-zinc-500 group-hover:text-white transition-colors shrink-0" />
                 <select value={selectedTimezone} onChange={(e) => setSelectedTimezone(e.target.value)} className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 min-w-[110px]">
-                  <option>Browser local</option>
-                  <option>UTC</option>
+                  <option value="browser">Browser local</option>
+                  <option value="UTC">UTC</option>
                 </select>
               </div>
             </div>
