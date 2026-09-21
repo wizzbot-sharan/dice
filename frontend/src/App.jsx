@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DevLogs from './pages/DevLogs';
 import DesignPreview from './pages/DesignPreview';
+import DevPreview from './pages/DevPreview';
 
 function ProtectedRoute({ children }) {
   const { operator, loading } = useAuth();
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/preview" element={<DesignPreview />} />
+          <Route path="/dev-preview" element={<DevPreview />} />
           <Route 
             path="/" 
             element={
