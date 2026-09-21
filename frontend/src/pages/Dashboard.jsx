@@ -84,10 +84,8 @@ export default function Dashboard() {
         {/* Top Section (Left Stuff) */}
         <div className="pt-6 pb-4 border-b border-white/5 flex items-center justify-between min-w-[224px]">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-sm shrink-0">
-              AW
-            </div>
-            <span className="font-semibold text-white tracking-wide truncate">AutoEasyApply</span>
+            <img src="/Applywizz logo.jpeg" alt="Applywizz Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm shrink-0" />
+            <span className="font-semibold text-white tracking-wide truncate">DICE AutoEasyApply</span>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(false)}
