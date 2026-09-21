@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import re
+
+with open('frontend/src/pages/DevPreview.jsx', 'w') as f:
+    f.write("""import React, { useState } from 'react';
 
 export default function DevPreview() {
   const operator = { role: 'admin' }; // Mocked for preview
@@ -231,3 +234,4 @@ export default function DevPreview() {
     </div>
   );
 }
+""")
