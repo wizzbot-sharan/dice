@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import re
+
+content = """import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
 
@@ -335,3 +337,7 @@ export default function DevLogs() {
     </div>
   );
 }
+"""
+
+with open('frontend/src/pages/DevLogs.jsx', 'w') as f:
+    f.write(content)

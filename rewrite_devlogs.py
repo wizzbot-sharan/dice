@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import re
+
+with open('frontend/src/pages/DevLogs.jsx', 'w') as f:
+    f.write("""import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
 
@@ -7,7 +10,6 @@ export default function DevLogs() {
   
   const [activeTab, setActiveTab] = useState('logs');
   const [overview, setOverview] = useState(null);
-  const [dashData, setDashData] = useState(null);
   const [logs, setLogs] = useState([]);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   
@@ -31,17 +33,11 @@ export default function DevLogs() {
   useEffect(() => {
     if (loading || !operator || (operator.role !== 'admin' && operator.role !== 'manager')) return;
 
-    // Fetch dev overview
+    // Fetch initial overview
     fetch('/api/dev/overview')
       .then(res => res.json())
       .then(data => setOverview(data))
       .catch(err => console.error('Failed to fetch dev overview:', err));
-      
-    // Fetch dashboard data for the prompts stats
-    fetch('/api/dashboard')
-      .then(res => res.json())
-      .then(data => setDashData(data))
-      .catch(err => console.error('Failed to fetch dashboard data:', err));
 
     // Connect SSE
     const es = new EventSource('/api/dev/stream');
@@ -66,11 +62,11 @@ export default function DevLogs() {
   if (!operator || (operator.role !== 'admin' && operator.role !== 'manager')) return <Navigate to="/" />;
 
   // Derived stats
-  const totalUsers = overview?.stats?.linked_candidates || 0;
-  const jobsSent = dashData?.global_stats?.prompts?.total || 0;
-  const yesCount = dashData?.global_stats?.prompts?.yes || 0;
-  const noCount = dashData?.global_stats?.prompts?.no || 0;
-  const missedCount = dashData?.global_stats?.prompts?.missed || 0;
+  const totalUsers = overview?.users?.length || 0;
+  const jobsSent = overview?.global_stats?.prompts?.total || 0;
+  const yesCount = overview?.global_stats?.prompts?.yes || 0;
+  const noCount = overview?.global_stats?.prompts?.no || 0;
+  const missedCount = overview?.global_stats?.prompts?.missed || 0;
 
   return (
     <div className="flex flex-col h-screen bg-black text-slate-200 font-sans overflow-hidden">
@@ -87,15 +83,20 @@ export default function DevLogs() {
           </span>
           <div className="h-5 w-px bg-white/10"></div>
           
-          {/* Global Filters (UI Only for now, backend filters via operator role automatically) */}
+          {/* Global Filters */}
           <div className="flex space-x-3">
-            <span className="text-zinc-500 text-sm">Role: {operator.role.toUpperCase()}</span>
+            <select className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors">
+              <option>All CAs</option>
+            </select>
+            <select className="bg-black border border-white/10 text-white text-sm rounded-lg px-4 py-1.5 outline-none focus:border-white/20 transition-colors">
+              <option>All Candidates</option>
+            </select>
           </div>
         </div>
         
         <div className="flex space-x-4 items-center">
           <span className="px-3 py-1.5 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-md border border-emerald-500/20 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> CONNECTED
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> SYSTEM HEALTHY
           </span>
         </div>
       </div>
@@ -173,6 +174,7 @@ export default function DevLogs() {
                     <input type="checkbox" checked={isAutoScroll} onChange={e => setIsAutoScroll(e.target.checked)} className="accent-white" />
                     <span>Auto-scroll</span>
                   </label>
+                  <input type="text" placeholder="Grep logs..." className="bg-[#0a0a0a] border border-white/5 text-sm text-white px-3 py-1.5 rounded-lg outline-none focus:border-white/20 w-64" />
                 </div>
               </div>
               <div className="flex-1 bg-[#050505] border border-white/5 rounded-2xl p-6 font-mono text-xs overflow-y-auto custom-scrollbar shadow-inner">
@@ -208,7 +210,7 @@ export default function DevLogs() {
                 <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
                   <h4 className="text-zinc-400 font-medium mb-4">Active Workers</h4>
                   <div className="space-y-3">
-                    <div className="text-zinc-500 text-sm">Workers dynamically spin up based on queue load in the background. Currently {overview?.stats?.queue_running || 0} jobs running.</div>
+                    <div className="text-zinc-500 text-sm">Workers dynamically spin up based on queue load in the background.</div>
                   </div>
                 </div>
                 <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
@@ -220,8 +222,8 @@ export default function DevLogs() {
                       overview.queue.map(q => (
                         <div key={q.id} className="p-3 bg-black rounded-xl border border-white/5">
                           <div className="text-sm text-white font-medium mb-1">Queue ID: {q.id}</div>
-                          <div className="text-xs text-zinc-500 truncate mb-1">Target: {q.url}</div>
-                          <div className={`text-xs ${q.status === 'failed' ? 'text-rose-400' : 'text-blue-400'}`}>Status: {q.status} {q.status === 'failed' ? `(${q.last_error})` : ''}</div>
+                          <div className="text-xs text-zinc-500 truncate">Target: {q.url}</div>
+                          <div className="text-xs text-blue-400 mt-1">Status: {q.status}</div>
                         </div>
                       ))
                     )}
@@ -245,14 +247,14 @@ export default function DevLogs() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {(!overview?.applied_jobs || overview.applied_jobs.filter(j => j.status === 'failed').length === 0) ? (
+                    {(!overview?.failures || overview.failures.length === 0) ? (
                       <tr><td colSpan="4" className="px-6 py-4 text-zinc-500 text-center">No recent application failures.</td></tr>
                     ) : (
-                      overview.applied_jobs.filter(j => j.status === 'failed').map(err => (
+                      overview.failures.map(err => (
                         <tr key={err.id}>
                           <td className="px-6 py-4 text-zinc-400 whitespace-nowrap">{new Date(err.applied_at).toLocaleTimeString()}</td>
                           <td className="px-6 py-4 text-white">{err.client_name || err.client_id}</td>
-                          <td className="px-6 py-4 text-rose-400 max-w-xs truncate" title={err.status_details}>{err.status_details || err.status}</td>
+                          <td className="px-6 py-4 text-rose-400">{err.status_details || err.status}</td>
                           <td className="px-6 py-4"><a href={err.job_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1 bg-white/10 text-white rounded hover:bg-white/20 transition">View Link</a></td>
                         </tr>
                       ))
@@ -276,12 +278,12 @@ export default function DevLogs() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {(!overview?.active_users || overview.active_users.length === 0) ? (
+                    {(!overview?.users || overview.users.length === 0) ? (
                       <tr><td colSpan="3" className="px-6 py-4 text-zinc-500 text-center">No users found.</td></tr>
                     ) : (
-                      overview.active_users.map(u => (
+                      overview.users.map(u => (
                         <tr key={u.id}>
-                          <td className="px-6 py-4 text-white font-medium">{u.full_name || u.client_name}</td>
+                          <td className="px-6 py-4 text-white font-medium">{u.full_name}</td>
                           <td className="px-6 py-4 text-zinc-400">{u.company_email}</td>
                           <td className="px-6 py-4 text-zinc-500">{u.career_associate_id}</td>
                         </tr>
@@ -305,7 +307,7 @@ export default function DevLogs() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm mb-2">
                       <span className="text-white font-medium">RSS Memory</span>
-                      <span className="text-zinc-400 font-mono">{overview?.system?.memory?.rss_mb || '?'} MB</span>
+                      <span className="text-zinc-400 font-mono">{overview?.system?.memory?.rss || '?'} MB</span>
                     </div>
                     <div className="mt-4 pt-4 border-t border-white/5 flex justify-between text-xs text-zinc-500">
                       <span>Status: <span className="text-emerald-500 font-bold">Healthy</span></span>
@@ -318,11 +320,11 @@ export default function DevLogs() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-black p-4 rounded-xl border border-white/5">
                       <div className="text-xs text-zinc-500 mb-1">Node Version</div>
-                      <div className="text-sm font-mono text-white">{overview?.system?.node_version || 'v22.x'}</div>
+                      <div className="text-sm font-mono text-white">{overview?.system?.nodeVersion || 'v22.x'}</div>
                     </div>
                     <div className="bg-black p-4 rounded-xl border border-white/5">
-                      <div className="text-xs text-zinc-500 mb-1">Browser Engine</div>
-                      <div className="text-sm font-mono text-emerald-400">{overview?.system?.browser_mode || 'Chromium'}</div>
+                      <div className="text-xs text-zinc-500 mb-1">Process Uptime</div>
+                      <div className="text-sm font-mono text-white">{overview?.system?.uptimeLong || '?'}</div>
                     </div>
                   </div>
                 </div>
@@ -335,3 +337,4 @@ export default function DevLogs() {
     </div>
   );
 }
+""");
