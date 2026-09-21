@@ -13,6 +13,38 @@ export default function DevLogs() {
   const [selectedCA, setSelectedCA] = useState('ALL');
   const [selectedCandidate, setSelectedCandidate] = useState('ALL');
   const [logSearch, setLogSearch] = useState('');
+  const [sidebarWidth, setSidebarWidth] = useState(256);
+  const isResizing = useRef(false);
+
+  const startResizing = React.useCallback(() => {
+    isResizing.current = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  }, []);
+
+  const stopResizing = React.useCallback(() => {
+    isResizing.current = false;
+    document.body.style.cursor = 'default';
+    document.body.style.userSelect = '';
+  }, []);
+
+  const resize = React.useCallback((mouseMoveEvent) => {
+    if (isResizing.current) {
+      const newWidth = mouseMoveEvent.clientX;
+      if (newWidth >= 150 && newWidth <= 600) {
+        setSidebarWidth(newWidth);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResizing);
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [resize, stopResizing]);
   
   const logsEndRef = useRef(null);
 
@@ -175,12 +207,19 @@ export default function DevLogs() {
       {/* 3. L-SHAPE SPLIT LAYOUT */}
       <div className="flex-1 flex overflow-hidden">
         
-        <div className="w-64 bg-[#0a0a0a] border-r border-white/5 p-4 flex flex-col gap-2 shrink-0">
+        <div className="bg-[#0a0a0a] border-r border-white/5 flex shrink-0 relative group" style={{ width: sidebarWidth }}>
+          <div className="p-4 flex flex-col gap-2 w-full h-full overflow-hidden">
           <button onClick={() => setActiveTab('logs')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'logs' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Live Logs</button>
           <button onClick={() => setActiveTab('workers')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'workers' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Apply Workers</button>
           <button onClick={() => setActiveTab('errors')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'errors' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Error Diagnostics</button>
           <button onClick={() => setActiveTab('users')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'users' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Telegram Users</button>
           <button onClick={() => setActiveTab('health')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'health' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>System Health</button>
+          </div>
+          {/* Draggable Handle */}
+          <div 
+            className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-white/10 active:bg-white/20 transition-colors z-10"
+            onMouseDown={startResizing}
+          />
         </div>
 
         <div className="flex-1 bg-black p-6 overflow-y-auto custom-scrollbar">
