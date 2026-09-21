@@ -35,6 +35,10 @@ This project is a Node.js Telegram automation service that links users to client
 - `package.json`: npm scripts and runtime dependencies.
 - `repomix-output.xml`: Generated read-only repository snapshot; edit the source files instead.
 
+
+"Rule: When using the Railway MCP or checking deployments, ONLY interact with the balanced-adventure project (ID: 849dea60-75d7-4db8-a3a1-c0f56f67c76b). Ignore all other projects."
+
+
 ## Build & Test Commands
 
 Run commands from the repository root: `Dice_scaling copy/`.

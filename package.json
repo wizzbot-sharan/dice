@@ -5,6 +5,9 @@
     "import-clients": "node scripts/import-clients.js",
     "sync-daily": "node scripts/sync-daily-pipeline.js",
     "start": "node index.js",
+    "start-bot": "node start-bot.js",
+    "start-worker": "node start-worker.js",
+    "start-dashboard": "node start-dashboard.js",
     "test": "node --test test/*.test.js",
     "verify-client": "node scripts/verify-client-lookup.js"
   },
