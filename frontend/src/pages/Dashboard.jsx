@@ -212,6 +212,7 @@ export default function Dashboard() {
                 const isCaExpanded = expandedCAs[caName];
                 const totalCandidates = candidates.length;
                 const connectedCandidates = candidates.filter(c => c.telegram_chat_id).length;
+                const activeSessions = candidates.filter(c => c.session?.session_deadline && new Date(c.session.session_deadline).getTime() > Date.now()).length;
 
                 return (
                   <div key={caName} className="mb-6">
