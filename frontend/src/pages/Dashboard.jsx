@@ -712,19 +712,23 @@ export default function Dashboard() {
             </div>
             <div className="p-8 flex flex-col items-center space-y-8">
               <div className="bg-white p-3 rounded-2xl shadow-inner">
-                <div className="w-40 h-40 bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 rounded-xl font-medium">
-                  [ QR Code ]
-                </div>
+                <img src="/BotDice.png" alt="Telegram Bot QR Code" className="w-40 h-40 object-cover rounded-xl" />
               </div>
               <div className="w-full">
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3 text-center">Or share invite link</p>
                 <div className="flex items-center space-x-2">
                   <input 
                     readOnly 
-                    value="t.me/ApplywizzBot?start=admin" 
+                    value={data?.telegram_bot_url || "t.me/dice_apply_bot"} 
                     className="flex-1 bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-sm text-slate-300 outline-none font-mono"
                   />
-                  <button className="p-3 bg-white text-black hover:bg-slate-200 rounded-xl transition-colors shadow-sm">
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText(data?.telegram_bot_url || "t.me/dice_apply_bot");
+                      alert('Link copied to clipboard!');
+                    }}
+                    className="p-3 bg-white text-black hover:bg-slate-200 rounded-xl transition-colors shadow-sm"
+                  >
                     <LinkIcon size={16} />
                   </button>
                 </div>
