@@ -299,8 +299,7 @@ async function runJobsLoop(chatId) {
     const applyProfile = clientId ? await loadApplyProfile(azure, clientId) : {};
 
     const scrapedAfter = (state.newdayRequestedAt || Date.now()) - NEWDAY_LOOKBACK_MS;
-    // Only fetch jobs that have already passed worker pre-flight check
-    const jobs = await readJobUrls(clientId, applyProfile.applywizz_id, scrapedAfter, { preflightStatus: 'passed' });
+    const jobs = await readJobUrls(clientId, applyProfile.applywizz_id, scrapedAfter);
     const urls = jobs.map((job) => job.url);
     const hasNewUrl = urls.some((url) => !state.knownJobUrls.has(url));
     state.knownJobUrls = new Set(urls);
@@ -322,222 +321,152 @@ async function runJobsLoop(chatId) {
     let unhandledUrlFound = false;
 
     if (jobs.length > 0 || consecutiveEmptyPolls === 0) {
-      console.log(`[User ${chatId}] Processing ${jobs.length} unhandled pre-flighted jobs. Profile AWL ID: '${applyProfile.applywizz_id}'`);
+      if (jobs.length > 0) console.log(`[User ${chatId}] Processing ${jobs.length} unhandled jobs for preflight. AWL ID: '${applyProfile.applywizz_id}'`);
     }
-
+    
+    unhandledUrlFound = jobs.length > 0;
+    // Scanner Phase: Dump all new jobs into the preflight queue
     for (const job of jobs) {
-      const { url } = job;
-      if (!state.jobRunnerActive || state.runGeneration !== runGeneration) {
-        console.log(`[User ${chatId}] Job runner stopped.`);
-        break;
-      }
-
-      if (await hasHandledJob(chatId, url)) {
-        console.log(`[User ${chatId}] Skipping ${url}: Already handled (in applications or queue).`);
-        continue;
-      }
-
-      if (state.workflowActive) {
-        console.log(`[User ${chatId}] Workflow active, waiting 5s...`);
-        await new Promise((r) => setTimeout(r, 5000));
-        continue;
-      }
-
-      if (!clientId) {
-        await sendMessage(chatId, 'Cannot queue apply: Telegram is not linked to a client.');
-        continue;
-      }
-
-      const linkCutoff = state.sessionStartedAt && state.sessionStartedAt + LINK_CUTOFF_MS;
-      const promptStillOpen = state.currentPromptToken && state.currentPromptExpiresAt > Date.now();
-      if (linkCutoff && Date.now() >= linkCutoff && !promptStillOpen) {
-        if (!state.completionNotified && state.lastDecision !== 'expired') {
-          state.completionNotified = true;
-          await sendMessage(chatId, 'The 9-hour job application window has ended.');
-        }
-        state.lastDecision = 'expired';
-        await persistWorkflowState(chatId, state, { last_decision: 'expired', last_decision_at: new Date().toISOString() });
-        state.jobRunnerActive = false;
-        break;
-      }
-
+      if (!state.jobRunnerActive || state.runGeneration !== runGeneration) break;
+      if (!clientId) continue;
       if (String(job.applywizzId || '') !== String(applyProfile.applywizz_id || '')) {
-        console.log(`[User ${chatId}] Skipping ${url}: applywizz_id mismatch. Job: '${job.applywizzId}', Profile: '${applyProfile.applywizz_id}'`);
+        console.log(`[User ${chatId}] Skipping ${job.url}: applywizz_id mismatch.`);
         continue;
       }
-
-      const isResumingPrompt = state.currentPromptToken && state.currentPromptUrl === url;
-
-      if (!state.sessionStartedAt) {
-        state.sessionStartedAt = Date.now();
-        state.sessionDeadline = state.sessionStartedAt + SESSION_MS;
-        state.consecutiveNoCount = 0;
-        await persistWorkflowState(chatId, state);
-        await audit(chatId, 'session_started', {
-          startedAt: new Date(state.sessionStartedAt).toISOString(),
-          deadlineAt: new Date(state.sessionDeadline).toISOString(),
-          linkCutoffAt: new Date(state.sessionStartedAt + LINK_CUTOFF_MS).toISOString(),
-        });
-      }
-
-      unhandledUrlFound = true;
-
-      console.log(`[User ${chatId}] ${isResumingPrompt ? 'Resuming' : 'Prompting for'} job: ${url}`);
-      offeredAny = true;
-      const promptToken = isResumingPrompt ? state.currentPromptToken : crypto.randomUUID();
-      state.pendingJobUrl[promptToken] = url;
-      const promptSentAt = isResumingPrompt ? state.currentPromptSentAt : Date.now();
-      const promptExpiresAt = isResumingPrompt
-        ? state.currentPromptExpiresAt
-        : Math.min(state.sessionDeadline, promptSentAt + DECISION_TIMEOUT_MS);
-
-      if (!isResumingPrompt) {
-        state.currentPromptToken = promptToken;
-        state.currentPromptUrl = url;
-        state.currentPromptSentAt = promptSentAt;
-        state.currentPromptExpiresAt = promptExpiresAt;
-        await workflowStateStore.recordPrompt(chatId, {
-          token: promptToken,
-          url,
-          sentAt: promptSentAt,
-          expiresAt: promptExpiresAt,
-        });
-        await persistWorkflowState(chatId, state);
-        await audit(chatId, 'job_prompt_sent', { url, expiresAt: promptExpiresAt });
-        await audit(chatId, 'prompt_timer_started', {
-          url,
-          startedAt: new Date(promptSentAt).toISOString(),
-          expiresAt: new Date(promptExpiresAt).toISOString(),
-          durationMs: promptExpiresAt - promptSentAt,
-        });
-      }
-
-      let promptText = 'New Job Found:\n';
-      if (job.title) promptText += `Title: ${job.title}\n`;
-      if (job.company) promptText += `Company: ${job.company}\n`;
-      promptText += `Link: ${url}\n\nDo you want to apply?`;
-
-      await sendMessageWithButtons(chatId, promptText, [
-        [{ text: '✅ Yes', callback_data: `job_yes_${promptToken}` }],
-        [{ text: '❌ No', callback_data: `job_no_${promptToken}` }],
-      ]);
-
-      const decisionWaitMs = Math.min(
-        DECISION_TIMEOUT_MS,
-        Math.max(0, state.sessionDeadline - promptSentAt)
-      );
-      const response = await waitForDecision(chatId, decisionWaitMs);
-      if (state.runGeneration !== runGeneration) break;
-      const clickAt = response.clickedAt || Date.now();
-
-      state.currentPromptToken = null;
-      state.currentPromptUrl = null;
-      state.currentPromptSentAt = null;
-      state.currentPromptExpiresAt = null;
-
-      await audit(chatId, response.decision === null ? 'job_missed' : response.decision ? 'job_yes' : 'job_no', {
-        url,
-        clickedAt: new Date(clickAt).toISOString(),
-      });
-      await persistWorkflowState(chatId, state, {
-        current_prompt_token: null,
-        current_prompt_url: null,
-        current_prompt_sent_at: null,
-        current_prompt_expires_at: null,
-        last_decision: response.decision === null ? 'missed' : response.decision ? 'yes' : 'no',
-        last_decision_at: new Date(clickAt).toISOString(),
-      });
-
-      if (response.decision === null) {
-        await saveAppliedJob(chatId, url, 'Job missed', 'missed', 'timeout');
-        await sendMessage(chatId, 'Job missed');
-        state.nextScanAt = Math.min(state.sessionDeadline, promptSentAt + DECISION_TIMEOUT_MS + NEXT_LINK_DELAY_MS);
-        await persistWorkflowState(chatId, state);
-        await audit(chatId, 'next_link_scheduled', {
-          reason: 'job_missed',
-          scheduledAt: new Date(state.nextScanAt).toISOString(),
-          delayMs: state.nextScanAt - Date.now(),
-        });
-        break;
-      }
-
-      if (!response.decision) {
-        await saveAppliedJob(chatId, url, 'Skipped by user', 'rejected', 'user_clicked_no');
-        await sendMessage(chatId, 'response noted-no');
-        state.consecutiveNoCount += 1;
-        if (state.consecutiveNoCount >= 3) {
-          state.consecutiveNoCount = 0;
-          state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
-        } else {
-          state.nextScanAt = clickAt;
-        }
-        await persistWorkflowState(chatId, state);
-        await audit(chatId, 'next_link_scheduled', {
-          reason: state.consecutiveNoCount === 0 ? 'third_no' : 'no_response',
-          scheduledAt: new Date(state.nextScanAt).toISOString(),
-          delayMs: Math.max(0, state.nextScanAt - Date.now()),
-        });
-        break;
-      }
-
-      state.consecutiveNoCount = 0;
-      await sendMessage(chatId, 'response noted-yes');
-
-      const availableAt = Date.now() + randomMinutes(15, 20);
-      console.log(`[User ${chatId}] Yes accepted; automation available at ${new Date(availableAt).toISOString()}`);
-      await audit(chatId, 'automation_delay_started', {
-        url,
-        startedAt: new Date().toISOString(),
-        availableAt: new Date(availableAt).toISOString(),
-        delayMs: availableAt - Date.now(),
-      });
-
-      const { data: jobRow } = await azure.from('dice_scraped_jobs').select('id').eq('url', url).maybeSingle();
-
+      
       try {
-        const { row, created, alreadyDone, activeClientJob } = await applyQueue.enqueueApplyJob({
+        await applyQueue.enqueueApplyJob({
           clientId,
           telegramChatId: chatId,
-          url,
-          jobId: jobRow?.id || null,
-          availableAt: new Date(availableAt).toISOString(),
+          jobId: job.id,
+          url: job.url,
+          status: 'preflight_queued',
+          availableAt: new Date().toISOString()
         });
-        await audit(chatId, 'job_queued', { url, queueId: row?.id || null, availableAt });
+      } catch (err) {
+        console.error(`[User ${chatId}] Failed to enqueue preflight for ${job.url}:`, err.message);
+      }
+    }
 
-        if (activeClientJob) {
-          await sendMessage(chatId, 'An application for this client is already running. I’ll offer the next job once it finishes.');
-          state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
-          await persistWorkflowState(chatId, state);
-          await audit(chatId, 'next_link_scheduled', {
-            reason: 'yes',
-            scheduledAt: new Date(state.nextScanAt).toISOString(),
-            delayMs: Math.max(0, state.nextScanAt - Date.now()),
+    // Prompter Phase: Check if we are ready to prompt the user
+    if (!state.currentPromptToken && state.jobRunnerActive && state.runGeneration === runGeneration) {
+      if (clientId) {
+        const readyJobs = await applyQueue.getReadyPreflightPassedJobs(clientId);
+        if (readyJobs.length > 0) {
+          const job = readyJobs[0];
+          const url = job.url;
+          
+          if (!state.sessionStartedAt) {
+            state.sessionStartedAt = Date.now();
+            state.sessionDeadline = state.sessionStartedAt + SESSION_MS;
+            state.consecutiveNoCount = 0;
+            await persistWorkflowState(chatId, state);
+            await audit(chatId, 'session_started', {
+              startedAt: new Date(state.sessionStartedAt).toISOString(),
+              deadlineAt: new Date(state.sessionDeadline).toISOString(),
+            });
+          }
+
+          offeredAny = true;
+          const promptToken = crypto.randomUUID();
+          state.pendingJobUrl[promptToken] = url;
+          const promptSentAt = Date.now();
+          const promptExpiresAt = Math.min(state.sessionDeadline, promptSentAt + DECISION_TIMEOUT_MS);
+          
+          state.currentPromptToken = promptToken;
+          state.currentPromptUrl = url;
+          state.currentPromptSentAt = promptSentAt;
+          state.currentPromptExpiresAt = promptExpiresAt;
+          
+          await workflowStateStore.recordPrompt(chatId, {
+            token: promptToken,
+            url,
+            sentAt: promptSentAt,
+            expiresAt: promptExpiresAt,
           });
-          break;
-        }
-
-        if (alreadyDone) {
-          await sendMessage(chatId, 'This job was already completed earlier. Skipping.');
-          state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
           await persistWorkflowState(chatId, state);
-          await audit(chatId, 'next_link_scheduled', {
-            reason: 'yes',
-            scheduledAt: new Date(state.nextScanAt).toISOString(),
-            delayMs: Math.max(0, state.nextScanAt - Date.now()),
+          await audit(chatId, 'job_prompt_sent', { url, expiresAt: promptExpiresAt });
+          await audit(chatId, 'prompt_timer_started', {
+            url,
+            startedAt: new Date(promptSentAt).toISOString(),
+            expiresAt: new Date(promptExpiresAt).toISOString(),
+            durationMs: promptExpiresAt - promptSentAt,
           });
-          break;
-        }
+          
+          await applyQueue.updateJobStatus(job.id, 'prompt_sent');
 
-        state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
-        await audit(chatId, 'next_link_scheduled', {
-          reason: created ? 'yes' : 'yes_existing_queue',
-          scheduledAt: new Date(state.nextScanAt).toISOString(),
-          delayMs: Math.max(0, state.nextScanAt - Date.now()),
-        });
-        break;
-      } catch (error) {
-        console.error(`[User ${chatId}] Enqueue failed:`, error.message);
-        await sendMessage(chatId, `Could not queue apply: ${error.message}`);
+          let promptText = 'New Job Passed Pre-Flight:\n';
+          promptText += `Link: ${url}\n\nDo you want to apply?`;
+
+          await sendMessageWithButtons(chatId, promptText, [
+            [{ text: '✅ Yes', callback_data: `job_yes_${promptToken}` }],
+            [{ text: '❌ No', callback_data: `job_no_${promptToken}` }],
+          ]);
+
+          const decisionWaitMs = Math.min(DECISION_TIMEOUT_MS, Math.max(0, state.sessionDeadline - promptSentAt));
+          const response = await waitForDecision(chatId, decisionWaitMs);
+          
+          if (state.runGeneration === runGeneration) {
+            const clickAt = response.clickedAt || Date.now();
+
+            state.currentPromptToken = null;
+            state.currentPromptUrl = null;
+            state.currentPromptSentAt = null;
+            state.currentPromptExpiresAt = null;
+
+            await audit(chatId, response.decision === null ? 'job_missed' : response.decision ? 'job_yes' : 'job_no', {
+              url,
+              clickedAt: new Date(clickAt).toISOString(),
+            });
+            await persistWorkflowState(chatId, state, {
+              current_prompt_token: null,
+              current_prompt_url: null,
+              current_prompt_sent_at: null,
+              current_prompt_expires_at: null,
+              last_decision: response.decision === null ? 'missed' : response.decision ? 'yes' : 'no',
+              last_decision_at: new Date(clickAt).toISOString(),
+            });
+
+            if (response.decision === null) {
+              await saveAppliedJob(chatId, url, 'Job missed', 'missed', 'timeout');
+              await applyQueue.updateJobStatus(job.id, 'failed', { last_error: 'timeout' });
+              await sendMessage(chatId, 'Job missed');
+              state.nextScanAt = Math.min(state.sessionDeadline, promptSentAt + DECISION_TIMEOUT_MS + NEXT_LINK_DELAY_MS);
+              await persistWorkflowState(chatId, state);
+              await audit(chatId, 'next_link_scheduled', { reason: 'job_missed', scheduledAt: new Date(state.nextScanAt).toISOString(), delayMs: state.nextScanAt - Date.now() });
+            } else if (!response.decision) {
+              await saveAppliedJob(chatId, url, 'Skipped by user', 'rejected', 'user_clicked_no');
+              await applyQueue.updateJobStatus(job.id, 'failed', { last_error: 'user_clicked_no' });
+              await sendMessage(chatId, 'response noted-no');
+              state.consecutiveNoCount += 1;
+              if (state.consecutiveNoCount >= 3) {
+                state.consecutiveNoCount = 0;
+                state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
+              } else {
+                state.nextScanAt = clickAt;
+              }
+              await persistWorkflowState(chatId, state);
+              await audit(chatId, 'next_link_scheduled', { reason: state.consecutiveNoCount === 0 ? 'third_no' : 'no_response', scheduledAt: new Date(state.nextScanAt).toISOString(), delayMs: Math.max(0, state.nextScanAt - Date.now()) });
+            } else {
+              state.consecutiveNoCount = 0;
+              await sendMessage(chatId, 'response noted-yes');
+              const availableAt = Date.now() + randomMinutes(15, 20);
+              console.log(`[User ${chatId}] Yes accepted; automation available at ${new Date(availableAt).toISOString()}`);
+              await audit(chatId, 'automation_delay_started', { url, startedAt: new Date().toISOString(), availableAt: new Date(availableAt).toISOString(), delayMs: availableAt - Date.now() });
+              
+              await applyQueue.updateJobStatus(job.id, 'queued', { available_at: new Date(availableAt).toISOString() });
+              await audit(chatId, 'job_queued', { url, queueId: job.id, availableAt });
+              
+              const activeClientJob = await applyQueue.hasActiveClientJob(clientId);
+              if (activeClientJob) {
+                await sendMessage(chatId, 'An application for this client is already running. I’ll offer the next job once it finishes.');
+              }
+              state.nextScanAt = Math.min(state.sessionDeadline, clickAt + NEXT_LINK_DELAY_MS);
+              await persistWorkflowState(chatId, state);
+              await audit(chatId, 'next_link_scheduled', { reason: 'yes', scheduledAt: new Date(state.nextScanAt).toISOString(), delayMs: Math.max(0, state.nextScanAt - Date.now()) });
+            }
+          }
+        }
       }
     }
 
