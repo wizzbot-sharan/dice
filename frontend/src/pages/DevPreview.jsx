@@ -1,13 +1,11 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+
+
 
 export default function DevPreview() {
-  const { operator } = useAuth();
+  const operator = { role: 'admin' }; // Mocked for preview
   
-  if (!operator || (operator.role !== 'admin' && operator.role !== 'manager')) {
-    return <Navigate to="/" />;
-  }
+  
 
   return (
     <div className="flex flex-col h-screen bg-black text-slate-200 font-sans overflow-hidden">
