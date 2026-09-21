@@ -592,6 +592,14 @@ async function executeQueuedApply(job, { signal } = {}) {
   applyWorkerController = startApplyWorkers({
     queue: applyQueue,
     executeJob: executeQueuedApply,
+    preflightJob: async (job) => {
+      const chatId = Number(job.telegram_chat_id);
+      const precheck = await prevalidateJob(chatId, { url: job.url, title: 'Job' });
+      if (!precheck.ok) {
+        await saveAppliedJob(chatId, job.url, precheck.jobName || 'Unknown Job', 'failed', precheck.reason);
+        throw new Error(`preflight_failed: ${precheck.reason}`);
+      }
+    },
     audit,
     concurrency: maxConcurrent,
     pollMs: 2000,
@@ -606,7 +614,6 @@ async function executeQueuedApply(job, { signal } = {}) {
   console.log(`[dice_apply_worker] ${maxConcurrent} apply queue worker(s) running.`);
 
   // Start background loops
-  runPreflightLoop().catch((err) => console.error('[dice_apply_worker] Preflight loop error:', err.message));
   runPendingLoginsLoop().catch((err) => console.error('[dice_apply_worker] Pending logins loop error:', err.message));
 
   // Periodic cleanup of expired questions
