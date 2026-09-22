@@ -312,7 +312,7 @@ export default function DevLogs() {
                       return (
                         <div key={idx} className={`flex gap-4 p-1.5 rounded transition-colors break-words ${isError ? 'bg-rose-500/5 text-rose-300' : 'text-zinc-400 hover:bg-white/5'}`}>
                           <span className="text-zinc-600 shrink-0 w-16">{time}</span>
-                          <span className={`${isError ? 'text-rose-400' : 'text-indigo-400'} shrink-0 w-24 font-bold`}>[{(log.event || 'EVENT').toUpperCase()}]</span>
+                          <span className={`${isError ? 'text-rose-400' : 'text-indigo-400'} shrink-0 whitespace-nowrap min-w-[6rem] font-bold`}>[{(log.event || 'EVENT').toUpperCase()}]</span>
                           <span className={isError ? 'text-rose-300' : 'text-zinc-300'}>
                             {log.full_name ? <span className="font-semibold text-white mr-2">{log.full_name}:</span> : null}
                             {typeof log.details === 'object' ? JSON.stringify(log.details) : String(log.details || '')}
