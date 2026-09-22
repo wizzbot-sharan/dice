@@ -857,7 +857,13 @@ bot.on('callback_query', async (ctx) => {
     if (sessionRow) {
       const workflowRow = await workflowStateStore.get(chatId).catch(() => null);
       const deadline = workflowRow?.session_deadline ? Date.parse(workflowRow.session_deadline) : null;
-      const isExpired = workflowRow?.last_decision === 'expired' || (deadline && Date.now() >= deadline);
+      
+      if (!deadline) {
+        console.log(`[Startup] User ${chatId} has no active session. Waiting for /newday.`);
+        continue;
+      }
+
+      const isExpired = workflowRow?.last_decision === 'expired' || Date.now() >= deadline;
 
       if (isExpired) {
         console.log(`[Startup] User ${chatId} 9-hour session has already ended. Waiting for /newday.`);
