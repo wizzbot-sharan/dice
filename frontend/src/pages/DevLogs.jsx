@@ -175,10 +175,16 @@ export default function DevLogs() {
 
   const getSessionStatus = (deadline) => {
     if (!deadline) return <span className="text-zinc-500">Not Started</span>;
-    const isExpired = new Date(deadline).getTime() < Date.now();
-    return isExpired 
-      ? <span className="text-rose-400">Expired</span>
-      : <span className="text-emerald-400">Active</span>;
+    const deadlineTime = new Date(deadline).getTime();
+    const now = Date.now();
+    if (deadlineTime < now) {
+      return <span className="text-rose-400">Expired</span>;
+    }
+    
+    const diffMs = deadlineTime - now;
+    const h = Math.floor(diffMs / 3600000);
+    const m = Math.floor((diffMs % 3600000) / 60000);
+    return <span className="text-emerald-400 font-medium">{h}h {m}m</span>;
   };
 
   return (
@@ -252,7 +258,6 @@ export default function DevLogs() {
           <button onClick={() => setActiveTab('workers')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'workers' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Apply Workers</button>
           <button onClick={() => setActiveTab('errors')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'errors' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Error Diagnostics</button>
           <button onClick={() => setActiveTab('users')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'users' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Telegram Users</button>
-          <button onClick={() => setActiveTab('health')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'health' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>System Health</button>
 
           {operator?.role === 'admin' && (
             <div className="mt-auto pt-3 border-t border-white/5 shrink-0">
@@ -354,39 +359,78 @@ export default function DevLogs() {
               </div>
 
               {/* BOTTOM: Queue (Fills remaining space) */}
-              <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex-1 flex flex-col min-h-0">
-                <div className="flex justify-between items-center mb-4 shrink-0">
-                  <h4 className="text-zinc-400 font-medium">Jobs Queued for Playwright</h4>
-                  <span className="text-xs font-mono text-zinc-500">{filteredQueue.length} Total Jobs</span>
-                </div>
+              <div className="flex-1 flex flex-col lg:flex-row gap-6 min-h-0">
                 
-                <div className="space-y-3 overflow-y-auto custom-scrollbar flex-1 pr-2">
-                  {filteredQueue.length === 0 ? (
-                    <div className="text-zinc-500 text-sm italic">Queue is empty.</div>
-                  ) : (
-                    filteredQueue.map(q => (
-                      <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                        <div className="min-w-0 flex-1">
-                           <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
-                           <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
-                           {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
+                {/* PREFLIGHT COLUMN */}
+                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex-1 flex flex-col min-h-0">
+                  <div className="flex justify-between items-center mb-4 shrink-0">
+                    <h4 className="text-zinc-400 font-medium">Preflight Status</h4>
+                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'prompt_sent'].includes(q.status)).length} Jobs</span>
+                  </div>
+                  <div className="space-y-3 overflow-y-auto custom-scrollbar flex-1 pr-2">
+                    {(() => {
+                      const preflightJobs = filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'prompt_sent'].includes(q.status));
+                      if (preflightJobs.length === 0) return <div className="text-zinc-500 text-sm italic">No preflight jobs.</div>;
+                      return preflightJobs.map(q => (
+                        <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                          <div className="min-w-0 flex-1">
+                             <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
+                             <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
+                             {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
+                          </div>
+                          
+                          <div className="flex flex-col items-end shrink-0">
+                             <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
+                             <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${
+                               q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
+                               q.status.includes('running') ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
+                               q.status === 'completed' || q.status === 'preflight_passed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                               'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
+                             }`}>
+                               {q.status}
+                             </div>
+                          </div>
                         </div>
-                        
-                        <div className="flex flex-col items-end shrink-0">
-                           <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
-                           <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${
-                             q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
-                             q.status === 'running' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                             q.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                             'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
-                           }`}>
-                             {q.status}
-                           </div>
-                        </div>
-                      </div>
-                    ))
-                  )}
+                      ));
+                    })()}
+                  </div>
                 </div>
+
+                {/* APPLICATION COLUMN */}
+                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex-1 flex flex-col min-h-0">
+                  <div className="flex justify-between items-center mb-4 shrink-0">
+                    <h4 className="text-zinc-400 font-medium">Application Automation Status</h4>
+                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['queued', 'running', 'completed', 'failed'].includes(q.status)).length} Jobs</span>
+                  </div>
+                  <div className="space-y-3 overflow-y-auto custom-scrollbar flex-1 pr-2">
+                    {(() => {
+                      const appJobs = filteredQueue.filter(q => ['queued', 'running', 'completed', 'failed'].includes(q.status));
+                      if (appJobs.length === 0) return <div className="text-zinc-500 text-sm italic">No application jobs.</div>;
+                      return appJobs.map(q => (
+                        <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                          <div className="min-w-0 flex-1">
+                             <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
+                             <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
+                             {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
+                          </div>
+                          
+                          <div className="flex flex-col items-end shrink-0">
+                             <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
+                             <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${
+                               q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
+                               q.status === 'running' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
+                               q.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                               'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
+                             }`}>
+                               {q.status}
+                             </div>
+                          </div>
+                        </div>
+                      ));
+                    })()}
+                  </div>
+                </div>
+
               </div>
             </div>
           )}
@@ -433,7 +477,7 @@ export default function DevLogs() {
                       <th className="px-6 py-4 font-medium">Candidate Name</th>
                       <th className="px-6 py-4 font-medium">Email</th>
                       <th className="px-6 py-4 font-medium">CA Name</th>
-                      <th className="px-6 py-4 font-medium text-center">No Count</th>
+                      <th className="px-6 py-4 font-medium text-center">Total NOs (Today)</th>
                       <th className="px-6 py-4 font-medium">9-Hour Window</th>
                     </tr>
                   </thead>
@@ -457,86 +501,6 @@ export default function DevLogs() {
             </div>
           )}
 
-          {activeTab === 'health' && (
-            <div>
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-white text-lg font-medium">Container OS & System Health</h3>
-                <span className="flex gap-2">
-                  {overview?.system?.railway && <span className="text-[10px] text-fuchsia-400 border border-fuchsia-500/30 px-3 py-1 rounded-full bg-fuchsia-500/10 uppercase tracking-wider font-bold">Railway API Connected</span>}
-                  <span className="text-[10px] text-zinc-500 border border-white/10 px-3 py-1 rounded-full bg-black uppercase tracking-wider font-bold">Live Server Environment</span>
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                
-                {/* Node JS Memory */}
-                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
-                  <h4 className="text-zinc-400 font-medium mb-6">Process Memory (RSS)</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-white font-medium">Used</span>
-                      <span className="text-zinc-400 font-mono">{overview?.system?.memory?.rss_mb || '?'} MB / {overview?.system?.memory?.os_total_mb || '?'} MB</span>
-                    </div>
-                    <div className="w-full bg-black border border-white/5 rounded-full h-3">
-                      <div className="bg-indigo-500 h-3 rounded-full" style={{ width: `${Math.min(100, Math.round(((overview?.system?.memory?.rss_mb || 0) / (overview?.system?.memory?.os_total_mb || 1)) * 100))}%` }}></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* OS/Railway Memory */}
-                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 relative overflow-hidden">
-                  {overview?.system?.railway && <div className="absolute top-0 right-0 border-l border-b border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400 text-[9px] px-2 py-1 font-bold uppercase rounded-bl-lg">Railway</div>}
-                  <h4 className="text-zinc-400 font-medium mb-6">Container Memory</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-white font-medium">Used</span>
-                      <span className="text-zinc-400 font-mono">{overview?.system?.railway ? Math.round(overview.system.railway.mem_mb) : (overview?.system?.memory?.os_used_mb || '?')} MB / {overview?.system?.memory?.os_total_mb || '?'} MB</span>
-                    </div>
-                    <div className="w-full bg-black border border-white/5 rounded-full h-3">
-                      <div className="bg-emerald-500 h-3 rounded-full" style={{ width: `${Math.min(100, Math.round(((overview?.system?.railway?.mem_mb || overview?.system?.memory?.os_used_mb || 0) / (overview?.system?.memory?.os_total_mb || 1)) * 100))}%` }}></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CPU Load */}
-                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 col-span-2 relative overflow-hidden">
-                  {overview?.system?.railway && <div className="absolute top-0 right-0 border-l border-b border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-400 text-[9px] px-2 py-1 font-bold uppercase rounded-bl-lg">Railway</div>}
-                  <h4 className="text-zinc-400 font-medium mb-6">{overview?.system?.railway ? 'CPU Compute Load (Railway %)' : 'CPU Compute Load (1m / 5m / 15m avg)'}</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-white font-medium">{overview?.system?.railway ? 'Current CPU Usage' : 'Average Load'}</span>
-                      <span className="text-zinc-400 font-mono">
-                        {overview?.system?.railway 
-                          ? `${overview.system.railway.cpu_percent.toFixed(2)}%`
-                          : `${overview?.system?.cpu?.load_avg?.map(n => n.toFixed(2)).join(' / ') || '?'} (${overview?.system?.cpu?.cores || 1} Cores)`
-                        }
-                      </span>
-                    </div>
-                    <div className="w-full bg-black border border-white/5 rounded-full h-3">
-                      <div className="bg-blue-500 h-3 rounded-full" style={{ 
-                        width: overview?.system?.railway 
-                          ? `${Math.min(100, overview.system.railway.cpu_percent)}%`
-                          : `${Math.min(100, (overview?.system?.cpu?.load_avg?.[0] || 0) * 10)}%` 
-                      }}></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 col-span-2 mt-2">
-                  <h4 className="text-zinc-400 font-medium mb-4">Node Runtime Environment</h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-black p-4 rounded-xl border border-white/5">
-                      <div className="text-xs text-zinc-500 mb-1">Node Version</div>
-                      <div className="text-sm font-mono text-white">{overview?.system?.node_version || 'v22.x'}</div>
-                    </div>
-                    <div className="bg-black p-4 rounded-xl border border-white/5">
-                      <div className="text-xs text-zinc-500 mb-1">Browser Engine</div>
-                      <div className="text-sm font-mono text-emerald-400">{overview?.system?.browser_mode || 'Chromium'}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
         </div>
       </div>
