@@ -15,7 +15,39 @@ export default function DevLogs() {
   const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString('en-CA'));
   const [logSearch, setLogSearch] = useState('');
   const [sidebarWidth, setSidebarWidth] = useState(256);
+  const [isArchiving, setIsArchiving] = useState(false);
+  const [archiveResult, setArchiveResult] = useState(null);
   const isResizing = useRef(false);
+
+  const handleRefreshJobs = async () => {
+    if (isArchiving) return;
+    if (!window.confirm('Shift jobs older than 24 hours to dice_archived_jobs and clean up active scraped jobs?')) {
+      return;
+    }
+    setIsArchiving(true);
+    setArchiveResult(null);
+    try {
+      const res = await fetch('/api/dev/archive-jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setArchiveResult(`Archived ${data.archived_count} job${data.archived_count === 1 ? '' : 's'}`);
+        fetch(`/api/dev/overview?date=${selectedDate}`)
+          .then(r => r.json())
+          .then(d => setOverview(d))
+          .catch(() => {});
+      } else {
+        setArchiveResult(`Failed: ${data.error || 'Unknown error'}`);
+      }
+    } catch (err) {
+      setArchiveResult(`Error: ${err.message}`);
+    } finally {
+      setIsArchiving(false);
+      setTimeout(() => setArchiveResult(null), 5000);
+    }
+  };
 
   const startResizing = React.useCallback(() => {
     isResizing.current = true;
@@ -221,6 +253,27 @@ export default function DevLogs() {
           <button onClick={() => setActiveTab('errors')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'errors' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Error Diagnostics</button>
           <button onClick={() => setActiveTab('users')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'users' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>Telegram Users</button>
           <button onClick={() => setActiveTab('health')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'health' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>System Health</button>
+
+          {operator?.role === 'admin' && (
+            <div className="mt-auto pt-3 border-t border-white/5 shrink-0">
+              <button
+                type="button"
+                disabled={isArchiving}
+                onClick={handleRefreshJobs}
+                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 text-xs font-semibold tracking-wide transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <svg className={`w-3.5 h-3.5 ${isArchiving ? 'animate-spin' : ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>{isArchiving ? 'Refreshing...' : 'Refresh jobs'}</span>
+              </button>
+              {archiveResult && (
+                <p className="mt-1.5 text-[11px] text-center text-emerald-400 truncate" title={archiveResult}>
+                  {archiveResult}
+                </p>
+              )}
+            </div>
+          )}
           </div>
           {/* Draggable Handle */}
           <div 
