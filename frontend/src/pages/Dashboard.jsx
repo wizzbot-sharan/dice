@@ -40,7 +40,7 @@ export default function Dashboard() {
   const handleGlobalSync = async () => {
     setIsSyncing(true);
     try {
-      await axios.post('/api/sync-mappings');
+      await axios.post('/api/sync-daily');
       await fetchDashboard();
     } catch (err) {
       console.error(err);
@@ -320,15 +320,28 @@ export default function Dashboard() {
                                         <div className="grid grid-cols-3 gap-5 mb-10">
                                           <div className="bg-black p-5 rounded-2xl border border-white/5">
                                             <p className="text-xs text-zinc-500 font-medium mb-2 uppercase tracking-widest">Window Start</p>
-                                            <p className="text-2xl font-mono text-white font-light">{user.session?.window_start_time || '--:--'}</p>
+                                            <p className="text-2xl font-mono text-white font-light">
+                                              {user.session?.session_started_at ? new Date(user.session.session_started_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
+                                            </p>
                                           </div>
                                           <div className="bg-black p-5 rounded-2xl border border-white/5">
                                             <p className="text-xs text-zinc-500 font-medium mb-2 uppercase tracking-widest">Window End</p>
-                                            <p className="text-2xl font-mono text-white font-light">{user.session?.window_end_time || '--:--'}</p>
+                                            <p className="text-2xl font-mono text-white font-light">
+                                              {user.session?.session_deadline ? new Date(user.session.session_deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
+                                            </p>
                                           </div>
                                           <div className="bg-zinc-900/30 p-5 rounded-2xl border border-white/5">
                                             <p className="text-xs text-white/70 font-medium mb-2 uppercase tracking-widest">Remaining</p>
-                                            <p className="text-2xl font-mono text-white font-light">--</p>
+                                            <p className="text-2xl font-mono text-white font-light">
+                                              {(() => {
+                                                if (!user.session?.session_deadline) return '--';
+                                                const diff = new Date(user.session.session_deadline).getTime() - Date.now();
+                                                if (diff <= 0) return 'Expired';
+                                                const hrs = Math.floor(diff / (1000 * 60 * 60));
+                                                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                                                return `${hrs}h ${mins}m`;
+                                              })()}
+                                            </p>
                                           </div>
                                         </div>
 
@@ -337,18 +350,15 @@ export default function Dashboard() {
                                           <div className="grid grid-cols-1 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                             {user.queue && user.queue.length > 0 ? user.queue.map((q, i) => (
                                               <div key={i} className="bg-black rounded-xl p-4 border border-white/5 flex justify-between items-center">
-                                                <div>
+                                                <div className="min-w-0 flex-1 mr-4">
                                                   <div className="space-x-2 mb-1.5">
-                                                    <span className="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[11px] font-medium rounded-full">
-                                                      {q.company || 'Company'}
-                                                    </span>
                                                     <span className="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 text-[11px] font-medium rounded-full">
                                                       {q.status}
                                                     </span>
                                                   </div>
-                                                  <h4 className="text-white font-medium text-base">{q.job_title}</h4>
+                                                  <h4 className="text-white font-medium text-sm truncate">{q.url}</h4>
                                                 </div>
-                                                <a href={q.job_url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-sm font-medium px-4 py-1.5 bg-white/5 rounded-lg transition-colors">
+                                                <a href={q.url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-sm font-medium px-4 py-1.5 bg-white/5 rounded-lg transition-colors shrink-0">
                                                   View ↗
                                                 </a>
                                               </div>
@@ -386,12 +396,12 @@ export default function Dashboard() {
                                           <div className="bg-black rounded-xl border border-white/5 divide-y divide-white/5 max-h-[500px] custom-scrollbar overflow-y-auto">
                                             {user.prompt_events && user.prompt_events.length > 0 ? user.prompt_events.map((p, i) => (
                                               <div key={i} className="px-5 py-3 flex items-center justify-between text-sm">
-                                                <div className="flex items-center space-x-4">
-                                                  <span className="text-zinc-500 font-mono text-xs">{new Date(p.sent_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                                  <span className="px-2 py-0.5 bg-white/10 text-white text-[11px] uppercase rounded">{p.decision || 'pending'}</span>
-                                                  <span className="text-zinc-300 max-w-[200px] truncate">{p.job_title}</span>
+                                                <div className="flex items-center space-x-4 min-w-0 flex-1 mr-2">
+                                                  <span className="text-zinc-500 font-mono text-xs shrink-0">{new Date(p.sent_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                                  <span className="px-2 py-0.5 bg-white/10 text-white text-[11px] uppercase rounded shrink-0">{p.decision || 'pending'}</span>
+                                                  <a href={p.url} target="_blank" rel="noreferrer" className="text-zinc-300 hover:text-white truncate text-xs">{p.url}</a>
                                                 </div>
-                                                <span className="text-zinc-600 text-[11px] truncate">t.me</span>
+                                                <span className="text-zinc-600 text-[11px] shrink-0">t.me</span>
                                               </div>
                                             )) : (
                                               <p className="text-zinc-500 text-sm p-4">No prompts telemetry.</p>
@@ -492,15 +502,28 @@ export default function Dashboard() {
                                 <div className="grid grid-cols-3 gap-5 mb-10">
                                   <div className="bg-black p-5 rounded-2xl border border-white/5">
                                     <p className="text-xs text-zinc-500 font-medium mb-2 uppercase tracking-widest">Window Start</p>
-                                    <p className="text-2xl font-mono text-white font-light">{user.session?.window_start_time || '--:--'}</p>
+                                    <p className="text-2xl font-mono text-white font-light">
+                                      {user.session?.session_started_at ? new Date(user.session.session_started_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
+                                    </p>
                                   </div>
                                   <div className="bg-black p-5 rounded-2xl border border-white/5">
                                     <p className="text-xs text-zinc-500 font-medium mb-2 uppercase tracking-widest">Window End</p>
-                                    <p className="text-2xl font-mono text-white font-light">{user.session?.window_end_time || '--:--'}</p>
+                                    <p className="text-2xl font-mono text-white font-light">
+                                      {user.session?.session_deadline ? new Date(user.session.session_deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
+                                    </p>
                                   </div>
                                   <div className="bg-zinc-900/30 p-5 rounded-2xl border border-white/5">
                                     <p className="text-xs text-white/70 font-medium mb-2 uppercase tracking-widest">Remaining</p>
-                                    <p className="text-2xl font-mono text-white font-light">--</p>
+                                    <p className="text-2xl font-mono text-white font-light">
+                                      {(() => {
+                                        if (!user.session?.session_deadline) return '--';
+                                        const diff = new Date(user.session.session_deadline).getTime() - Date.now();
+                                        if (diff <= 0) return 'Expired';
+                                        const hrs = Math.floor(diff / (1000 * 60 * 60));
+                                        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                                        return `${hrs}h ${mins}m`;
+                                      })()}
+                                    </p>
                                   </div>
                                 </div>
 
@@ -509,18 +532,15 @@ export default function Dashboard() {
                                   <div className="grid grid-cols-1 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                                     {user.queue && user.queue.length > 0 ? user.queue.map((q, i) => (
                                       <div key={i} className="bg-black rounded-xl p-4 border border-white/5 flex justify-between items-center">
-                                        <div>
+                                        <div className="min-w-0 flex-1 mr-4">
                                           <div className="space-x-2 mb-1.5">
-                                            <span className="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 text-[11px] font-medium rounded-full">
-                                              {q.company || 'Company'}
-                                            </span>
                                             <span className="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 text-[11px] font-medium rounded-full">
                                               {q.status}
                                             </span>
                                           </div>
-                                          <h4 className="text-white font-medium text-base">{q.job_title}</h4>
+                                          <h4 className="text-white font-medium text-sm truncate">{q.url}</h4>
                                         </div>
-                                        <a href={q.job_url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-sm font-medium px-4 py-1.5 bg-white/5 rounded-lg transition-colors">
+                                        <a href={q.url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-sm font-medium px-4 py-1.5 bg-white/5 rounded-lg transition-colors shrink-0">
                                           View ↗
                                         </a>
                                       </div>
@@ -558,12 +578,12 @@ export default function Dashboard() {
                                   <div className="bg-black rounded-xl border border-white/5 divide-y divide-white/5 max-h-[500px] custom-scrollbar overflow-y-auto">
                                     {user.prompt_events && user.prompt_events.length > 0 ? user.prompt_events.map((p, i) => (
                                       <div key={i} className="px-5 py-3 flex items-center justify-between text-sm">
-                                        <div className="flex items-center space-x-4">
-                                          <span className="text-zinc-500 font-mono text-xs">{new Date(p.sent_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                          <span className="px-2 py-0.5 bg-white/10 text-white text-[11px] uppercase rounded">{p.decision || 'pending'}</span>
-                                          <span className="text-zinc-300 max-w-[200px] truncate">{p.job_title}</span>
+                                        <div className="flex items-center space-x-4 min-w-0 flex-1 mr-2">
+                                          <span className="text-zinc-500 font-mono text-xs shrink-0">{new Date(p.sent_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                          <span className="px-2 py-0.5 bg-white/10 text-white text-[11px] uppercase rounded shrink-0">{p.decision || 'pending'}</span>
+                                          <a href={p.url} target="_blank" rel="noreferrer" className="text-zinc-300 hover:text-white truncate text-xs">{p.url}</a>
                                         </div>
-                                        <span className="text-zinc-600 text-[11px] truncate">t.me</span>
+                                        <span className="text-zinc-600 text-[11px] shrink-0">t.me</span>
                                       </div>
                                     )) : (
                                       <p className="text-zinc-500 text-sm p-4">No prompts telemetry.</p>
@@ -673,7 +693,7 @@ export default function Dashboard() {
                       <tr>
                         <th className="px-6 py-4 font-medium">Candidate</th>
                         <th className="px-6 py-4 font-medium">AWL-ID</th>
-                        <th className="px-6 py-4 font-medium">Job Title / Company</th>
+                        <th className="px-6 py-4 font-medium">Job</th>
                         <th className="px-6 py-4 font-medium">Status</th>
                         <th className="px-6 py-4 font-medium">Applied At</th>
                         <th className="px-6 py-4 font-medium text-right">Link</th>
@@ -685,8 +705,7 @@ export default function Dashboard() {
                           <td className="px-6 py-4 text-white font-medium">{app.client_name || app.client_email || 'Unknown'}</td>
                           <td className="px-6 py-4 text-zinc-400 font-mono text-xs">{app.applywizz_id || '--'}</td>
                           <td className="px-6 py-4">
-                            <p className="text-white">{app.job_title}</p>
-                            <p className="text-zinc-500 text-xs mt-0.5">{app.company}</p>
+                            <p className="text-white text-sm font-medium">{app.job_name || 'Dice Job'}</p>
                           </td>
                           <td className="px-6 py-4">
                             <span className="px-2.5 py-1 bg-white/10 text-zinc-300 text-[10px] uppercase font-bold rounded-full">
@@ -697,7 +716,7 @@ export default function Dashboard() {
                             {app.applied_at ? new Date(app.applied_at).toLocaleString() : '--'}
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <a href={app.job_url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg transition-colors">
+                            <a href={app.url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg transition-colors">
                               View ↗
                             </a>
                           </td>

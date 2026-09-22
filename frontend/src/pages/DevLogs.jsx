@@ -137,9 +137,9 @@ export default function DevLogs() {
 
   const totalUsers = overview?.stats?.linked_candidates || 0;
   const jobsSent = dashData?.global_stats?.prompts?.total || 0;
-  const yesCount = dashData?.global_stats?.prompts?.yes || 0;
-  const noCount = dashData?.global_stats?.prompts?.no || 0;
-  const missedCount = dashData?.global_stats?.prompts?.missed || 0;
+  const yesCount = dashData?.global_stats?.prompts?.accepted || 0;
+  const noCount = dashData?.global_stats?.prompts?.rejected || 0;
+  const missedCount = dashData?.global_stats?.prompts?.skipped || 0;
 
   const getSessionStatus = (deadline) => {
     if (!deadline) return <span className="text-zinc-500">Not Started</span>;
@@ -355,8 +355,8 @@ export default function DevLogs() {
                         <tr key={err.id}>
                           <td className="px-6 py-4 text-zinc-400 whitespace-nowrap">{new Date(err.applied_at).toLocaleTimeString()}</td>
                           <td className="px-6 py-4 text-white font-medium whitespace-nowrap">{err.client_name || err.client_id}</td>
-                          <td className="px-6 py-4 text-rose-400 break-words">{err.status_details || err.status}</td>
-                          <td className="px-6 py-4 whitespace-nowrap"><a href={err.job_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1 bg-white/10 text-white rounded hover:bg-white/20 transition">View Job</a></td>
+                          <td className="px-6 py-4 text-rose-400 break-words">{err.reason || err.status_details || err.status}</td>
+                          <td className="px-6 py-4 whitespace-nowrap"><a href={err.url || err.job_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1 bg-white/10 text-white rounded hover:bg-white/20 transition">View Job</a></td>
                         </tr>
                       ))
                     )}

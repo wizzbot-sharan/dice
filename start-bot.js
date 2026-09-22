@@ -263,16 +263,18 @@ async function runJobsLoop(chatId) {
       continue;
     }
 
-    if (state.sessionDeadline && Date.now() >= state.sessionDeadline) {
-      if (!state.completionNotified && state.lastDecision !== 'expired') {
-        state.completionNotified = true;
-        await sendMessage(chatId, 'The 9-hour job application window has ended.');
+    if (!state.sessionDeadline || Date.now() >= state.sessionDeadline) {
+      if (state.sessionDeadline && Date.now() >= state.sessionDeadline) {
+        if (!state.completionNotified && state.lastDecision !== 'expired') {
+          state.completionNotified = true;
+          await sendMessage(chatId, 'The 9-hour job application window has ended.');
+        }
+        state.lastDecision = 'expired';
+        await persistWorkflowState(chatId, state, {
+          last_decision: 'expired',
+          last_decision_at: new Date().toISOString(),
+        });
       }
-      state.lastDecision = 'expired';
-      await persistWorkflowState(chatId, state, {
-        last_decision: 'expired',
-        last_decision_at: new Date().toISOString(),
-      });
       state.jobRunnerActive = false;
       break;
     }
@@ -298,54 +300,54 @@ async function runJobsLoop(chatId) {
     const clientId = await getClientIdForChat(chatId);
     const applyProfile = clientId ? await loadApplyProfile(azure, clientId) : {};
 
-    const scrapedAfter = (state.newdayRequestedAt || Date.now()) - NEWDAY_LOOKBACK_MS;
-    const jobs = await readJobUrls(clientId, applyProfile.applywizz_id, scrapedAfter);
-    const urls = jobs.map((job) => job.url);
-    const hasNewUrl = urls.some((url) => !state.knownJobUrls.has(url));
-    state.knownJobUrls = new Set(urls);
-
-    if (state.completionNotified && !hasNewUrl) {
-      consecutiveEmptyPolls++;
-      const delayMs = Math.min(10000 * Math.pow(2, Math.max(0, consecutiveEmptyPolls - 1)), 300000);
-      await new Promise((r) => setTimeout(r, delayMs));
-      continue;
-    }
-
-    if (hasNewUrl) {
-      consecutiveEmptyPolls = 0;
-      state.completionNotified = false;
-      console.log(`[User ${chatId}] New job URL detected; resuming scanner.`);
-    }
-
     let offeredAny = false;
     let unhandledUrlFound = false;
+    let urls = [];
+    let hasNewUrl = false;
 
-    if (jobs.length > 0 || consecutiveEmptyPolls === 0) {
-      if (jobs.length > 0) console.log(`[User ${chatId}] Processing ${jobs.length} unhandled jobs for preflight. AWL ID: '${applyProfile.applywizz_id}'`);
-    }
-    
-    unhandledUrlFound = jobs.length > 0;
-    // Scanner Phase: Dump all new jobs into the preflight queue
-    for (const job of jobs) {
-      if (!state.jobRunnerActive || state.runGeneration !== runGeneration) break;
-      if (!clientId) continue;
-      if (String(job.applywizzId || '') !== String(applyProfile.applywizz_id || '')) {
-        console.log(`[User ${chatId}] Skipping ${job.url}: applywizz_id mismatch.`);
-        continue;
+    // Check if user currently has active items in the queue
+    const activeQueueCount = clientId ? await applyQueue.countActiveQueueItems(clientId) : 0;
+
+    // Scanner Phase: Only query and enqueue a new batch of up to 50 jobs if all previous jobs have finished
+    if (activeQueueCount === 0 && clientId) {
+      const scrapedAfter = (state.newdayRequestedAt || Date.now()) - NEWDAY_LOOKBACK_MS;
+      const jobs = await readJobUrls(clientId, applyProfile.applywizz_id, scrapedAfter);
+      urls = jobs.map((job) => job.url);
+      hasNewUrl = urls.some((url) => !state.knownJobUrls.has(url));
+      state.knownJobUrls = new Set(urls);
+
+      if (hasNewUrl) {
+        consecutiveEmptyPolls = 0;
+        state.completionNotified = false;
+        console.log(`[User ${chatId}] New job URLs detected; resuming scanner.`);
       }
-      
-      try {
-        await applyQueue.enqueueApplyJob({
-          clientId,
-          telegramChatId: chatId,
-          jobId: job.id,
-          url: job.url,
-          status: 'preflight_queued',
-          availableAt: new Date().toISOString()
-        });
-      } catch (err) {
-        console.error(`[User ${chatId}] Failed to enqueue preflight for ${job.url}:`, err.message);
+
+      unhandledUrlFound = jobs.length > 0;
+      if (jobs.length > 0) {
+        console.log(`[User ${chatId}] Enqueueing batch of ${jobs.length} unhandled jobs for preflight. AWL ID: '${applyProfile.applywizz_id}'`);
+        for (const job of jobs) {
+          if (!state.jobRunnerActive || state.runGeneration !== runGeneration) break;
+          if (String(job.applywizzId || '') !== String(applyProfile.applywizz_id || '')) {
+            console.log(`[User ${chatId}] Skipping ${job.url}: applywizz_id mismatch.`);
+            continue;
+          }
+          
+          try {
+            await applyQueue.enqueueApplyJob({
+              clientId,
+              telegramChatId: chatId,
+              jobId: job.id,
+              url: job.url,
+              status: 'preflight_queued',
+              availableAt: new Date().toISOString()
+            });
+          } catch (err) {
+            console.error(`[User ${chatId}] Failed to enqueue preflight for ${job.url}:`, err.message);
+          }
+        }
       }
+    } else {
+      unhandledUrlFound = activeQueueCount > 0;
     }
 
     // Prompter Phase: Check if we are ready to prompt the user
@@ -355,18 +357,6 @@ async function runJobsLoop(chatId) {
         if (readyJobs.length > 0) {
           const job = readyJobs[0];
           const url = job.url;
-          
-          if (!state.sessionStartedAt) {
-            state.sessionStartedAt = Date.now();
-            state.sessionDeadline = state.sessionStartedAt + SESSION_MS;
-            state.consecutiveNoCount = 0;
-            await persistWorkflowState(chatId, state);
-            await audit(chatId, 'session_started', {
-              startedAt: new Date(state.sessionStartedAt).toISOString(),
-              deadlineAt: new Date(state.sessionDeadline).toISOString(),
-            });
-          }
-
           offeredAny = true;
           const promptToken = crypto.randomUUID();
           state.pendingJobUrl[promptToken] = url;
@@ -493,11 +483,16 @@ async function runJobsLoop(chatId) {
     }
 
     if (!offeredAny && state.jobRunnerActive) {
-      if (!state.completionNotified || hasNewUrl) {
-        consecutiveEmptyPolls++;
+      if (activeQueueCount > 0) {
+        // Active jobs in queue being preflighted or queued - poll frequently for preflight_passed
+        await new Promise((r) => setTimeout(r, 5000));
+      } else {
+        if (!state.completionNotified || hasNewUrl) {
+          consecutiveEmptyPolls++;
+        }
+        const delayMs = Math.min(5000 * Math.pow(1.5, Math.min(6, consecutiveEmptyPolls)), 60000);
+        await new Promise((r) => setTimeout(r, delayMs));
       }
-      const delayMs = Math.min(10000 * Math.pow(2, Math.max(0, consecutiveEmptyPolls - 1)), 300000);
-      await new Promise((r) => setTimeout(r, delayMs));
     } else if (offeredAny) {
       consecutiveEmptyPolls = 0;
     }
@@ -614,18 +609,18 @@ async function startNewday(chatId) {
     state.currentPromptUrl = null;
     state.currentPromptSentAt = null;
     state.currentPromptExpiresAt = null;
-    state.sessionStartedAt = null;
-    state.sessionDeadline = null;
+    state.sessionStartedAt = Date.now();
+    state.sessionDeadline = state.sessionStartedAt + SESSION_MS;
     state.nextScanAt = 0;
     state.consecutiveNoCount = 0;
     state.completionNotified = false;
     state.knownJobUrls = new Set();
     state.pendingJobUrl = {};
-    state.newdayRequestedAt = Date.now();
+    state.newdayRequestedAt = state.sessionStartedAt;
 
     await persistWorkflowState(chatId, state, {
-      session_started_at: null,
-      session_deadline: null,
+      session_started_at: new Date(state.sessionStartedAt).toISOString(),
+      session_deadline: new Date(state.sessionDeadline).toISOString(),
       next_scan_at: null,
       consecutive_no_count: 0,
       current_prompt_token: null,
@@ -638,6 +633,10 @@ async function startNewday(chatId) {
     await audit(chatId, 'newday_started', {
       requestedAt: new Date(state.newdayRequestedAt).toISOString(),
       jobsSince: new Date(state.newdayRequestedAt - NEWDAY_LOOKBACK_MS).toISOString(),
+    });
+    await audit(chatId, 'session_started', {
+      startedAt: new Date(state.sessionStartedAt).toISOString(),
+      deadlineAt: new Date(state.sessionDeadline).toISOString(),
     });
 
     state.jobRunnerActive = true;
