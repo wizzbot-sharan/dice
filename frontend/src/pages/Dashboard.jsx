@@ -650,7 +650,7 @@ export default function Dashboard() {
                           <th className="px-6 py-4 font-medium">CA Email / ID</th>
                           <th className="px-6 py-4 font-medium">Total Clients</th>
                           <th className="px-6 py-4 font-medium">Active Sessions</th>
-                          <th className="px-6 py-4 font-medium">Jobs Prompted</th>
+                          <th className="px-6 py-4 font-medium">Successful Applications</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
@@ -666,7 +666,7 @@ export default function Dashboard() {
                               {ca.active_sessions || 0}
                             </td>
                             <td className="px-6 py-4">
-                              <span className="px-3 py-1 bg-blue-500/10 text-blue-400 font-medium rounded-full">
+                              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 font-medium rounded-full">
                                 {ca.applied_today || 0}
                               </span>
                             </td>
