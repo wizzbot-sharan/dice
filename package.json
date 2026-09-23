@@ -10,7 +10,9 @@
     "start-worker": "node start-worker.js",
     "start-dashboard": "node start-dashboard.js",
     "test": "node --test test/*.test.js",
-    "verify-client": "node scripts/verify-client-lookup.js"
+    "verify-client": "node scripts/verify-client-lookup.js",
+    "update-docs": "repomix && graphify . --code-only && graphify cluster-only .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@xenova/transformers": "^2.17.2",
@@ -21,5 +23,8 @@
     "pg": "^8.23.0",
     "playwright": "^1.62.1",
     "playwright-core": "^1.62.1"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }
