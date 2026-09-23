@@ -684,74 +684,41 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "executeQueuedApply()",
-      "target": "readActiveSession()",
+      "source": "importOperators()",
+      "target": "createPool()",
       "source_files": [
-        "start-worker.js",
-        "lib/dice-session.js"
+        "scripts/import-operators.js",
+        "lib/azure.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "executeQueuedApply()",
-      "target": "saveAppliedJob()",
+      "source": "runSyncDaily()",
+      "target": "createPool()",
       "source_files": [
-        "start-worker.js",
-        "lib/job-application-db.js"
+        "scripts/sync-daily-pipeline.js",
+        "lib/azure.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "executeQueuedApply()",
-      "target": "sendMessage()",
+      "source": "runJobsLoop()",
+      "target": "readJobUrls()",
       "source_files": [
-        "start-worker.js",
-        "lib/telegram-notify.js"
+        "start-bot.js",
+        "lib/job-scanner.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; bridges separate communities"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `createPool()` connect `createPool` to `start-worker.js`, `import-operators.js`, `sync-daily-pipeline.js`?",
-      "why": "High betweenness centrality (0.044) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `createApplyQueue()` connect `createPool` to `start-worker.js`, `apply-worker.js`, `apply-queue.test.js`, `job-application-db.js`?",
-      "why": "High betweenness centrality (0.038) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 14 inferred relationships involving `createApplyQueue()` (e.g. with `apply-queue.js` and `claimNextJob()`) actually correct?",
-      "why": "`createApplyQueue()` has 14 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }` to the rest of the system?",
-      "why": "199 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `dice-apply-questions.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.073224043715847 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `frontend/package.json` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05367231638418079 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `createPool` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05587808417997097 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }

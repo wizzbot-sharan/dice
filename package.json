@@ -11,7 +11,7 @@
     "start-dashboard": "node start-dashboard.js",
     "test": "node --test test/*.test.js",
     "verify-client": "node scripts/verify-client-lookup.js",
-    "update-docs": "repomix && graphify . --code-only && graphify cluster-only .",
+    "update-docs": "npx repomix && graphify . --code-only && graphify cluster-only .",
     "prepare": "husky"
   },
   "dependencies": {
