@@ -108,10 +108,10 @@
     "semantic_hash": "a206b295cbd5f06ee67624aae09e5be8"
   },
   "lib/browser.js": {
-    "mtime": 1789730192.6400952,
-    "seen": 1790142967.144921,
-    "ast_hash": "dca90f9b4c998b9a38259e4dd90ff320",
-    "semantic_hash": "dca90f9b4c998b9a38259e4dd90ff320"
+    "mtime": 1790149131.2765388,
+    "seen": 1790150033.9166322,
+    "ast_hash": "53cc004e9ef25bd7a12ec21f021a27f0",
+    "semantic_hash": "53cc004e9ef25bd7a12ec21f021a27f0"
   },
   "lib/dashboard-server.js": {
     "mtime": 1790137013.3597603,
@@ -186,10 +186,10 @@
     "semantic_hash": "7ca31049b3249a74e742fe04dfcda9c0"
   },
   "lib/workflow-state.js": {
-    "mtime": 1789041320.8591018,
-    "seen": 1790142967.144926,
-    "ast_hash": "cb7feeb1b0bdd371b6bec62596723d58",
-    "semantic_hash": "cb7feeb1b0bdd371b6bec62596723d58"
+    "mtime": 1790149128.7564101,
+    "seen": 1790150033.916748,
+    "ast_hash": "0ee8220e0511e540fd0bf1efd076e28e",
+    "semantic_hash": "0ee8220e0511e540fd0bf1efd076e28e"
   },
   "package.json": {
     "mtime": 1790144066.0265687,
@@ -246,10 +246,10 @@
     "semantic_hash": "0eca6bf4eb233013edcd5915da0a179a"
   },
   "start-bot.js": {
-    "mtime": 1790051940.3241515,
-    "seen": 1790142967.144929,
-    "ast_hash": "c05e1812a080e8161717175f13e8e2d5",
-    "semantic_hash": "c05e1812a080e8161717175f13e8e2d5"
+    "mtime": 1790149224.8568356,
+    "seen": 1790150033.916833,
+    "ast_hash": "5708171b01d81b801f1ed7ec20b19b0f",
+    "semantic_hash": "5708171b01d81b801f1ed7ec20b19b0f"
   },
   "start-dashboard.js": {
     "mtime": 1789977892.3148952,
@@ -328,5 +328,47 @@
     "seen": 1790142967.1449332,
     "ast_hash": "6c3724557abd4f27d96fe195e45cdd86",
     "semantic_hash": "6c3724557abd4f27d96fe195e45cdd86"
+  },
+  "database/migrations/010_workflow_conversation.sql": {
+    "mtime": 1790149107.3303654,
+    "seen": 1790150033.916478,
+    "ast_hash": "f42676fe74f16691241062ce4d1c8c17",
+    "semantic_hash": "f42676fe74f16691241062ce4d1c8c17"
+  },
+  "lib/bot-prompt-handler.js": {
+    "mtime": 1790149125.3325903,
+    "seen": 1790150033.9166322,
+    "ast_hash": "f4c17ddcfc1d407838b0bc9d29449f52",
+    "semantic_hash": "f4c17ddcfc1d407838b0bc9d29449f52"
+  },
+  "lib/due-work-ticker.js": {
+    "mtime": 1790149125.1502712,
+    "seen": 1790150033.916661,
+    "ast_hash": "384a7bb0c5665374c810b357884554d8",
+    "semantic_hash": "384a7bb0c5665374c810b357884554d8"
+  },
+  "test/bot-webhook.test.js": {
+    "mtime": 1790149224.4665627,
+    "seen": 1790150033.9168699,
+    "ast_hash": "bbc412beeba603909618e743c1702fdd",
+    "semantic_hash": "bbc412beeba603909618e743c1702fdd"
+  },
+  "test/browser-tickets.test.js": {
+    "mtime": 1790149188.2965403,
+    "seen": 1790150033.9168699,
+    "ast_hash": "dfee51890504b77c7da7b2dfd7e8efdf",
+    "semantic_hash": "dfee51890504b77c7da7b2dfd7e8efdf"
+  },
+  "test/due-work-ticker.test.js": {
+    "mtime": 1790149187.2875428,
+    "seen": 1790150033.9168808,
+    "ast_hash": "59f3b53a45e7f58dc5c8b78cc0416a92",
+    "semantic_hash": "59f3b53a45e7f58dc5c8b78cc0416a92"
+  },
+  "test/workflow-state-webhook.test.js": {
+    "mtime": 1790149267.9506485,
+    "seen": 1790150033.916957,
+    "ast_hash": "8659360176e943fbc7c8993d5ca74301",
+    "semantic_hash": "8659360176e943fbc7c8993d5ca74301"
   }
 }
