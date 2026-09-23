@@ -483,7 +483,7 @@ async function startWebhookMode() {
   httpServer = createHttpServer();
   await new Promise((resolve, reject) => {
     httpServer.once('error', reject);
-    httpServer.listen(listPort, '0.0.0.0', resolve);
+    httpServer.listen(listenPort, '0.0.0.0', resolve);
   });
   console.log(`[dice_telegram_bot] HTTP listening on ${listenPort} (${webhookPath}, /health)`);
 
