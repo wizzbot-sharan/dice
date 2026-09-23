@@ -2569,7 +2569,7 @@
       "file_type": "code",
       "norm_label": "shutdown()",
       "source_file": "start-bot.js",
-      "source_location": "L530"
+      "source_location": "L537"
     },
     {
       "id": "start_bot_startpollingmode",
@@ -2581,7 +2581,7 @@
       "file_type": "code",
       "norm_label": "startpollingmode()",
       "source_file": "start-bot.js",
-      "source_location": "L477"
+      "source_location": "L484"
     },
     {
       "id": "start_bot_startwebhookmode",
@@ -2593,7 +2593,7 @@
       "file_type": "code",
       "norm_label": "startwebhookmode()",
       "source_file": "start-bot.js",
-      "source_location": "L482"
+      "source_location": "L489"
     },
     {
       "id": "lib_browser_closesharedbrowser",
@@ -6684,6 +6684,18 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-bot.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
       "_origin": "semantic",
@@ -6728,6 +6740,18 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_session_linktelegramchat",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-bot.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
       "source_file": "",
       "type": "external"
     },
@@ -6792,6 +6816,18 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-bot.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "ref_crypto",
       "label": "ref_crypto",
       "_origin": "semantic",
@@ -6824,39 +6860,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
-      "community": 5,
-      "community_name": "start-bot.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "community": 5,
-      "community_name": "start-bot.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
-      "community": 5,
-      "community_name": "start-bot.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
       "source_file": "",
       "type": "external"
     }
@@ -9379,7 +9382,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L504",
+      "source_location": "L511",
       "weight": 1.0
     },
     {
@@ -9763,7 +9766,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L483",
+      "source_location": "L490",
       "weight": 1.0
     },
     {
@@ -10423,7 +10426,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L477",
+      "source_location": "L484",
       "weight": 1.0
     },
     {
@@ -10435,7 +10438,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L482",
+      "source_location": "L489",
       "weight": 1.0
     },
     {
@@ -18391,7 +18394,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "start-bot.js",
-      "source_location": "L540",
+      "source_location": "L547",
       "weight": 1.0
     },
     {
@@ -19759,7 +19762,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L505",
+      "source_location": "L512",
       "weight": 1.0
     },
     {
@@ -19771,7 +19774,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L506",
+      "source_location": "L513",
       "weight": 1.0
     },
     {
@@ -19783,7 +19786,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L509",
+      "source_location": "L516",
       "weight": 1.0
     },
     {
@@ -19795,7 +19798,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L511",
+      "source_location": "L518",
       "weight": 1.0
     },
     {
@@ -19807,7 +19810,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L512",
+      "source_location": "L519",
       "weight": 1.0
     },
     {
@@ -19819,7 +19822,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L513",
+      "source_location": "L520",
       "weight": 1.0
     },
     {
@@ -19831,7 +19834,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L546",
+      "source_location": "L553",
       "weight": 1.0
     },
     {
@@ -19843,7 +19846,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L547",
+      "source_location": "L554",
       "weight": 1.0
     },
     {
@@ -19855,7 +19858,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L548",
+      "source_location": "L555",
       "weight": 1.0
     },
     {
@@ -19867,7 +19870,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L549",
+      "source_location": "L556",
       "weight": 1.0
     },
     {
@@ -19956,5 +19959,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "82d0436db01d661dde12de8e6a8bf668264c6c2c"
+  "built_at_commit": "f2e4312346ccc444b39109d67dbe4aae37766c62"
 }

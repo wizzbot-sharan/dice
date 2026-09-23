@@ -470,6 +470,13 @@ function createHttpServer() {
       res.end('ok');
       return;
     }
+    
+    if (req.method !== 'POST') {
+      res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Method Not Allowed');
+      return;
+    }
+
     webhookServer.emit('request', req, res);
   });
 }
