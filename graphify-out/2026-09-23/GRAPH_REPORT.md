@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2a70ffd5`
+- Built from commit: `ab0de8a8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -54,14 +54,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `applyToJobOnPage()` --calls--> `fillCurrentStep()`  [EXTRACTED]
   start-worker.js → lib/dice-apply-questions.js
+- `runLogin()` --calls--> `closeBrowser()`  [EXTRACTED]
+  start-worker.js → lib/browser.js
 - `runLogin()` --calls--> `openBrowser()`  [EXTRACTED]
   start-worker.js → lib/browser.js
 - `executeQueuedApply()` --calls--> `readActiveSession()`  [EXTRACTED]
   start-worker.js → lib/dice-session.js
 - `executeQueuedApply()` --calls--> `saveAppliedJob()`  [EXTRACTED]
   start-worker.js → lib/job-application-db.js
-- `executeQueuedApply()` --calls--> `sendMessage()`  [EXTRACTED]
-  start-worker.js → lib/telegram-notify.js
 
 ## Import Cycles
 - None detected.
