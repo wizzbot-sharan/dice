@@ -674,6 +674,17 @@
     },
     {
       "source": "runLogin()",
+      "target": "closeBrowser()",
+      "source_files": [
+        "start-worker.js",
+        "lib/browser.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "runLogin()",
       "target": "openBrowser()",
       "source_files": [
         "start-worker.js",
@@ -700,17 +711,6 @@
       "source_files": [
         "start-worker.js",
         "lib/job-application-db.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "executeQueuedApply()",
-      "target": "sendMessage()",
-      "source_files": [
-        "start-worker.js",
-        "lib/telegram-notify.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",

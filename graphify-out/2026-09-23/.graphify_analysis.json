@@ -674,6 +674,17 @@
     },
     {
       "source": "runLogin()",
+      "target": "closeBrowser()",
+      "source_files": [
+        "start-worker.js",
+        "lib/browser.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "runLogin()",
       "target": "openBrowser()",
       "source_files": [
         "start-worker.js",
@@ -684,33 +695,22 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "importOperators()",
-      "target": "createPool()",
+      "source": "executeQueuedApply()",
+      "target": "readActiveSession()",
       "source_files": [
-        "scripts/import-operators.js",
-        "lib/azure.js"
+        "start-worker.js",
+        "lib/dice-session.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "runSyncDaily()",
-      "target": "createPool()",
+      "source": "executeQueuedApply()",
+      "target": "saveAppliedJob()",
       "source_files": [
-        "scripts/sync-daily-pipeline.js",
-        "lib/azure.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "runJobsLoop()",
-      "target": "readJobUrls()",
-      "source_files": [
-        "start-bot.js",
-        "lib/job-scanner.js"
+        "start-worker.js",
+        "lib/job-application-db.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
