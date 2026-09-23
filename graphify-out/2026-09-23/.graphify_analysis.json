@@ -41,26 +41,9 @@
       "lib_local_nlp_parserangeoption",
       "lib_local_nlp_question_mappings",
       "lib_local_nlp_skill_aliases",
-      "lib_resume_parser",
-      "lib_resume_parser_calculatedurationyears",
       "lib_resume_parser_clearresumecache",
-      "lib_resume_parser_extracttextfrombuffer",
-      "lib_resume_parser_extractworkblocks",
-      "lib_resume_parser_fetchresumebuffer",
-      "lib_resume_parser_fs",
-      "lib_resume_parser_getcandidateresumedata",
-      "lib_resume_parser_getexperienceforskill",
-      "lib_resume_parser_month_names",
-      "lib_resume_parser_normalizeskillname",
-      "lib_resume_parser_parsedresumecache",
-      "lib_resume_parser_parsemonthyear",
-      "lib_resume_parser_parseresumetext",
-      "lib_resume_parser_pdfparse",
-      "lib_resume_parser_related_skills",
       "lib_resume_parser_searchresumeforanswer",
-      "lib_resume_parser_section_definitions",
       "lib_resume_parser_skill_aliases",
-      "lib_resume_parser_splitresumesections",
       "lib_unknown_questions",
       "lib_unknown_questions_clearknownquestionscache",
       "lib_unknown_questions_findknownanswer",
@@ -78,11 +61,7 @@
       "test_local_nlp_test",
       "test_local_nlp_test_assert",
       "test_local_nlp_test_extractskillfromquestion_classifyintentrulefallback_matchnumericoption_matchbestoption_parserangeoption",
-      "test_local_nlp_test_test",
-      "test_resume_parser_test",
-      "test_resume_parser_test_assert",
-      "test_resume_parser_test_parseresumetext_normalizeskillname_getexperienceforskill_calculatedurationyears",
-      "test_resume_parser_test_test"
+      "test_local_nlp_test_test"
     ],
     "1": [
       "frontend_package",
@@ -334,6 +313,36 @@
       "ref_xenova_transformers"
     ],
     "7": [
+      "lib_bot_prompt_handler",
+      "lib_bot_prompt_handler_applypromptdecision",
+      "lib_bot_prompt_handler_crypto",
+      "lib_bot_prompt_handler_randomminutes",
+      "lib_bot_prompt_handler_sendjobprompt",
+      "lib_due_work_ticker",
+      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
+      "lib_due_work_ticker_createdueworkticker",
+      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
+      "lib_due_work_ticker_createdueworkticker_processduechat",
+      "lib_due_work_ticker_createdueworkticker_start",
+      "lib_due_work_ticker_createdueworkticker_stop",
+      "lib_due_work_ticker_createdueworkticker_tick",
+      "lib_due_work_ticker_createpool",
+      "lib_due_work_ticker_enqueue_batch_cap",
+      "lib_due_work_ticker_listdueworkflowchats",
+      "lib_due_work_ticker_newday_lookback_ms",
+      "lib_due_work_ticker_send_spacing_ms",
+      "lib_due_work_ticker_ticker_batch_size",
+      "lib_due_work_ticker_ticker_interval_ms",
+      "lib_job_scanner_readjoburls",
+      "ref_crypto",
+      "test_due_work_ticker_test",
+      "test_due_work_ticker_test_assert",
+      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
+      "test_due_work_ticker_test_test",
+      "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
+      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms"
+    ],
+    "8": [
       "lib_browser_closesharedbrowser",
       "lib_dice_apply_questions_isvisibleenabled",
       "lib_dice_apply_questions_loadapplyprofile",
@@ -363,7 +372,7 @@
       "start_worker_waitrandom",
       "start_worker_workflowstatestore"
     ],
-    "8": [
+    "9": [
       "lib_azure_createserviceclient",
       "scripts_import_clients",
       "scripts_import_clients_createserviceclient",
@@ -391,29 +400,30 @@
       "scripts_verify_client_lookup_email",
       "scripts_verify_client_lookup_main"
     ],
-    "9": [
-      "lib_bot_prompt_handler",
-      "lib_bot_prompt_handler_applypromptdecision",
-      "lib_bot_prompt_handler_crypto",
-      "lib_bot_prompt_handler_randomminutes",
-      "lib_bot_prompt_handler_sendjobprompt",
-      "lib_due_work_ticker",
-      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
-      "lib_due_work_ticker_createpool",
-      "lib_due_work_ticker_enqueue_batch_cap",
-      "lib_due_work_ticker_newday_lookback_ms",
-      "lib_due_work_ticker_send_spacing_ms",
-      "lib_due_work_ticker_ticker_batch_size",
-      "lib_due_work_ticker_ticker_interval_ms",
-      "ref_crypto",
-      "test_due_work_ticker_test",
-      "test_due_work_ticker_test_assert",
-      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
-      "test_due_work_ticker_test_test",
-      "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms"
-    ],
     "10": [
+      "lib_resume_parser",
+      "lib_resume_parser_calculatedurationyears",
+      "lib_resume_parser_extracttextfrombuffer",
+      "lib_resume_parser_extractworkblocks",
+      "lib_resume_parser_fetchresumebuffer",
+      "lib_resume_parser_fs",
+      "lib_resume_parser_getcandidateresumedata",
+      "lib_resume_parser_getexperienceforskill",
+      "lib_resume_parser_month_names",
+      "lib_resume_parser_normalizeskillname",
+      "lib_resume_parser_parsedresumecache",
+      "lib_resume_parser_parsemonthyear",
+      "lib_resume_parser_parseresumetext",
+      "lib_resume_parser_pdfparse",
+      "lib_resume_parser_related_skills",
+      "lib_resume_parser_section_definitions",
+      "lib_resume_parser_splitresumesections",
+      "test_resume_parser_test",
+      "test_resume_parser_test_assert",
+      "test_resume_parser_test_parseresumetext_normalizeskillname_getexperienceforskill_calculatedurationyears",
+      "test_resume_parser_test_test"
+    ],
+    "11": [
       "lib_apply_worker",
       "lib_apply_worker_crypto",
       "lib_apply_worker_openbrowser_closebrowser_usebrowserbase_maxconcurrent",
@@ -434,7 +444,7 @@
       "lib_browser_ticketwaiters",
       "lib_browser_usebrowserbase"
     ],
-    "11": [
+    "12": [
       "lib_workflow_state",
       "lib_workflow_state_createworkflowstatestore",
       "lib_workflow_state_createworkflowstatestore_claimtelegramupdate",
@@ -450,7 +460,7 @@
       "test_workflow_state_webhook_test_from",
       "test_workflow_state_webhook_test_test"
     ],
-    "12": [
+    "13": [
       "scripts_import_operators",
       "scripts_import_operators_createpool",
       "scripts_import_operators_fs",
@@ -466,7 +476,7 @@
       "scripts_map_operator_record_mapoperatorrecord",
       "scripts_map_operator_record_unwrapoperatorrecord"
     ],
-    "13": [
+    "14": [
       "lib_apply_queue_createapplyqueue",
       "lib_apply_queue_createapplyqueue_clearstaleclientjobs",
       "lib_apply_queue_createapplyqueue_countactivequeueitems",
@@ -481,12 +491,11 @@
       "lib_apply_queue_createapplyqueue_markfailedorretry",
       "lib_apply_queue_createapplyqueue_updatejobstatus"
     ],
-    "14": [
+    "15": [
       "lib_azure_createpool",
       "lib_job_scanner",
       "lib_job_scanner_createpool",
       "lib_job_scanner_getjobspendingpreflight",
-      "lib_job_scanner_readjoburls",
       "lib_pending_answers",
       "lib_pending_answers_clearexpiredpendingquestions",
       "lib_pending_answers_createpool",
@@ -496,7 +505,21 @@
       "lib_pending_answers_savependingquestion",
       "start_worker_createtelegramquestionprompt"
     ],
-    "15": [
+    "16": [
+      "lib_dice_session_getclientidforchat",
+      "lib_job_application_db",
+      "lib_job_application_db_applyqueue",
+      "lib_job_application_db_azure",
+      "lib_job_application_db_createapplyqueue",
+      "lib_job_application_db_createserviceclient",
+      "lib_job_application_db_getclientidforchat",
+      "lib_job_application_db_hashandledjob",
+      "lib_job_application_db_saveappliedjob",
+      "start_bot_handlejobcallback",
+      "start_bot_persistworkflowpatch",
+      "start_bot_processcallbackupdate"
+    ],
+    "17": [
       "lib_dice_session",
       "lib_dice_session_azure",
       "lib_dice_session_createserviceclient",
@@ -509,20 +532,7 @@
       "start_worker_getanyvalidstoragestate",
       "start_worker_refreshlogin"
     ],
-    "16": [
-      "start_bot_audit",
-      "start_bot_beginsignin",
-      "start_bot_handlecommand",
-      "start_bot_handlejobcallback",
-      "start_bot_handlependinganswermessage",
-      "start_bot_persistworkflowpatch",
-      "start_bot_processcallbackupdate",
-      "start_bot_processmessageupdate",
-      "start_bot_sendmessage",
-      "start_bot_sendmessagewithbuttons",
-      "start_bot_startnewday"
-    ],
-    "17": [
+    "18": [
       "frontend_package_devdependencies",
       "frontend_package_devdependencies_autoprefixer",
       "frontend_package_devdependencies_oxlint",
@@ -534,7 +544,19 @@
       "frontend_package_devdependencies_vite",
       "frontend_package_devdependencies_vitejs_plugin_react"
     ],
-    "18": [
+    "19": [
+      "lib_dice_session_linktelegramchat",
+      "start_bot_audit",
+      "start_bot_deleteotp",
+      "start_bot_finduserbyemail",
+      "start_bot_generateotp",
+      "start_bot_handleconversationmessage",
+      "start_bot_hashotp",
+      "start_bot_saveotp",
+      "start_bot_sendotpemail",
+      "start_bot_verifyotp"
+    ],
+    "20": [
       "lib_azure_assertidentifier",
       "lib_azure_createquerybuilder",
       "lib_azure_createquerybuilder_addfilter",
@@ -544,28 +566,6 @@
       "lib_azure_createquerybuilder_builder_then",
       "lib_azure_createquerybuilder_buildwhere",
       "lib_azure_createquerybuilder_execute"
-    ],
-    "19": [
-      "lib_dice_session_getclientidforchat",
-      "lib_job_application_db",
-      "lib_job_application_db_applyqueue",
-      "lib_job_application_db_azure",
-      "lib_job_application_db_createapplyqueue",
-      "lib_job_application_db_createserviceclient",
-      "lib_job_application_db_getclientidforchat",
-      "lib_job_application_db_hashandledjob",
-      "lib_job_application_db_saveappliedjob"
-    ],
-    "20": [
-      "lib_dice_session_linktelegramchat",
-      "start_bot_deleteotp",
-      "start_bot_finduserbyemail",
-      "start_bot_generateotp",
-      "start_bot_handleconversationmessage",
-      "start_bot_hashotp",
-      "start_bot_saveotp",
-      "start_bot_sendotpemail",
-      "start_bot_verifyotp"
     ],
     "21": [
       "start_dashboard",
@@ -597,13 +597,13 @@
       "lib_azure_requiredatabaseurl"
     ],
     "24": [
-      "lib_due_work_ticker_createdueworkticker",
-      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
-      "lib_due_work_ticker_createdueworkticker_processduechat",
-      "lib_due_work_ticker_createdueworkticker_start",
-      "lib_due_work_ticker_createdueworkticker_stop",
-      "lib_due_work_ticker_createdueworkticker_tick",
-      "lib_due_work_ticker_listdueworkflowchats"
+      "start_bot_beginsignin",
+      "start_bot_handlecommand",
+      "start_bot_handlependinganswermessage",
+      "start_bot_processmessageupdate",
+      "start_bot_sendmessage",
+      "start_bot_sendmessagewithbuttons",
+      "start_bot_startnewday"
     ],
     "25": [
       "frontend_oxlintrc",
@@ -677,27 +677,27 @@
     ]
   },
   "cohesion": {
-    "0": 0.053297199638663056,
+    "0": 0.073224043715847,
     "1": 0.06938775510204082,
     "2": 0.1048780487804878,
     "3": 0.06612685560053981,
     "4": 0.07957957957957958,
     "5": 0.05714285714285714,
     "6": 0.058823529411764705,
-    "7": 0.0873015873015873,
-    "8": 0.15384615384615385,
-    "9": 0.12631578947368421,
-    "10": 0.15789473684210525,
-    "11": 0.18681318681318682,
-    "12": 0.21978021978021978,
-    "13": 0.15384615384615385,
-    "14": 0.2564102564102564,
-    "15": 0.2545454545454545,
-    "16": 0.2909090909090909,
-    "17": 0.2,
-    "18": 0.3611111111111111,
-    "19": 0.2777777777777778,
-    "20": 0.2777777777777778,
+    "7": 0.10582010582010581,
+    "8": 0.0873015873015873,
+    "9": 0.15384615384615385,
+    "10": 0.15714285714285714,
+    "11": 0.15789473684210525,
+    "12": 0.18681318681318682,
+    "13": 0.21978021978021978,
+    "14": 0.15384615384615385,
+    "15": 0.2727272727272727,
+    "16": 0.21212121212121213,
+    "17": 0.2545454545454545,
+    "18": 0.2,
+    "19": 0.24444444444444444,
+    "20": 0.3611111111111111,
     "21": 0.25,
     "22": 0.32142857142857145,
     "23": 0.2857142857142857,
@@ -748,18 +748,18 @@
       "degree": 13
     },
     {
-      "id": "start_bot_sendmessage",
-      "label": "sendMessage()",
-      "degree": 12
-    },
-    {
       "id": "lib_dice_apply_questions_fillcheckboxgroups",
       "label": "fillCheckboxGroups()",
       "degree": 11
     },
     {
-      "id": "lib_due_work_ticker_createdueworkticker_processduechat",
-      "label": "processDueChat()",
+      "id": "start_bot_sendmessage",
+      "label": "sendMessage()",
+      "degree": 11
+    },
+    {
+      "id": "start_bot_handleconversationmessage",
+      "label": "handleConversationMessage()",
       "degree": 11
     },
     {
@@ -770,59 +770,59 @@
   ],
   "surprises": [
     {
-      "source": "handleJobCallback()",
-      "target": "getClientIdForChat()",
+      "source": "applyToJobOnPage()",
+      "target": "fillCurrentStep()",
       "source_files": [
-        "start-bot.js",
-        "lib/dice-session.js"
+        "start-worker.js",
+        "lib/dice-apply-questions.js"
       ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "handleJobCallback()",
-      "target": "saveAppliedJob()",
+      "source": "executeQueuedApply()",
+      "target": "closeBrowser()",
       "source_files": [
-        "start-bot.js",
-        "lib/job-application-db.js"
+        "start-worker.js",
+        "lib/browser.js"
       ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "processDueChat()",
-      "target": "audit()",
+      "source": "prevalidateJob()",
+      "target": "closeBrowser()",
       "source_files": [
-        "lib/due-work-ticker.js",
-        "start-bot.js"
+        "start-worker.js",
+        "lib/browser.js"
       ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "processDueChat()",
-      "target": "sendMessage()",
+      "source": "runLogin()",
+      "target": "closeBrowser()",
       "source_files": [
-        "lib/due-work-ticker.js",
-        "start-bot.js"
+        "start-worker.js",
+        "lib/browser.js"
       ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "processDueChat()",
-      "target": "sendMessageWithButtons()",
+      "source": "executeQueuedApply()",
+      "target": "openBrowser()",
       "source_files": [
-        "lib/due-work-ticker.js",
-        "start-bot.js"
+        "start-worker.js",
+        "lib/browser.js"
       ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
     }
   ],
   "tokens": {

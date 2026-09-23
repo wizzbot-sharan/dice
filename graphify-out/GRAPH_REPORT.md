@@ -4,12 +4,12 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 599 nodes · 1121 edges · 38 communities (31 shown, 7 thin omitted)
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 133 edges (avg confidence: 0.85)
+- 599 nodes · 1118 edges · 38 communities (31 shown, 7 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 130 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f2e43123`
+- Built from commit: `05728028`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,24 +21,24 @@
 - ref_node_assert
 - start-bot.js
 - scripts
+- due-work-ticker.js
 - start-worker.js
 - map-client-record.js
-- due-work-ticker.js
+- resume-parser.js
 - browser.js
 - createWorkflowStateStore
 - import-operators.js
 - createApplyQueue
 - createPool
-- dice-session.js
-- sendMessage
-- devDependencies
-- execute
 - job-application-db.js
+- dice-session.js
+- devDependencies
 - handleConversationMessage
+- execute
 - start-dashboard.js
 - apply-queue.test.js
 - azure.js
-- processDueChat
+- sendMessage
 - .oxlintrc.json
 - prevalidateJob
 - sendMessage
@@ -58,22 +58,22 @@
 4. `createApplyQueue()` - 18 edges
 5. `scripts` - 14 edges
 6. `sendJson()` - 13 edges
-7. `sendMessage()` - 12 edges
-8. `fillCheckboxGroups()` - 11 edges
-9. `handleConversationMessage()` - 11 edges
-10. `processDueChat()` - 11 edges
+7. `fillCheckboxGroups()` - 11 edges
+8. `handleConversationMessage()` - 11 edges
+9. `sendMessage()` - 11 edges
+10. `applyToJobOnPage()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `processDueChat()` --indirect_call--> `audit()`  [INFERRED]
-  lib/due-work-ticker.js → start-bot.js
-- `handleJobCallback()` --indirect_call--> `getClientIdForChat()`  [INFERRED]
-  start-bot.js → lib/dice-session.js
-- `handleJobCallback()` --indirect_call--> `saveAppliedJob()`  [INFERRED]
-  start-bot.js → lib/job-application-db.js
-- `processDueChat()` --indirect_call--> `sendMessage()`  [INFERRED]
-  lib/due-work-ticker.js → start-bot.js
-- `processDueChat()` --indirect_call--> `sendMessageWithButtons()`  [INFERRED]
-  lib/due-work-ticker.js → start-bot.js
+- `applyToJobOnPage()` --calls--> `fillCurrentStep()`  [EXTRACTED]
+  start-worker.js → lib/dice-apply-questions.js
+- `executeQueuedApply()` --calls--> `closeBrowser()`  [EXTRACTED]
+  start-worker.js → lib/browser.js
+- `prevalidateJob()` --calls--> `closeBrowser()`  [EXTRACTED]
+  start-worker.js → lib/browser.js
+- `runLogin()` --calls--> `closeBrowser()`  [EXTRACTED]
+  start-worker.js → lib/browser.js
+- `executeQueuedApply()` --calls--> `openBrowser()`  [EXTRACTED]
+  start-worker.js → lib/browser.js
 
 ## Import Cycles
 - None detected.
@@ -81,8 +81,8 @@
 ## Communities (38 total, 7 thin omitted)
 
 ### Community 0 - "dice-apply-questions.js"
-Cohesion: 0.05
-Nodes (74): answersToList(), applyQuestionForm(), { classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }, clickLabeledControl(), collectCheckboxGroups(), escapeRegExp(), fillCheckboxGroups(), fillCurrentStep() (+66 more)
+Cohesion: 0.07
+Nodes (55): answersToList(), applyQuestionForm(), { classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }, clickLabeledControl(), collectCheckboxGroups(), escapeRegExp(), fillCheckboxGroups(), fillCurrentStep() (+47 more)
 
 ### Community 1 - "frontend/package.json"
 Cohesion: 0.07
@@ -108,61 +108,61 @@ Nodes (33): { applyPromptDecision }, azure, { Bot }, { createDueWorkTicker }, cr
 Cohesion: 0.06
 Nodes (33): dependencies, bcryptjs, dotenv, node-telegram-bot-api, pdf-parse, pg, playwright, playwright-core (+25 more)
 
-### Community 7 - "start-worker.js"
+### Community 7 - "due-work-ticker.js"
+Cohesion: 0.11
+Nodes (24): applyPromptDecision(), crypto, randomMinutes(), sendJobPrompt(), { applyPromptDecision, sendJobPrompt, randomMinutes }, createDueWorkTicker(), persistWorkflowPatch(), processDueChat() (+16 more)
+
+### Community 8 - "start-worker.js"
 Cohesion: 0.09
 Nodes (27): closeSharedBrowser(), isVisibleEnabled(), loadApplyProfile(), APPLY_TIMEOUT_MINUTES, applyQueue, applyToJobOnPage(), azure, { createApplyQueue } (+19 more)
 
-### Community 8 - "map-client-record.js"
+### Community 9 - "map-client-record.js"
 Cohesion: 0.15
 Nodes (22): createServiceClient(), { createServiceClient }, fs, importRecords(), { mapImportItem }, path, asBoolean(), asDate() (+14 more)
 
-### Community 9 - "due-work-ticker.js"
-Cohesion: 0.13
-Nodes (17): applyPromptDecision(), crypto, randomMinutes(), sendJobPrompt(), { applyPromptDecision, sendJobPrompt, randomMinutes }, { createPool }, ENQUEUE_BATCH_CAP, { NEWDAY_LOOKBACK_MS } (+9 more)
+### Community 10 - "resume-parser.js"
+Cohesion: 0.16
+Nodes (19): calculateDurationYears(), extractTextFromBuffer(), extractWorkBlocks(), fetchResumeBuffer(), fs, getCandidateResumeData(), getExperienceForSkill(), MONTH_NAMES (+11 more)
 
-### Community 10 - "browser.js"
+### Community 11 - "browser.js"
 Cohesion: 0.16
 Nodes (16): crypto, { openBrowser, closeBrowser, useBrowserbase, maxConcurrent }, sleep(), startApplyWorkers(), workerLoop(), acquireBrowserTicket(), { chromium: localChromium }, closeBrowser() (+8 more)
 
-### Community 11 - "createWorkflowStateStore"
+### Community 12 - "createWorkflowStateStore"
 Cohesion: 0.19
 Nodes (8): createWorkflowStateStore(), claimTelegramUpdate(), clearConversation(), get(), save(), assert, { createWorkflowStateStore }, test
 
-### Community 12 - "import-operators.js"
+### Community 13 - "import-operators.js"
 Cohesion: 0.22
 Nodes (11): { createPool }, fs, importOperators(), { mapOperatorRecord }, path, asBoolean(), asText(), asUuid() (+3 more)
 
-### Community 13 - "createApplyQueue"
+### Community 14 - "createApplyQueue"
 Cohesion: 0.15
 Nodes (3): createApplyQueue(), countActiveQueueItems(), enqueueApplyJob()
 
-### Community 14 - "createPool"
-Cohesion: 0.26
-Nodes (11): createPool(), { createPool }, getJobsPendingPreflight(), readJobUrls(), clearExpiredPendingQuestions(), { createPool }, findActivePendingQuestion(), getAnswerForQuestion() (+3 more)
+### Community 15 - "createPool"
+Cohesion: 0.27
+Nodes (10): createPool(), { createPool }, getJobsPendingPreflight(), clearExpiredPendingQuestions(), { createPool }, findActivePendingQuestion(), getAnswerForQuestion(), recordPendingAnswer() (+2 more)
 
-### Community 15 - "dice-session.js"
+### Community 16 - "job-application-db.js"
+Cohesion: 0.21
+Nodes (11): getClientIdForChat(), applyQueue, azure, { createApplyQueue }, { createServiceClient }, { getClientIdForChat }, hasHandledJob(), saveAppliedJob() (+3 more)
+
+### Community 17 - "dice-session.js"
 Cohesion: 0.25
 Nodes (9): azure, { createServiceClient }, getSessionRow(), readActiveSession(), saveSession(), storageStateIsValid(), executeQueuedApply(), getAnyValidStorageState() (+1 more)
 
-### Community 16 - "sendMessage"
-Cohesion: 0.29
-Nodes (11): audit(), beginSignIn(), handleCommand(), handleJobCallback(), handlePendingAnswerMessage(), persistWorkflowPatch(), processCallbackUpdate(), processMessageUpdate() (+3 more)
-
-### Community 17 - "devDependencies"
+### Community 18 - "devDependencies"
 Cohesion: 0.20
 Nodes (10): devDependencies, autoprefixer, oxlint, postcss, tailwindcss, @tailwindcss/vite, @types/react, @types/react-dom (+2 more)
 
-### Community 18 - "execute"
+### Community 19 - "handleConversationMessage"
+Cohesion: 0.24
+Nodes (10): linkTelegramChat(), audit(), deleteOTP(), findUserByEmail(), generateOTP(), handleConversationMessage(), hashOtp(), saveOTP() (+2 more)
+
+### Community 20 - "execute"
 Cohesion: 0.36
 Nodes (5): assertIdentifier(), createQueryBuilder(), builder, buildWhere(), execute()
-
-### Community 19 - "job-application-db.js"
-Cohesion: 0.28
-Nodes (8): getClientIdForChat(), applyQueue, azure, { createApplyQueue }, { createServiceClient }, { getClientIdForChat }, hasHandledJob(), saveAppliedJob()
-
-### Community 20 - "handleConversationMessage"
-Cohesion: 0.28
-Nodes (9): linkTelegramChat(), deleteOTP(), findUserByEmail(), generateOTP(), handleConversationMessage(), hashOtp(), saveOTP(), sendOTPEmail() (+1 more)
 
 ### Community 21 - "start-dashboard.js"
 Cohesion: 0.25
@@ -176,9 +176,9 @@ Nodes (6): acquire(), assert, { createApplyQueue }, mockTask(), release(), test
 Cohesion: 0.29
 Nodes (5): claimNextJob(), { createPool }, parseColumns(), { Pool }, requireDatabaseUrl()
 
-### Community 24 - "processDueChat"
+### Community 24 - "sendMessage"
 Cohesion: 0.48
-Nodes (6): createDueWorkTicker(), persistWorkflowPatch(), processDueChat(), start(), tick(), listDueWorkflowChats()
+Nodes (7): beginSignIn(), handleCommand(), handlePendingAnswerMessage(), processMessageUpdate(), sendMessage(), sendMessageWithButtons(), startNewday()
 
 ### Community 25 - ".oxlintrc.json"
 Cohesion: 0.33
@@ -214,14 +214,14 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `node-telegram-bot-api` connect `sendMessage` to `sync-daily-pipeline.js`, `start-bot.js`, `scripts`?**
   _High betweenness centrality (0.047) - this node is a cross-community bridge._
-- **Why does `createPool()` connect `createPool` to `sync-daily-pipeline.js`, `start-worker.js`, `import-operators.js`, `createApplyQueue`, `execute`, `start-dashboard.js`, `azure.js`, `processDueChat`, `prevalidateJob`, `create-operator.js`?**
+- **Why does `createPool()` connect `createPool` to `sync-daily-pipeline.js`, `due-work-ticker.js`, `start-worker.js`, `import-operators.js`, `createApplyQueue`, `execute`, `start-dashboard.js`, `azure.js`, `prevalidateJob`, `create-operator.js`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **Are the 14 inferred relationships involving `createApplyQueue()` (e.g. with `apply-queue.js` and `claimNextJob()`) actually correct?**
   _`createApplyQueue()` has 14 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }` to the rest of the system?**
   _228 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `dice-apply-questions.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.053297199638663056 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.073224043715847 - nodes in this community are weakly interconnected._
 - **Should `frontend/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.06938775510204082 - nodes in this community are weakly interconnected._
 - **Should `dashboard-server.js` be split into smaller, more focused modules?**
