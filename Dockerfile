@@ -13,4 +13,4 @@ RUN npm run build
 
 ENV NODE_ENV=production
 
-CMD ["node", "index.js"]
+CMD ["node", "start-worker.js"]

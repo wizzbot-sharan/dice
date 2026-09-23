@@ -5,7 +5,7 @@
     "import-operators": "node scripts/import-operators.js",
     "import-clients": "node scripts/import-clients.js",
     "sync-daily": "node scripts/sync-daily-pipeline.js",
-    "start": "node index.js",
+    "start": "echo 'Use start-bot, start-worker, or start-dashboard' && exit 1",
     "start-bot": "node start-bot.js",
     "start-worker": "node start-worker.js",
     "start-dashboard": "node start-dashboard.js",

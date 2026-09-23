@@ -6,7 +6,9 @@ This project is a Node.js Telegram automation service that links users to client
 
 ## Project Map
 
-- `index.js`: Application entry point and orchestration layer. Initializes the Telegram bot, dashboard server, queue workers, startup recovery, OTP login flow, job scanning, approval prompts, and application execution.
+- `start-bot.js`: Telegram bot entry point and workflow coordinator (handles user interaction, OTP login flow, job scanning, and approval prompts).
+- `start-worker.js`: Dedicated queue worker service (executes preflight checks and job applications via browser automation).
+- `start-dashboard.js`: Web dashboard entry point (serves frontend assets and API endpoints).
 - `lib/`: Reusable runtime modules.
   - `apply-queue.js`: Supabase-style durable application queue operations, including enqueueing, deduplication, claiming, completion, retry, and status checks.
   - `apply-worker.js`: Concurrent queue worker loops that claim jobs, execute them, record outcomes, and audit events.
@@ -61,7 +63,9 @@ npx playwright install --with-deps chromium
 This is an uncompiled JavaScript project and has no `build` or `compile` script. Validate JavaScript syntax with:
 
 ```sh
-node --check index.js
+node --check start-bot.js
+node --check start-worker.js
+node --check start-dashboard.js
 node --check lib/*.js
 node --check scripts/*.js
 node --check test/*.test.js
@@ -118,7 +122,7 @@ No linter or `lint` npm script is configured in `package.json`. Do not claim lin
 - Use descriptive camelCase names for variables and functions, PascalCase only for imported constructors/classes, and UPPER_SNAKE_CASE for module-level timing/configuration constants.
 - Prefer small named functions and dependency injection, as used by `createApplyQueue`, `createWorkflowStateStore`, and `createDashboardServer`.
 - Keep database access behind the existing `supabase.js` client abstraction or the existing dashboard `pg` pool boundary. Use parameterized SQL for raw queries and validate SQL identifiers through the existing helper.
-- Keep workflow state durable in PostgreSQL. Do not rely on in-memory state for correctness across restarts; in-memory state in `index.js` is a runtime coordination cache.
+- Keep workflow state durable in PostgreSQL. Do not rely on in-memory state for correctness across restarts; in-memory state in `start-bot.js` or `start-worker.js` is a runtime coordination cache.
 - Preserve queue idempotency and deduplication by client/job URL. Queue transitions must correctly distinguish queued, running, completed, failed, and retryable work.
 - Keep browser-provider behavior behind `lib/browser.js`. Always close pages, contexts, and browser handles in `finally` blocks, and preserve Browserbase concurrency limits.
 - Keep Telegram/API transport concerns separate from job matching, queueing, profile mapping, and application-question rules where practical.
