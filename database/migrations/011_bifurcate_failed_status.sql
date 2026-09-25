@@ -13,7 +13,7 @@ UPDATE dice_apply_queue
 SET status = 'preflight_failed'
 WHERE status = 'failed' 
   AND (
-    last_error ILIKE '%preflight%' OR
+    last_error ILIKE '%preflight%' OR last_error = 'no_apply_button' OR
     last_error ILIKE '%login%' OR
     last_error ILIKE '%auth%' OR
     last_error ILIKE '%timeout waiting for selector%' OR
@@ -29,7 +29,7 @@ UPDATE dice_applied_jobs
 SET status = 'preflight_failed'
 WHERE status = 'failed' 
   AND (
-    reason ILIKE '%preflight%' OR
+    reason ILIKE '%preflight%' OR reason = 'no_apply_button' OR
     reason ILIKE '%login%' OR
     reason ILIKE '%auth%' OR
     reason ILIKE '%timeout waiting for selector%' OR

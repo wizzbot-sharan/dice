@@ -290,9 +290,9 @@ async function runPreflightLoop() {
           await updateJobPreflightStatus(job.id, 'passed');
         } else {
           console.log(`[pre-flight] Job ${job.id} FAILED pre-flight: ${precheck.reason}`);
-          await updateJobPreflightStatus(job.id, 'failed');
+          await updateJobPreflightStatus(job.id, 'preflight_failed');
           if (chatId) {
-            await saveAppliedJob(chatId, job.url, precheck.jobName || job.title || 'Unknown Job', 'failed', precheck.reason);
+            await saveAppliedJob(chatId, job.url, precheck.jobName || job.title || 'Unknown Job', 'preflight_failed', precheck.reason);
           }
         }
       }
@@ -404,7 +404,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
 
   if (!applicationPage.url().includes('dice.com')) {
     console.warn(`[User ${chatId}] Skipped ${jobName}: Redirected to external site.`);
-    await saveAppliedJob(chatId, url, jobName, 'failed', 'external_redirect');
+    await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'external_redirect');
     await sendMessage(chatId, 'application failed, reviewing.');
     return false;
   }
@@ -429,7 +429,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
       ]);
     } catch (e) {
       console.warn(`[User ${chatId}] Skipped ${jobName}: Missing Next/Submit (likely an extra question we could not fill).`);
-      await saveAppliedJob(chatId, url, jobName, 'failed', 'missing_next_or_submit');
+      await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'missing_next_or_submit');
       await sendMessage(chatId, 'application failed, reviewing.');
       return false;
     }
@@ -454,14 +454,14 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
           return false;
         }
         console.warn(`[User ${chatId}] Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'}`);
-        await saveAppliedJob(chatId, url, jobName, 'failed', filled.reason || 'unanswered_question');
+        await saveAppliedJob(chatId, url, jobName, 'apply_failed', filled.reason || 'unanswered_question');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
       }
 
       if (!await isVisibleEnabled(nextButton)) {
         console.warn(`[User ${chatId}] Skipped ${jobName}: Next stayed disabled after filling questions.`);
-        await saveAppliedJob(chatId, url, jobName, 'failed', 'next_button_disabled');
+        await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'next_button_disabled');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
       }
@@ -491,7 +491,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   }
 
   console.warn(`[User ${chatId}] Skipped ${jobName}: Could not complete application.`);
-  await saveAppliedJob(chatId, url, jobName, 'failed', 'submit_button_not_clickable');
+  await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'submit_button_not_clickable');
   await sendMessage(chatId, 'application failed, reviewing.');
   return false;
 }
@@ -555,7 +555,7 @@ async function executeQueuedApply(job, { signal } = {}) {
       } catch (error) {
         if (signal?.aborted) {
           console.warn(`[User ${chatId}] Application to ${url} aborted due to timeout.`);
-          await saveAppliedJob(chatId, url, 'Failed', 'failed', 'application_timeout').catch(() => {});
+          await saveAppliedJob(chatId, url, 'Failed', 'apply_failed', 'application_timeout').catch(() => {});
           throw error;
         }
         if (error.code === 'SESSION_EXPIRED') {
@@ -568,7 +568,7 @@ async function executeQueuedApply(job, { signal } = {}) {
           retryAfterLogin = true;
         } else {
           console.error(`[User ${chatId}] Failed to apply to ${url}:`, error.message);
-          await saveAppliedJob(chatId, url, 'Failed', 'failed', error.message);
+          await saveAppliedJob(chatId, url, 'Failed', 'apply_failed', error.message);
           await sendMessage(chatId, 'application failed, reviewing.');
           throw error;
         }
@@ -596,7 +596,7 @@ async function executeQueuedApply(job, { signal } = {}) {
       const chatId = Number(job.telegram_chat_id);
       const precheck = await prevalidateJob(chatId, { url: job.url, title: 'Job' });
       if (!precheck.ok) {
-        await saveAppliedJob(chatId, job.url, precheck.jobName || 'Unknown Job', 'failed', precheck.reason);
+        await saveAppliedJob(chatId, job.url, precheck.jobName || 'Unknown Job', 'preflight_failed', precheck.reason);
         throw new Error(`preflight_failed: ${precheck.reason}`);
       }
     },
