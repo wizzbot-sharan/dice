@@ -232,6 +232,10 @@ export default function DevLogs() {
           <div className="text-white text-2xl font-semibold">{overview?.stats?.active_sessions || 0}</div>
         </div>
         <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-xl flex-1 min-w-[150px]">
+          <div className="text-zinc-500 text-xs mb-1 uppercase tracking-wider font-bold">Successful Applications</div>
+          <div className="text-white text-2xl font-semibold">{overview?.stats?.completed_today || 0}</div>
+        </div>
+        <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-xl flex-1 min-w-[150px]">
           <div className="text-zinc-500 text-xs mb-1 uppercase tracking-wider font-bold">Jobs Sent</div>
           <div className="text-blue-400 text-2xl font-semibold">{jobsSent}</div>
         </div>
