@@ -148,7 +148,7 @@ export default function DevLogs() {
   }, [overview, selectedCandidate]);
 
   const filteredErrors = useMemo(() => {
-    let e = overview?.applied_jobs?.filter(j => j.status === 'failed') || [];
+    let e = overview?.applied_jobs?.filter(j => ['failed', 'preflight_failed', 'apply_failed'].includes(j.status)) || [];
     if (selectedCandidate !== 'ALL') e = e.filter(x => String(x.telegram_chat_id) === selectedCandidate);
     return e;
   }, [overview, selectedCandidate]);
@@ -369,11 +369,11 @@ export default function DevLogs() {
                 <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex-1 flex flex-col min-h-0">
                   <div className="flex justify-between items-center mb-4 shrink-0">
                     <h4 className="text-zinc-400 font-medium">Preflight Status</h4>
-                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'prompt_sent'].includes(q.status)).length} Jobs</span>
+                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'preflight_failed', 'prompt_sent'].includes(q.status)).length} Jobs</span>
                   </div>
                   <div className="space-y-3 overflow-y-auto custom-scrollbar flex-1 pr-2">
                     {(() => {
-                      const preflightJobs = filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'prompt_sent'].includes(q.status));
+                      const preflightJobs = filteredQueue.filter(q => ['preflight_queued', 'preflight_running', 'preflight_passed', 'preflight_failed', 'prompt_sent'].includes(q.status));
                       if (preflightJobs.length === 0) return <div className="text-zinc-500 text-sm italic">No preflight jobs.</div>;
                       return preflightJobs.map(q => (
                         <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
@@ -386,7 +386,7 @@ export default function DevLogs() {
                           <div className="flex flex-col items-end shrink-0">
                              <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
                              <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${
-                               q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
+                               q.status === 'preflight_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
                                q.status.includes('running') ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
                                q.status === 'completed' || q.status === 'preflight_passed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                                'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
@@ -404,11 +404,11 @@ export default function DevLogs() {
                 <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 flex-1 flex flex-col min-h-0">
                   <div className="flex justify-between items-center mb-4 shrink-0">
                     <h4 className="text-zinc-400 font-medium">Application Automation Status</h4>
-                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['queued', 'running', 'completed', 'failed'].includes(q.status)).length} Jobs</span>
+                    <span className="text-xs font-mono text-zinc-500">{filteredQueue.filter(q => ['queued', 'running', 'completed', 'apply_failed', 'failed'].includes(q.status)).length} Jobs</span>
                   </div>
                   <div className="space-y-3 overflow-y-auto custom-scrollbar flex-1 pr-2">
                     {(() => {
-                      const appJobs = filteredQueue.filter(q => ['queued', 'running', 'completed', 'failed'].includes(q.status));
+                      const appJobs = filteredQueue.filter(q => ['queued', 'running', 'completed', 'apply_failed', 'failed'].includes(q.status));
                       if (appJobs.length === 0) return <div className="text-zinc-500 text-sm italic">No application jobs.</div>;
                       return appJobs.map(q => (
                         <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
@@ -421,7 +421,7 @@ export default function DevLogs() {
                           <div className="flex flex-col items-end shrink-0">
                              <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
                              <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${
-                               q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
+                               q.status === 'apply_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
                                q.status === 'running' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
                                q.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                                'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'
@@ -448,19 +448,21 @@ export default function DevLogs() {
                     <tr>
                       <th className="px-6 py-4 font-medium">Timestamp</th>
                       <th className="px-6 py-4 font-medium">Candidate</th>
-                      <th className="px-6 py-4 font-medium w-1/2">Failure Reason</th>
+                      <th className="px-6 py-4 font-medium">Fail</th>
+                      <th className="px-6 py-4 font-medium w-1/2">Reason</th>
                       <th className="px-6 py-4 font-medium">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {filteredErrors.length === 0 ? (
-                      <tr><td colSpan="4" className="px-6 py-4 text-zinc-500 text-center">No recent application failures.</td></tr>
+                      <tr><td colSpan="5" className="px-6 py-4 text-zinc-500 text-center">No recent application failures.</td></tr>
                     ) : (
                       filteredErrors.map(err => (
                         <tr key={err.id}>
                           <td className="px-6 py-4 text-zinc-400 whitespace-nowrap">{new Date(err.applied_at).toLocaleTimeString()}</td>
                           <td className="px-6 py-4 text-white font-medium whitespace-nowrap">{err.client_name || err.client_id}</td>
-                          <td className="px-6 py-4 text-rose-400 break-words">{err.reason || err.status_details || err.status}</td>
+                          <td className="px-6 py-4"><span className="px-2 py-1 text-[10px] uppercase font-bold tracking-wider rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">{err.status}</span></td>
+                          <td className="px-6 py-4 text-rose-400 break-words">{err.reason || err.status_details}</td>
                           <td className="px-6 py-4 whitespace-nowrap"><a href={err.url || err.job_url} target="_blank" rel="noreferrer" className="text-xs px-3 py-1 bg-white/10 text-white rounded hover:bg-white/20 transition">View Job</a></td>
                         </tr>
                       ))

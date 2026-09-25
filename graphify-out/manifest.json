@@ -66,10 +66,10 @@
     "semantic_hash": "e147a0dada1770807f0115f01fa29cfc"
   },
   "frontend/src/pages/DevLogs.jsx": {
-    "mtime": 1790309711.3837957,
-    "seen": 1790315315.518674,
-    "ast_hash": "6f14b6c4a67d362d4f7f52df09367630",
-    "semantic_hash": "6f14b6c4a67d362d4f7f52df09367630"
+    "mtime": 1790331345.4116492,
+    "seen": 1790332267.44541,
+    "ast_hash": "b7d7ed68781c71d251ed4c0bcc0cf513",
+    "semantic_hash": "b7d7ed68781c71d251ed4c0bcc0cf513"
   },
   "frontend/src/pages/DevPreview.jsx": {
     "mtime": 1790017824.4020216,
@@ -90,16 +90,16 @@
     "semantic_hash": "9e26f979c0334ccf52f32a1a1114e67b"
   },
   "lib/apply-queue.js": {
-    "mtime": 1790162606.7199335,
-    "seen": 1790162651.080797,
-    "ast_hash": "857877de8f545acc2e8d324862b130fe",
-    "semantic_hash": "857877de8f545acc2e8d324862b130fe"
+    "mtime": 1790331207.3709052,
+    "seen": 1790332267.445445,
+    "ast_hash": "132f54ac80040991278317c95bbd81b7",
+    "semantic_hash": "132f54ac80040991278317c95bbd81b7"
   },
   "lib/apply-worker.js": {
-    "mtime": 1790223710.8850417,
-    "seen": 1790223954.565326,
-    "ast_hash": "36d30657b04e7ef2a7d62b93df0825b0",
-    "semantic_hash": "36d30657b04e7ef2a7d62b93df0825b0"
+    "mtime": 1790331176.973935,
+    "seen": 1790332267.445445,
+    "ast_hash": "48ccd75551c9a391ebacb26c318e9558",
+    "semantic_hash": "48ccd75551c9a391ebacb26c318e9558"
   },
   "lib/azure.js": {
     "mtime": 1789449219.898442,
@@ -382,5 +382,11 @@
     "seen": 1790315315.518494,
     "ast_hash": "cf5fcae0e115241bba14cca07509c650",
     "semantic_hash": "cf5fcae0e115241bba14cca07509c650"
+  },
+  "database/migrations/011_bifurcate_failed_status.sql": {
+    "mtime": 1790330301.7039342,
+    "seen": 1790332267.445317,
+    "ast_hash": "b94fb857580fe2c8e7952c84bec79abb",
+    "semantic_hash": "b94fb857580fe2c8e7952c84bec79abb"
   }
 }
