@@ -7403,7 +7403,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/DevLogs.jsx",
-      "source_location": "L844",
+      "source_location": "L889",
       "weight": 1.0
     },
     {
@@ -21028,5 +21028,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8b44104f0b30e3996347a3a6620747d614b70175"
+  "built_at_commit": "278b547da0bc061d25460c41a0892aefcb093503"
 }

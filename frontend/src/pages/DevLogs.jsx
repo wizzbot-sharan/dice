@@ -40,6 +40,7 @@ export default function DevLogs() {
   const [dateTo, setDateTo] = useState(new Date().toLocaleDateString('en-CA'));
   const [selectedCAGroup, setSelectedCAGroup] = useState('ALL');
   const [selectedCandidate, setSelectedCandidate] = useState('ALL');
+  const [globalSearch, setGlobalSearch] = useState('');
   const [logSearch, setLogSearch] = useState('');
   const [sidebarWidth, setSidebarWidth] = useState(256);
   const [isArchiving, setIsArchiving] = useState(false);
@@ -271,22 +272,47 @@ export default function DevLogs() {
 
   const uniqueCandidates = allowedClients;
 
+  // New Search Filter
+  const finalDisplayedClients = useMemo(() => {
+    let result = displayedClients;
+    if (globalSearch.trim()) {
+      const query = globalSearch.toLowerCase();
+      result = result.filter(c => 
+        (c.full_name || '').toLowerCase().includes(query) ||
+        (c.company_email || '').toLowerCase().includes(query) ||
+        (c.ca_name || '').toLowerCase().includes(query)
+      );
+    }
+    return result;
+  }, [displayedClients, globalSearch]);
+
+  const isFilterActive = selectedCAGroup !== 'ALL' || selectedCandidate !== 'ALL' || globalSearch.trim() !== '';
+
+  const validChatIds = useMemo(() => new Set(finalDisplayedClients.map(c => String(c.telegram_chat_id)).filter(id => id && id !== 'undefined' && id !== 'null')), [finalDisplayedClients]);
+  const validClientIds = useMemo(() => new Set(finalDisplayedClients.map(c => String(c.client_id))), [finalDisplayedClients]);
+
   // Global filters for legacy tabs
   const filteredQueue = useMemo(() => {
     let q = overview?.queue || [];
-    if (selectedCandidate !== 'ALL') q = q.filter(x => String(x.telegram_chat_id) === selectedCandidate);
+    if (isFilterActive) {
+      q = q.filter(x => validChatIds.has(String(x.telegram_chat_id)) || validClientIds.has(String(x.client_id)));
+    }
     return q;
-  }, [overview, selectedCandidate]);
+  }, [overview, isFilterActive, validChatIds, validClientIds]);
 
   const filteredErrors = useMemo(() => {
     let e = overview?.applied_jobs?.filter(j => ['failed', 'preflight_failed', 'apply_failed'].includes(j.status)) || [];
-    if (selectedCandidate !== 'ALL') e = e.filter(x => String(x.telegram_chat_id) === selectedCandidate);
+    if (isFilterActive) {
+      e = e.filter(x => validChatIds.has(String(x.telegram_chat_id)) || validClientIds.has(String(x.client_id)));
+    }
     return e;
-  }, [overview, selectedCandidate]);
+  }, [overview, isFilterActive, validChatIds, validClientIds]);
 
   const filteredLogs = useMemo(() => {
     let l = logs;
-    if (selectedCandidate !== 'ALL') l = l.filter(x => String(x.telegram_chat_id) === selectedCandidate);
+    if (isFilterActive) {
+      l = l.filter(x => validChatIds.has(String(x.telegram_chat_id)) || validClientIds.has(String(x.client_id)));
+    }
     if (logSearch) {
       const lowerSearch = logSearch.toLowerCase();
       l = l.filter(x =>
@@ -296,13 +322,15 @@ export default function DevLogs() {
       );
     }
     return l;
-  }, [logs, selectedCandidate, logSearch]);
+  }, [logs, isFilterActive, validChatIds, validClientIds, logSearch]);
 
   const filteredUsers = useMemo(() => {
     let u = overview?.active_users || [];
-    if (selectedCandidate !== 'ALL') u = u.filter(x => String(x.telegram_chat_id) === selectedCandidate);
+    if (isFilterActive) {
+      u = u.filter(x => validChatIds.has(String(x.telegram_chat_id)) || validClientIds.has(String(x.client_id)));
+    }
     return u;
-  }, [overview, selectedCandidate]);
+  }, [overview, isFilterActive, validChatIds, validClientIds]);
 
   // Derived stats
   const totalUsers = overview?.stats?.total_candidates || 0;
@@ -322,16 +350,16 @@ export default function DevLogs() {
     return <span className="text-emerald-400 font-medium">{h}h {m}m</span>;
   };
 
-  // Group displayedClients by CA for 'With CA' view
+  // Group finalDisplayedClients by CA for 'With CA' view
   const groupedClients = useMemo(() => {
     const groups = {};
-    displayedClients.forEach(c => {
+    finalDisplayedClients.forEach(c => {
       const caName = c.ca_name || 'Unassigned';
       if (!groups[caName]) groups[caName] = [];
       groups[caName].push(c);
     });
     return groups;
-  }, [displayedClients]);
+  }, [finalDisplayedClients]);
 
   // Fix 3: Correct popup job filter — 'missed' status in dice_applied_jobs
   const filteredPopupJobs = useMemo(() => {
@@ -430,6 +458,23 @@ export default function DevLogs() {
             </option>
           ))}
         </select>
+
+        {/* Search Bar */}
+        <div className="relative flex items-center ml-2">
+          <svg className="absolute left-3 w-4 h-4 text-zinc-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            type="text"
+            placeholder="Search CA, Name, Email..."
+            value={globalSearch}
+            onChange={e => setGlobalSearch(e.target.value)}
+            className="bg-black border border-white/10 text-white text-sm rounded-md pl-9 pr-8 py-1 outline-none focus:border-white/20 w-64 transition-colors placeholder:text-zinc-600"
+          />
+          {globalSearch && (
+            <button onClick={() => setGlobalSearch('')} className="absolute right-2 text-zinc-500 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* 4. SPLIT LAYOUT */}
@@ -470,10 +515,10 @@ export default function DevLogs() {
               <div className="flex justify-between items-center mb-6 shrink-0">
                 <h3 className="text-white text-lg font-medium">
                   All Candidates &amp; Workflows
-                  {selectedCandidate !== 'ALL' && (
+                  {isFilterActive && (
                     <span className="ml-3 text-sm text-zinc-400 font-normal">
-                      — Filtered to: <span className="text-white">{uniqueCandidates.find(c => String(c.telegram_chat_id) === selectedCandidate || String(c.client_id) === selectedCandidate)?.full_name || 'Selected Candidate'}</span>
-                      <button onClick={() => setSelectedCandidate('ALL')} className="ml-2 text-xs text-zinc-500 hover:text-white underline">clear</button>
+                      — Filtered list
+                      <button onClick={() => { setSelectedCandidate('ALL'); setSelectedCAGroup('ALL'); setGlobalSearch(''); }} className="ml-2 text-xs text-zinc-500 hover:text-white underline">clear filters</button>
                     </span>
                   )}
                 </h3>
@@ -497,9 +542,9 @@ export default function DevLogs() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
-                        {displayedClients.length === 0 ? (
+                        {finalDisplayedClients.length === 0 ? (
                           <tr><td colSpan="4" className="px-6 py-8 text-center text-zinc-500">No candidates found in this group.</td></tr>
-                        ) : displayedClients.map(c => (
+                        ) : finalDisplayedClients.map(c => (
                           <tr key={c.client_id} onClick={() => handleClientClick(c)} className="hover:bg-white/5 transition cursor-pointer">
                             <td className="px-6 py-4 text-white font-medium">{c.full_name || 'N/A'}</td>
                             <td className="px-6 py-4 text-zinc-400">{c.company_email}</td>
