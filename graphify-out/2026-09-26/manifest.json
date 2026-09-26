@@ -66,10 +66,10 @@
     "semantic_hash": "e147a0dada1770807f0115f01fa29cfc"
   },
   "frontend/src/pages/DevLogs.jsx": {
-    "mtime": 1790421312.037643,
-    "seen": 1790421542.715747,
-    "ast_hash": "37f90ac5ff89becd170c566dd56e293a",
-    "semantic_hash": "37f90ac5ff89becd170c566dd56e293a"
+    "mtime": 1790437302.5177042,
+    "seen": 1790437399.722791,
+    "ast_hash": "b830cf4248eb0060365c61efc5c14466",
+    "semantic_hash": "b830cf4248eb0060365c61efc5c14466"
   },
   "frontend/src/pages/DevPreview.jsx": {
     "mtime": 1790017824.4020216,
@@ -114,10 +114,10 @@
     "semantic_hash": "53cc004e9ef25bd7a12ec21f021a27f0"
   },
   "lib/dashboard-server.js": {
-    "mtime": 1790421205.802717,
-    "seen": 1790421542.71583,
-    "ast_hash": "60f1a5935253c8f4a87e5ca9dd67bf4d",
-    "semantic_hash": "60f1a5935253c8f4a87e5ca9dd67bf4d"
+    "mtime": 1790435785.7497633,
+    "seen": 1790437399.722873,
+    "ast_hash": "dc5571a07ca7cbcb30aadbb0d3d36021",
+    "semantic_hash": "dc5571a07ca7cbcb30aadbb0d3d36021"
   },
   "lib/dice-apply-questions.js": {
     "mtime": 1789448553.4463968,
@@ -388,11 +388,5 @@
     "seen": 1790333849.18764,
     "ast_hash": "04f85b04790f68e272cfcc017e5f99dd",
     "semantic_hash": "04f85b04790f68e272cfcc017e5f99dd"
-  },
-  "rewrite_dev_logs.py": {
-    "mtime": 1790421302.6225693,
-    "seen": 1790421542.715979,
-    "ast_hash": "78cce014ef99b7ec6c23fccdde101675",
-    "semantic_hash": "78cce014ef99b7ec6c23fccdde101675"
   }
 }

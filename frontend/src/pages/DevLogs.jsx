@@ -2,14 +2,39 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
 
+const POPUP_TIMEZONES = [
+  { label: 'India (IST +5:30)', value: 'Asia/Kolkata' },
+  { label: 'EST (UTC-5)', value: 'America/New_York' },
+  { label: 'PST (UTC-8)', value: 'America/Los_Angeles' },
+  { label: 'CST (UTC-6)', value: 'America/Chicago' },
+  { label: 'UTC', value: 'UTC' },
+];
+
+function formatAppliedAt(ts, tz) {
+  if (!ts) return '-';
+  try {
+    return new Date(ts).toLocaleString('en-GB', {
+      timeZone: tz,
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  } catch {
+    return '-';
+  }
+}
+
 export default function DevLogs() {
   const { operator, loading } = useAuth();
-  
+
   const [activeTab, setActiveTab] = useState('allStats');
   const [overview, setOverview] = useState(null);
   const [logs, setLogs] = useState([]);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
-  
+
   // Shared Filters
   const [dateFrom, setDateFrom] = useState(new Date().toLocaleDateString('en-CA'));
   const [dateTo, setDateTo] = useState(new Date().toLocaleDateString('en-CA'));
@@ -19,20 +44,21 @@ export default function DevLogs() {
   const [sidebarWidth, setSidebarWidth] = useState(256);
   const [isArchiving, setIsArchiving] = useState(false);
   const [archiveResult, setArchiveResult] = useState(null);
-  
+
   // All Stats Specific
   const [withCA, setWithCA] = useState(false);
   const [expandedCAs, setExpandedCAs] = useState({});
   const [allClients, setAllClients] = useState([]);
   const [caList, setCaList] = useState([]);
-  
+
   // Popup
   const [selectedClientForPopup, setSelectedClientForPopup] = useState(null);
   const [popupStats, setPopupStats] = useState(null);
   const [popupJobs, setPopupJobs] = useState([]);
   const [popupJobFilter, setPopupJobFilter] = useState('ALL');
   const [isPopupLoading, setIsPopupLoading] = useState(false);
-  
+  const [popupTimezone, setPopupTimezone] = useState('Asia/Kolkata');
+
   const isResizing = useRef(false);
   const logsEndRef = useRef(null);
   const eventSourceRef = useRef(null);
@@ -73,8 +99,8 @@ export default function DevLogs() {
     const originalTitle = document.title;
     const favicon = document.querySelector("link[rel~='icon']");
     const originalFavicon = favicon ? favicon.href : '/Applywizz_logo.jpeg';
-    document.title = "DevLogs";
-    if (favicon) favicon.href = "/code.png?v=" + new Date().getTime();
+    document.title = 'DevLogs';
+    if (favicon) favicon.href = '/code.png?v=' + new Date().getTime();
     return () => {
       document.title = originalTitle;
       if (favicon) favicon.href = originalFavicon;
@@ -88,7 +114,7 @@ export default function DevLogs() {
       .then(res => res.json())
       .then(data => { if (data.ok) setAllClients(data.clients); })
       .catch(console.error);
-      
+
     fetch('/api/dev/ca-list')
       .then(res => res.json())
       .then(data => { if (data.ok) setCaList(data.ca_accounts); })
@@ -110,21 +136,21 @@ export default function DevLogs() {
     }
     const es = new EventSource(`/api/dev/stream?dateFrom=${dateFrom}&dateTo=${dateTo}`);
     eventSourceRef.current = es;
-    
+
     es.addEventListener('audit_events', (e) => {
       try {
         const newEvents = JSON.parse(e.data);
         setLogs(prev => [...prev, ...newEvents].slice(-300));
       } catch (err) {}
     });
-    
+
     es.addEventListener('stats_update', (e) => {
       try {
         const liveStats = JSON.parse(e.data);
         setOverview(prev => prev ? { ...prev, stats: { ...prev.stats, ...liveStats } } : null);
       } catch (err) {}
     });
-    
+
     return () => {
       es.close();
     };
@@ -135,6 +161,18 @@ export default function DevLogs() {
       logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [logs, isAutoScroll, activeTab]);
+
+  // Fix 5: Auto-expand the CA accordion when a specific CA is selected in the dropdown
+  useEffect(() => {
+    if (selectedCAGroup.startsWith('CA:')) {
+      const caId = selectedCAGroup.split(':')[1];
+      const ca = caList.find(c => String(c.id) === String(caId));
+      if (ca) {
+        const caName = ca.name || ca.email;
+        setExpandedCAs(prev => ({ ...prev, [caName]: true }));
+      }
+    }
+  }, [selectedCAGroup, caList]);
 
   const handleRefreshJobs = async () => {
     if (isArchiving) return;
@@ -175,7 +213,7 @@ export default function DevLogs() {
       setIsPopupLoading(false);
     }
   };
-  
+
   const closePopup = () => {
     setSelectedClientForPopup(null);
   };
@@ -187,7 +225,7 @@ export default function DevLogs() {
   if (loading) return <div className="h-screen bg-black flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div></div>;
   if (!operator || (operator.role !== 'admin' && operator.role !== 'manager')) return <Navigate to="/" />;
 
-  // Filtered lists for dropdowns and views
+  // CA options for dropdown
   let caOptions = [];
   if (operator.role === 'admin') {
     const managers = [...new Set(caList.filter(ca => ca.manager_id).map(ca => ca.manager_name))].filter(Boolean);
@@ -195,30 +233,41 @@ export default function DevLogs() {
       { label: 'All CAs', value: 'ALL' },
       { label: 'Admin (All)', value: 'ADMIN' },
       ...managers.map(m => ({ label: `Manager (${m})`, value: `MANAGER:${m}` })),
-      ...caList.map(ca => ({ label: ca.name || ca.email, value: `CA:${ca.id}` }))
+      ...caList.map(ca => ({ label: ca.name || ca.email, value: `CA:${ca.id}` })),
     ];
   } else {
     caOptions = [
       { label: 'All My CAs', value: 'ALL' },
-      ...caList.map(ca => ({ label: ca.name || ca.email, value: `CA:${ca.id}` }))
+      ...caList.map(ca => ({ label: ca.name || ca.email, value: `CA:${ca.id}` })),
     ];
   }
 
-  // Filter allClients based on selected CA group for candidate dropdown
+  // Fix C: UUID-safe CA ID comparison
   const allowedClients = allClients.filter(c => {
     if (selectedCAGroup === 'ALL') return true;
     if (selectedCAGroup === 'ADMIN') return true;
     if (selectedCAGroup.startsWith('MANAGER:')) {
       const mName = selectedCAGroup.split(':')[1];
-      const caMatches = caList.filter(ca => ca.manager_name === mName).map(ca => ca.id);
-      return caMatches.includes(c.ca_id);
+      const caMatches = caList.filter(ca => ca.manager_name === mName).map(ca => String(ca.id));
+      return caMatches.includes(String(c.ca_id));
     }
     if (selectedCAGroup.startsWith('CA:')) {
-      const caId = parseInt(selectedCAGroup.split(':')[1]);
-      return c.ca_id === caId;
+      const caId = selectedCAGroup.split(':')[1]; // string compare, UUID-safe
+      return String(c.ca_id) === String(caId);
     }
     return true;
   });
+
+  // Fix D: Filter to selected candidate row in All Stats table
+  const displayedClients = useMemo(() => {
+    if (selectedCandidate !== 'ALL') {
+      return allowedClients.filter(c =>
+        String(c.telegram_chat_id) === String(selectedCandidate) ||
+        String(c.client_id) === String(selectedCandidate),
+      );
+    }
+    return allowedClients;
+  }, [allowedClients, selectedCandidate]);
 
   const uniqueCandidates = allowedClients;
 
@@ -240,10 +289,10 @@ export default function DevLogs() {
     if (selectedCandidate !== 'ALL') l = l.filter(x => String(x.telegram_chat_id) === selectedCandidate);
     if (logSearch) {
       const lowerSearch = logSearch.toLowerCase();
-      l = l.filter(x => 
-        (x.event || '').toLowerCase().includes(lowerSearch) || 
+      l = l.filter(x =>
+        (x.event || '').toLowerCase().includes(lowerSearch) ||
         (typeof x.details === 'string' ? x.details : JSON.stringify(x.details)).toLowerCase().includes(lowerSearch) ||
-        (x.full_name || '').toLowerCase().includes(lowerSearch)
+        (x.full_name || '').toLowerCase().includes(lowerSearch),
       );
     }
     return l;
@@ -273,31 +322,36 @@ export default function DevLogs() {
     return <span className="text-emerald-400 font-medium">{h}h {m}m</span>;
   };
 
-  // Group clients by CA for 'With CA' view
+  // Group displayedClients by CA for 'With CA' view
   const groupedClients = useMemo(() => {
     const groups = {};
-    allowedClients.forEach(c => {
+    displayedClients.forEach(c => {
       const caName = c.ca_name || 'Unassigned';
       if (!groups[caName]) groups[caName] = [];
       groups[caName].push(c);
     });
     return groups;
-  }, [allowedClients]);
+  }, [displayedClients]);
 
-  // Popup filtered jobs
+  // Fix 3: Correct popup job filter — 'missed' status in dice_applied_jobs
   const filteredPopupJobs = useMemo(() => {
     if (popupJobFilter === 'ALL') return popupJobs;
     if (popupJobFilter === 'completed') return popupJobs.filter(j => j.status === 'completed');
     if (popupJobFilter === 'apply_failed') return popupJobs.filter(j => j.status === 'apply_failed');
-    if (popupJobFilter === 'missed') return popupJobs.filter(j => j.status === 'skipped' || j.status === 'timeout');
+    if (popupJobFilter === 'missed') return popupJobs.filter(j => j.status === 'missed');
     if (popupJobFilter === 'rejected') return popupJobs.filter(j => j.status === 'rejected');
     return popupJobs;
   }, [popupJobs, popupJobFilter]);
 
+  // Shared Telegram column cell
+  const TelegramBadge = ({ chatId }) => chatId
+    ? <span className="text-emerald-400 font-bold text-base">✓</span>
+    : <span className="text-rose-400 font-bold text-base">✗</span>;
+
   return (
     <div className="flex flex-col h-screen bg-black text-slate-200 font-sans overflow-hidden">
-      
-      {/* 1. TOP HEADER / NAV BAR */}
+
+      {/* 1. TOP HEADER */}
       <div className="bg-[#0a0a0a] border-b border-white/5 px-6 py-4 flex items-center justify-between shrink-0">
         <div className="flex items-center space-x-6">
           <Link to="/" className="text-white hover:text-emerald-400 transition-colors">
@@ -311,7 +365,7 @@ export default function DevLogs() {
           </span>
         </div>
       </div>
-      
+
       {/* 2. FIXED STATS ROW */}
       <div className="bg-[#050505] border-b border-white/5 px-6 py-4 shrink-0 flex gap-4 overflow-x-auto custom-scrollbar">
         <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-xl flex-1 min-w-[150px]">
@@ -355,24 +409,34 @@ export default function DevLogs() {
           <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-black border border-white/10 text-white text-sm rounded-md px-3 py-1 outline-none focus:border-white/20 transition-colors" style={{ colorScheme: 'dark' }} />
         </div>
         <div className="h-4 w-px bg-white/10 mx-2"></div>
-        
-        <select value={selectedCAGroup} onChange={e => { setSelectedCAGroup(e.target.value); setSelectedCandidate('ALL'); }} className="bg-black border border-white/10 text-white text-sm rounded-md px-3 py-1 outline-none focus:border-white/20 w-48">
+
+        <select
+          value={selectedCAGroup}
+          onChange={e => { setSelectedCAGroup(e.target.value); setSelectedCandidate('ALL'); }}
+          className="bg-black border border-white/10 text-white text-sm rounded-md px-3 py-1 outline-none focus:border-white/20 w-48"
+        >
           {caOptions.map((opt, i) => <option key={i} value={opt.value}>{opt.label}</option>)}
         </select>
-        
-        <select value={selectedCandidate} onChange={e => setSelectedCandidate(e.target.value)} className="bg-black border border-white/10 text-white text-sm rounded-md px-3 py-1 outline-none focus:border-white/20 w-48">
+
+        <select
+          value={selectedCandidate}
+          onChange={e => setSelectedCandidate(e.target.value)}
+          className="bg-black border border-white/10 text-white text-sm rounded-md px-3 py-1 outline-none focus:border-white/20 w-48"
+        >
           <option value="ALL">All Candidates ({uniqueCandidates.length})</option>
           {uniqueCandidates.map(u => (
-            <option key={u.telegram_chat_id || u.client_id} value={u.telegram_chat_id}>{u.full_name || u.company_email}</option>
+            <option key={u.client_id} value={u.telegram_chat_id || u.client_id}>
+              {u.full_name || u.company_email}
+            </option>
           ))}
         </select>
       </div>
 
       {/* 4. SPLIT LAYOUT */}
       <div className="flex-1 flex overflow-hidden">
-        
+
         {/* LEFT SIDEBAR */}
-        <div className="bg-[#0a0a0a] border-r border-white/5 flex shrink-0 relative group" style={{ width: sidebarWidth }}>
+        <div className="bg-[#0a0a0a] border-r border-white/5 flex shrink-0 relative" style={{ width: sidebarWidth }}>
           <div className="p-4 flex flex-col gap-2 w-full h-full overflow-hidden">
             <button onClick={() => setActiveTab('allStats')} className={`w-full text-left px-4 py-3 rounded-xl transition-all text-sm font-medium ${activeTab === 'allStats' ? 'bg-white text-black shadow-sm' : 'text-zinc-400 hover:bg-white/5 hover:text-white'} flex justify-between items-center`}>
               All Stats
@@ -392,16 +456,27 @@ export default function DevLogs() {
               </div>
             )}
           </div>
+          {/* Fix 1: resize handle */}
           <div className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-white/10 z-10" onMouseDown={startResizing} />
         </div>
 
         {/* RIGHT PANE CONTENT */}
-        <div className="flex-1 bg-black p-6 overflow-y-auto custom-scrollbar relative">
-          
+        <div className="flex-1 bg-black p-6 overflow-y-auto custom-scrollbar">
+
+          {/* ── ALL STATS TAB ── */}
           {activeTab === 'allStats' && (
-            <div className="flex flex-col h-full">
+            // Fix 1: min-h-0 so children can scroll independently
+            <div className="flex flex-col h-full min-h-0">
               <div className="flex justify-between items-center mb-6 shrink-0">
-                <h3 className="text-white text-lg font-medium">All Candidates &amp; Workflows</h3>
+                <h3 className="text-white text-lg font-medium">
+                  All Candidates &amp; Workflows
+                  {selectedCandidate !== 'ALL' && (
+                    <span className="ml-3 text-sm text-zinc-400 font-normal">
+                      — Filtered to: <span className="text-white">{uniqueCandidates.find(c => String(c.telegram_chat_id) === selectedCandidate || String(c.client_id) === selectedCandidate)?.full_name || 'Selected Candidate'}</span>
+                      <button onClick={() => setSelectedCandidate('ALL')} className="ml-2 text-xs text-zinc-500 hover:text-white underline">clear</button>
+                    </span>
+                  )}
+                </h3>
                 <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 text-sm">
                   <button onClick={() => setWithCA(true)} className={`px-4 py-1.5 rounded-md font-medium transition ${withCA ? 'bg-white text-black shadow' : 'text-zinc-400 hover:text-white'}`}>With CA</button>
                   <button onClick={() => setWithCA(false)} className={`px-4 py-1.5 rounded-md font-medium transition ${!withCA ? 'bg-white text-black shadow' : 'text-zinc-400 hover:text-white'}`}>Without CA</button>
@@ -409,32 +484,39 @@ export default function DevLogs() {
               </div>
 
               {!withCA ? (
-                // WITHOUT CA: Flat table
-                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-black text-zinc-500 text-xs uppercase tracking-wider border-b border-white/5">
-                      <tr>
-                        <th className="px-6 py-4 font-medium">Candidate</th>
-                        <th className="px-6 py-4 font-medium">Email</th>
-                        <th className="px-6 py-4 font-medium">CA Name</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/5">
-                      {allowedClients.length === 0 ? (
-                        <tr><td colSpan="3" className="px-6 py-4 text-center text-zinc-500">No candidates found in this group.</td></tr>
-                      ) : allowedClients.map(c => (
-                        <tr key={c.client_id} onClick={() => handleClientClick(c)} className="hover:bg-white/5 transition cursor-pointer">
-                          <td className="px-6 py-4 text-white font-medium">{c.full_name || 'N/A'}</td>
-                          <td className="px-6 py-4 text-zinc-400">{c.company_email}</td>
-                          <td className="px-6 py-4 text-zinc-400">{c.ca_name}</td>
+                // Fix 1: overflow-y-auto + flex-1 + min-h-0 so this scrolls
+                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden flex-1 min-h-0 flex flex-col">
+                  <div className="overflow-y-auto custom-scrollbar flex-1">
+                    <table className="w-full text-left text-sm">
+                      <thead className="bg-black text-zinc-500 text-xs uppercase tracking-wider border-b border-white/5 sticky top-0">
+                        <tr>
+                          <th className="px-6 py-4 font-medium">Candidate</th>
+                          <th className="px-6 py-4 font-medium">Email</th>
+                          <th className="px-6 py-4 font-medium">CA Name</th>
+                          <th className="px-6 py-4 font-medium text-center">Telegram</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-white/5">
+                        {displayedClients.length === 0 ? (
+                          <tr><td colSpan="4" className="px-6 py-8 text-center text-zinc-500">No candidates found in this group.</td></tr>
+                        ) : displayedClients.map(c => (
+                          <tr key={c.client_id} onClick={() => handleClientClick(c)} className="hover:bg-white/5 transition cursor-pointer">
+                            <td className="px-6 py-4 text-white font-medium">{c.full_name || 'N/A'}</td>
+                            <td className="px-6 py-4 text-zinc-400">{c.company_email}</td>
+                            <td className="px-6 py-4 text-zinc-400">{c.ca_name}</td>
+                            <td className="px-6 py-4 text-center"><TelegramBadge chatId={c.telegram_chat_id} /></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : (
-                // WITH CA: Accordion
-                <div className="space-y-4">
+                // WITH CA: Accordion — Fix 1: overflow-y-auto on outer wrapper
+                <div className="space-y-4 overflow-y-auto custom-scrollbar flex-1 min-h-0 pr-1">
+                  {Object.keys(groupedClients).length === 0 && (
+                    <div className="text-zinc-500 text-center py-8">No CA groups found.</div>
+                  )}
                   {Object.entries(groupedClients).map(([caName, clients]) => (
                     <div key={caName} className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
                       <div onClick={() => toggleCAGroup(caName)} className="flex justify-between items-center p-4 bg-white/5 border-b border-white/5 cursor-pointer hover:bg-white/10 transition">
@@ -444,17 +526,22 @@ export default function DevLogs() {
                         </div>
                         <span className="text-xs text-zinc-500 font-mono">{clients.length} Candidates</span>
                       </div>
-                      
+
                       {expandedCAs[caName] && (
                         <table className="w-full text-left text-sm">
+                          <thead className="bg-black/50 text-zinc-500 text-xs uppercase tracking-wider border-b border-white/5">
+                            <tr>
+                              <th className="px-10 py-3 font-medium">Candidate</th>
+                              <th className="px-6 py-3 font-medium">Email</th>
+                              <th className="px-6 py-3 font-medium text-center">Telegram</th>
+                            </tr>
+                          </thead>
                           <tbody className="divide-y divide-white/5">
                             {clients.map(c => (
                               <tr key={c.client_id} onClick={() => handleClientClick(c)} className="hover:bg-white/5 transition cursor-pointer">
                                 <td className="px-10 py-3 text-white font-medium">{c.full_name || 'N/A'}</td>
                                 <td className="px-6 py-3 text-zinc-400">{c.company_email}</td>
-                                <td className="px-6 py-3 text-right">
-                                  <button className="text-xs px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded hover:bg-emerald-500/20 transition">View Stats →</button>
-                                </td>
+                                <td className="px-6 py-3 text-center"><TelegramBadge chatId={c.telegram_chat_id} /></td>
                               </tr>
                             ))}
                           </tbody>
@@ -462,13 +549,12 @@ export default function DevLogs() {
                       )}
                     </div>
                   ))}
-                  {Object.keys(groupedClients).length === 0 && <div className="text-zinc-500 text-center py-8">No CA groups found.</div>}
                 </div>
               )}
             </div>
           )}
 
-          {/* OTHER TABS OMITTED FOR BREVITY BUT KEPT EXACTLY THE SAME... */}
+          {/* ── LIVE LOGS TAB ── */}
           {activeTab === 'logs' && (
             <div className="h-full flex flex-col">
               <div className="flex justify-between items-center mb-4 shrink-0">
@@ -503,9 +589,10 @@ export default function DevLogs() {
             </div>
           )}
 
+          {/* ── APPLY WORKERS TAB ── */}
           {activeTab === 'workers' && (
             <div className="h-full flex flex-col">
-              <h3 className="text-white text-lg font-medium mb-6 shrink-0">Apply Workers & Queue Status</h3>
+              <h3 className="text-white text-lg font-medium mb-6 shrink-0">Apply Workers &amp; Queue Status</h3>
               <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 mb-6 shrink-0">
                 <div className="flex justify-between items-center mb-4">
                   <h4 className="text-zinc-400 font-medium">Active Worker Processes</h4>
@@ -519,7 +606,7 @@ export default function DevLogs() {
                       <div className="flex justify-between items-center mb-3">
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-                          <span className="text-sm text-white font-mono">{q.worker_id || `worker-${q.id.substring(0,6)}`}</span>
+                          <span className="text-sm text-white font-mono">{q.worker_id || `worker-${q.id.substring(0, 6)}`}</span>
                         </div>
                         <span className="text-[10px] uppercase font-bold tracking-wide bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">Busy</span>
                       </div>
@@ -541,13 +628,13 @@ export default function DevLogs() {
                       return preflightJobs.map(q => (
                         <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                           <div className="min-w-0 flex-1">
-                             <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
-                             <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
-                             {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
+                            <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
+                            <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
+                            {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
                           </div>
                           <div className="flex flex-col items-end shrink-0">
-                             <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
-                             <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${q.status === 'preflight_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : q.status.includes('running') ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : q.status === 'completed' || q.status === 'preflight_passed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'}`}>{q.status}</div>
+                            <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
+                            <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${q.status === 'preflight_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : q.status.includes('running') ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : q.status === 'completed' || q.status === 'preflight_passed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'}`}>{q.status}</div>
                           </div>
                         </div>
                       ));
@@ -566,13 +653,13 @@ export default function DevLogs() {
                       return appJobs.map(q => (
                         <div key={q.id} className="p-4 bg-black rounded-xl border border-white/5 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                           <div className="min-w-0 flex-1">
-                             <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
-                             <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
-                             {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
+                            <div className="text-sm text-white font-medium mb-1">{q.full_name || q.client_id}</div>
+                            <div className="text-xs text-zinc-400 truncate" title={q.url}>{q.url}</div>
+                            {q.last_error && <div className="mt-2 text-xs text-rose-300 italic truncate" title={q.last_error}>{q.last_error}</div>}
                           </div>
                           <div className="flex flex-col items-end shrink-0">
-                             <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
-                             <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${q.status === 'apply_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : q.status === 'running' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : q.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'}`}>{q.status}</div>
+                            <div className="text-xs text-zinc-500 mb-2">Attempt {q.attempts}/{q.max_attempts}</div>
+                            <div className={`text-[10px] px-2.5 py-1 inline-block rounded font-bold uppercase tracking-wider ${q.status === 'apply_failed' || q.status === 'failed' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : q.status === 'running' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : q.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-zinc-500/10 text-zinc-400 border border-zinc-500/20'}`}>{q.status}</div>
                           </div>
                         </div>
                       ));
@@ -583,16 +670,25 @@ export default function DevLogs() {
             </div>
           )}
 
+          {/* ── ERROR DIAGNOSTICS TAB ── */}
           {activeTab === 'errors' && (
             <div>
               <h3 className="text-white text-lg font-medium mb-6">Error Diagnostics</h3>
               <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
                 <table className="w-full text-left text-sm">
                   <thead className="bg-black text-zinc-500 text-xs uppercase tracking-wider">
-                    <tr><th className="px-6 py-4 font-medium">Timestamp</th><th className="px-6 py-4 font-medium">Candidate</th><th className="px-6 py-4 font-medium">Fail</th><th className="px-6 py-4 font-medium w-1/2">Reason</th><th className="px-6 py-4 font-medium">Action</th></tr>
+                    <tr>
+                      <th className="px-6 py-4 font-medium">Timestamp</th>
+                      <th className="px-6 py-4 font-medium">Candidate</th>
+                      <th className="px-6 py-4 font-medium">Fail</th>
+                      <th className="px-6 py-4 font-medium w-1/2">Reason</th>
+                      <th className="px-6 py-4 font-medium">Action</th>
+                    </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {filteredErrors.length === 0 ? <tr><td colSpan="5" className="px-6 py-4 text-zinc-500 text-center">No recent application failures.</td></tr> : filteredErrors.map(err => (
+                    {filteredErrors.length === 0 ? (
+                      <tr><td colSpan="5" className="px-6 py-4 text-zinc-500 text-center">No recent application failures.</td></tr>
+                    ) : filteredErrors.map(err => (
                       <tr key={err.id}>
                         <td className="px-6 py-4 text-zinc-400 whitespace-nowrap">{new Date(err.applied_at).toLocaleTimeString()}</td>
                         <td className="px-6 py-4 text-white font-medium whitespace-nowrap">{err.client_name || err.client_id}</td>
@@ -607,16 +703,25 @@ export default function DevLogs() {
             </div>
           )}
 
+          {/* ── TELEGRAM USERS TAB ── */}
           {activeTab === 'users' && (
             <div>
-              <h3 className="text-white text-lg font-medium mb-6">Telegram Users & Workflows</h3>
+              <h3 className="text-white text-lg font-medium mb-6">Telegram Users &amp; Workflows</h3>
               <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
                 <table className="w-full text-left text-sm">
                   <thead className="bg-black text-zinc-500 text-xs uppercase tracking-wider">
-                    <tr><th className="px-6 py-4 font-medium">Candidate Name</th><th className="px-6 py-4 font-medium">Email</th><th className="px-6 py-4 font-medium">CA Name</th><th className="px-6 py-4 font-medium text-center">Total NOs (Today)</th><th className="px-6 py-4 font-medium">9-Hour Window</th></tr>
+                    <tr>
+                      <th className="px-6 py-4 font-medium">Candidate Name</th>
+                      <th className="px-6 py-4 font-medium">Email</th>
+                      <th className="px-6 py-4 font-medium">CA Name</th>
+                      <th className="px-6 py-4 font-medium text-center">Total NOs (Today)</th>
+                      <th className="px-6 py-4 font-medium">9-Hour Window</th>
+                    </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {filteredUsers.length === 0 ? <tr><td colSpan="5" className="px-6 py-4 text-zinc-500 text-center">No users found.</td></tr> : filteredUsers.map(u => (
+                    {filteredUsers.length === 0 ? (
+                      <tr><td colSpan="5" className="px-6 py-4 text-zinc-500 text-center">No users found.</td></tr>
+                    ) : filteredUsers.map(u => (
                       <tr key={u.client_id}>
                         <td className="px-6 py-4 text-white font-medium">{u.full_name || 'N/A'}</td>
                         <td className="px-6 py-4 text-zinc-400">{u.company_email}</td>
@@ -634,14 +739,19 @@ export default function DevLogs() {
         </div>
       </div>
 
-      {/* 5. POPUP */}
+      {/* Fix A: POPUP — fixed inset-0 to cover everything including top nav */}
       {selectedClientForPopup && (
-        <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-8" onClick={(e) => { if (e.target === e.currentTarget) closePopup(); }}>
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-5xl h-[85vh] shadow-2xl flex flex-col animate-in fade-in zoom-in-95 duration-200">
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-8"
+          onClick={(e) => { if (e.target === e.currentTarget) closePopup(); }}
+        >
+          <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl w-full max-w-5xl h-[85vh] shadow-2xl flex flex-col">
+
+            {/* Popup Header */}
             <div className="flex justify-between items-center p-6 border-b border-white/10 shrink-0">
               <div>
                 <h2 className="text-xl font-semibold text-white">{selectedClientForPopup.full_name}</h2>
-                <div className="text-sm text-zinc-400 mt-1 flex space-x-3 items-center">
+                <div className="text-sm text-zinc-400 mt-1 flex flex-wrap gap-x-3 items-center">
                   <span>{selectedClientForPopup.company_email}</span>
                   <span className="w-1 h-1 rounded-full bg-white/20"></span>
                   <span>CA: {selectedClientForPopup.ca_name}</span>
@@ -658,7 +768,8 @@ export default function DevLogs() {
               <div className="flex-1 flex items-center justify-center text-zinc-500">Loading stats...</div>
             ) : (
               <>
-                <div className="p-6 border-b border-white/5 flex gap-4 shrink-0 bg-black/30 overflow-x-auto">
+                {/* Popup Stats Row */}
+                <div className="p-6 border-b border-white/5 flex gap-4 shrink-0 bg-black/30 overflow-x-auto custom-scrollbar">
                   <div className="bg-[#050505] border border-white/5 p-4 rounded-xl flex-1 min-w-[120px]">
                     <div className="text-emerald-500/70 text-[10px] mb-1 uppercase tracking-wider font-bold">Successfully Applied</div>
                     <div className="text-white text-2xl font-semibold">{popupStats?.completed_count || 0}</div>
@@ -676,38 +787,70 @@ export default function DevLogs() {
                     <div className="text-rose-400 text-2xl font-semibold">{popupStats?.no_count || 0}</div>
                   </div>
                   <div className="bg-[#050505] border border-white/5 p-4 rounded-xl flex-1 min-w-[120px]">
-                    <div className="text-zinc-500 text-[10px] mb-1 uppercase tracking-wider font-bold">SKIPPED</div>
+                    <div className="text-amber-500/70 text-[10px] mb-1 uppercase tracking-wider font-bold">Missed</div>
                     <div className="text-amber-400 text-2xl font-semibold">{popupStats?.skipped_count || 0}</div>
                   </div>
                 </div>
 
+                {/* Jobs Table */}
                 <div className="flex-1 flex flex-col overflow-hidden">
-                  <div className="p-4 border-b border-white/5 flex space-x-2 shrink-0 overflow-x-auto">
-                    {['ALL', 'completed', 'missed', 'rejected', 'apply_failed'].map(f => (
-                      <button key={f} onClick={() => setPopupJobFilter(f)} className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition ${popupJobFilter === f ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5'}`}>
-                        {f === 'ALL' ? 'All Jobs' : f.charAt(0).toUpperCase() + f.slice(1).replace('_', ' ')}
-                      </button>
-                    ))}
+                  {/* Fix 4: Filter bar with status tabs + timezone dropdown */}
+                  <div className="p-4 border-b border-white/5 flex items-center justify-between shrink-0 flex-wrap gap-2">
+                    <div className="flex space-x-1 flex-wrap gap-1">
+                      {['ALL', 'completed', 'missed', 'rejected', 'apply_failed'].map(f => (
+                        <button
+                          key={f}
+                          onClick={() => setPopupJobFilter(f)}
+                          className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition ${popupJobFilter === f ? 'bg-white/10 text-white' : 'text-zinc-400 hover:bg-white/5'}`}
+                        >
+                          {f === 'ALL' ? 'All Jobs' : f.charAt(0).toUpperCase() + f.slice(1).replace('_', ' ')}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Fix 4: Timezone selector */}
+                    <select
+                      value={popupTimezone}
+                      onChange={e => setPopupTimezone(e.target.value)}
+                      className="bg-black border border-white/10 text-white text-xs rounded-md px-2 py-1.5 outline-none focus:border-white/20"
+                    >
+                      {POPUP_TIMEZONES.map(tz => (
+                        <option key={tz.value} value={tz.value}>{tz.label}</option>
+                      ))}
+                    </select>
                   </div>
-                  
+
                   <div className="overflow-y-auto flex-1 custom-scrollbar">
                     <table className="w-full text-left text-sm">
                       <thead className="bg-[#050505] text-zinc-500 text-xs uppercase tracking-wider sticky top-0 border-b border-white/5 shadow-sm">
                         <tr>
                           <th className="px-6 py-3 font-medium">Job Name (Company)</th>
                           <th className="px-6 py-3 font-medium">URL</th>
+                          {/* Fix 4: Time column */}
+                          <th className="px-6 py-3 font-medium whitespace-nowrap">Time (Applied)</th>
                           <th className="px-6 py-3 font-medium">Status</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {filteredPopupJobs.length === 0 ? (
-                          <tr><td colSpan="3" className="px-6 py-4 text-zinc-500 text-center">No jobs found for this filter.</td></tr>
+                          <tr><td colSpan="4" className="px-6 py-4 text-zinc-500 text-center">No jobs found for this filter.</td></tr>
                         ) : filteredPopupJobs.map((job, idx) => (
                           <tr key={idx} className="hover:bg-white/5">
                             <td className="px-6 py-4 text-white font-medium">{job.job_name}</td>
-                            <td className="px-6 py-4"><a href={job.url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline text-xs max-w-xs block truncate" title={job.url}>{job.url}</a></td>
                             <td className="px-6 py-4">
-                              <span className={`px-2.5 py-1 text-[10px] uppercase font-bold rounded ${job.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : job.status === 'apply_failed' || job.status === 'rejected' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' : job.status === 'skipped' || job.status === 'timeout' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-blue-500/10 text-blue-400 border-blue-500/20'} border`}>
+                              <a href={job.url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline text-xs max-w-xs block truncate" title={job.url}>{job.url}</a>
+                            </td>
+                            {/* Fix 4: Formatted timestamp with selected timezone */}
+                            <td className="px-6 py-4 text-zinc-400 whitespace-nowrap text-xs font-mono">
+                              {formatAppliedAt(job.applied_at, popupTimezone)}
+                            </td>
+                            <td className="px-6 py-4">
+                              <span className={`px-2.5 py-1 text-[10px] uppercase font-bold rounded border ${
+                                job.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                                job.status === 'missed' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                                job.status === 'rejected' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
+                                job.status === 'apply_failed' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
+                                'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                              }`}>
                                 {job.status}
                               </span>
                             </td>
