@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [expandedCandidate, setExpandedCandidate] = useState(null);
   const [candidateTab, setCandidateTab] = useState('dashboard');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 768);
   const [mainTab, setMainTab] = useState('dashboard');
   const [expandedCAs, setExpandedCAs] = useState({});
   const toggleCA = (caName) => setExpandedCAs(prev => ({ ...prev, [caName]: !prev[caName] }));
@@ -22,6 +22,15 @@ export default function Dashboard() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedTimezone, setSelectedTimezone] = useState('browser');
   const [isSyncing, setIsSyncing] = useState(false);
+
+  // Close sidebar automatically when resizing to mobile
+  useEffect(() => {
+    const handler = () => {
+      if (window.innerWidth < 768) setIsSidebarOpen(false);
+    };
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
 
   useEffect(() => {
     fetchDashboard();
@@ -76,13 +85,27 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-black text-zinc-200 font-sans overflow-hidden">
       
-      {/* --- Notion-style Collapsible Left Sidebar --- */}
-      <aside 
-        className={`relative flex flex-col bg-[#0a0a0a] border-r border-white/5 transition-all duration-300 ease-in-out z-40
-          ${isSidebarOpen ? 'w-64 px-4' : 'w-0 px-0 opacity-0 overflow-hidden'}
+      {/* Mobile backdrop — shown only on mobile when sidebar is open */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-30 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* --- Collapsible Left Sidebar --- */}
+      {/* On mobile: fixed overlay drawer. On desktop: inline flex child */}
+      <aside
+        className={`
+          fixed md:relative top-0 left-0 h-full z-40
+          flex flex-col bg-[#0a0a0a] border-r border-white/5
+          transition-all duration-300 ease-in-out
+          ${isSidebarOpen
+            ? 'w-64 px-4 translate-x-0'
+            : '-translate-x-full md:translate-x-0 w-64 md:w-0 px-4 md:px-0 md:opacity-0 md:overflow-hidden'}
         `}
       >
-        {/* Top Section (Left Stuff) */}
+        {/* Top Section */}
         <div className="pt-6 pb-4 border-b border-white/5 flex items-center justify-between min-w-[224px]">
           <div className="flex items-center space-x-3">
             <img src="/Applywizz_logo.jpeg" alt="Applywizz Logo" className="w-8 h-8 rounded-lg object-cover shadow-sm shrink-0" />
@@ -97,17 +120,17 @@ export default function Dashboard() {
         </div>
 
         <nav className="flex-1 overflow-y-auto py-4 space-y-1 min-w-[224px]">
-          <button onClick={() => setMainTab('dashboard')} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'dashboard' ? 'bg-white/10 text-white border border-white/5' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>
-            <LayoutDashboard size={16} className={mainTab === 'dashboard' ? "text-white" : "text-zinc-500"} />
+          <button onClick={() => { setMainTab('dashboard'); setIsSidebarOpen(window.innerWidth >= 768); }} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'dashboard' ? 'bg-white/10 text-white border border-white/5' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>
+            <LayoutDashboard size={16} className={mainTab === 'dashboard' ? 'text-white' : 'text-zinc-500'} />
             <span>Dashboard</span>
           </button>
-          <button onClick={() => setMainTab('stats')} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'stats' ? 'bg-white/10 text-white border border-white/5' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>
-            <BarChart2 size={16} className={mainTab === 'stats' ? "text-white" : "text-zinc-500"} />
+          <button onClick={() => { setMainTab('stats'); setIsSidebarOpen(window.innerWidth >= 768); }} className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg font-medium transition-colors ${mainTab === 'stats' ? 'bg-white/10 text-white border border-white/5' : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>
+            <BarChart2 size={16} className={mainTab === 'stats' ? 'text-white' : 'text-zinc-500'} />
             <span>Stats</span>
           </button>
         </nav>
 
-        {/* Bottom Section (Right Stuff) */}
+        {/* Bottom Section */}
         <div className="pb-6 pt-4 border-t border-white/5 space-y-2 min-w-[224px]">
           <Link to="/dev" target="_blank" className="w-full flex items-center space-x-3 px-3 py-2 text-zinc-300 hover:bg-white/5 hover:text-white rounded-lg text-sm font-medium transition-colors">
             <Terminal size={16} className="text-purple-400" />
@@ -151,22 +174,19 @@ export default function Dashboard() {
       {/* --- Main Content Area --- */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         
-        {/* Top Control Bar */}
-        <header className="flex items-center justify-between px-6 py-4 border-b border-white/5 shrink-0 bg-black relative z-30">
-          <div className="flex items-center min-w-[40px] flex-1">
-            {!isSidebarOpen && (
-              <button 
-                onClick={() => setIsSidebarOpen(true)}
-                className="text-zinc-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <Menu size={20} />
-              </button>
-            )}
-          </div>
-          
-          {/* Centered Date/Timezone with hover animation */}
-          <div className="flex items-center justify-center shrink-0">
-            <div className="flex items-center bg-[#0a0a0a] px-5 py-2 rounded-full border border-white/5 shadow-sm hover:border-white/10 hover:shadow-md transition-all duration-300 ease-out group">
+        {/* Top Control Bar — burger always visible, pill absolutely centred */}
+        <header className="flex items-center px-4 md:px-6 py-4 border-b border-white/5 shrink-0 bg-black relative z-30">
+          {/* Burger — always left */}
+          <button
+            onClick={() => setIsSidebarOpen(v => !v)}
+            className="text-zinc-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors shrink-0"
+          >
+            <Menu size={20} />
+          </button>
+
+          {/* Date/Timezone pill — absolutely centred regardless of screen size */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center">
+            <div className="flex items-center bg-[#0a0a0a] px-3 md:px-5 py-2 rounded-full border border-white/5 shadow-sm hover:border-white/10 hover:shadow-md transition-all duration-300 ease-out group">
               <div className="flex items-center space-x-2">
                 <Calendar size={14} className="text-zinc-500 group-hover:text-white transition-colors shrink-0" />
                 <input 
@@ -174,38 +194,36 @@ export default function Dashboard() {
                   value={selectedDate} 
                   onChange={(e) => setSelectedDate(e.target.value)}
                   onClick={(e) => e.target.showPicker && e.target.showPicker()}
-                  className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 w-[130px]"
+                  className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 w-[110px] md:w-[130px]"
                   style={{ colorScheme: 'dark' }}
                 />
               </div>
-              <div className="w-px h-4 bg-white/10 mx-3 sm:mx-4 shrink-0"></div>
+              <div className="w-px h-4 bg-white/10 mx-2 md:mx-4 shrink-0"></div>
               <div className="flex items-center space-x-2">
                 <Globe size={14} className="text-zinc-500 group-hover:text-white transition-colors shrink-0" />
-                <select value={selectedTimezone} onChange={(e) => setSelectedTimezone(e.target.value)} className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 min-w-[110px]">
+                <select value={selectedTimezone} onChange={(e) => setSelectedTimezone(e.target.value)} className="bg-transparent border-none text-zinc-300 text-sm focus:ring-0 outline-none cursor-pointer p-0 min-w-[80px] md:min-w-[110px]">
                   <option value="browser">Browser local</option>
                   <option value="UTC">UTC</option>
                 </select>
               </div>
             </div>
           </div>
-
-          <div className="min-w-[40px] flex-1"></div> {/* Spacer for flex balance */}
         </header>
 
         {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-8 lg:px-12 relative z-20">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 lg:px-12 relative z-20">
           {mainTab === 'dashboard' && (
 <div className="max-w-4xl mx-auto">
             
             {/* === GLOBAL ADMIN HEADER === */}
-            <div className="mb-12 p-8 bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-white/5 rounded-3xl flex items-center justify-between shadow-lg">
+            <div className="mb-8 md:mb-12 p-5 md:p-8 bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-white/5 rounded-3xl flex items-center justify-between shadow-lg">
               <div>
-                <h1 className="text-3xl font-semibold text-white mb-2 tracking-tight">Admin Overview</h1>
+                <h1 className="text-2xl md:text-3xl font-semibold text-white mb-2 tracking-tight">Admin Overview</h1>
                 <p className="text-zinc-400 text-sm">Managing all CAs and candidates</p>
               </div>
-              <button onClick={handleGlobalSync} disabled={isSyncing} className={`flex items-center space-x-2 px-6 py-2.5 bg-white text-black hover:bg-slate-200 font-semibold rounded-full shadow-sm transition-colors ${isSyncing ? "opacity-50" : ""}`}>
-                <RefreshCw size={16} className={isSyncing ? "animate-spin" : ""} />
-                <span>{isSyncing ? "Syncing..." : "Global Sync"}</span>
+              <button onClick={handleGlobalSync} disabled={isSyncing} className={`flex items-center space-x-2 px-4 md:px-6 py-2.5 bg-white text-black hover:bg-slate-200 font-semibold rounded-full shadow-sm transition-colors text-sm ${isSyncing ? 'opacity-50' : ''}`}>
+                <RefreshCw size={16} className={isSyncing ? 'animate-spin' : ''} />
+                <span>{isSyncing ? 'Syncing...' : 'Global Sync'}</span>
               </button>
             </div>
 
@@ -223,30 +241,27 @@ export default function Dashboard() {
                     {/* CA Header Button */}
                     <button 
                       onClick={() => toggleCA(caName)}
-                      className="w-full text-left bg-[#0a0a0a] hover:bg-white/5 border border-white/5 rounded-2xl px-6 py-5 flex items-center justify-between transition-colors shadow-sm group"
+                      className="w-full text-left bg-[#0a0a0a] hover:bg-white/5 border border-white/5 rounded-2xl px-4 md:px-6 py-4 md:py-5 flex items-center justify-between transition-colors shadow-sm group"
                     >
-                      <div className="flex items-center space-x-4">
-                        <div className={`p-2 rounded-lg transition-colors ${isCaExpanded ? 'bg-white/10 text-white' : 'bg-white/5 text-zinc-400 group-hover:text-zinc-300'}`}>
+                      <div className="flex items-center space-x-3 min-w-0 flex-1">
+                        <div className={`p-2 rounded-lg transition-colors shrink-0 ${isCaExpanded ? 'bg-white/10 text-white' : 'bg-white/5 text-zinc-400 group-hover:text-zinc-300'}`}>
                           {isCaExpanded ? <ChevronDown size={20} /> : <ChevronLeft size={20} className="rotate-180" />}
                         </div>
-                        <h2 className="text-xl font-medium text-white flex items-center space-x-2">
-                          <span>{caName}</span>
-                        </h2>
+                        <h2 className="text-lg md:text-xl font-medium text-white truncate">{caName}</h2>
                       </div>
 
-                      <div className="flex items-center space-x-6">
-                        <div className="flex items-center space-x-2">
-                          <div className="px-3 py-1 bg-white/5 text-zinc-400 text-sm font-medium rounded-full">
-                            <span className="text-white mr-1">{totalCandidates}</span> Total
-                          </div>
-                          <div className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-sm font-medium rounded-full flex items-center space-x-1.5">
-                            <Check size={12} strokeWidth={3} />
-                            <span><span className="text-emerald-300 mr-1">{connectedCandidates}</span> Connected</span>
-                          </div>
-                          <div className="px-3 py-1 bg-blue-500/10 text-blue-400 text-sm font-medium rounded-full flex items-center space-x-1.5">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                            <span><span className="text-blue-300 mr-1">{activeSessions}</span> Active</span>
-                          </div>
+                      {/* Mobile-responsive badges: wrap into 2 rows if needed */}
+                      <div className="flex items-center gap-1.5 flex-wrap justify-end ml-2 max-w-[180px] md:max-w-none">
+                        <div className="px-2 md:px-3 py-1 bg-white/5 text-zinc-400 text-xs font-medium rounded-full whitespace-nowrap">
+                          <span className="text-white mr-1">{totalCandidates}</span> Total
+                        </div>
+                        <div className="px-2 md:px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-full flex items-center space-x-1 whitespace-nowrap">
+                          <Check size={11} strokeWidth={3} />
+                          <span><span className="text-emerald-300 mr-0.5">{connectedCandidates}</span> Connected</span>
+                        </div>
+                        <div className="px-2 md:px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-medium rounded-full flex items-center space-x-1 whitespace-nowrap">
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                          <span><span className="text-blue-300 mr-0.5">{activeSessions}</span> Active</span>
                         </div>
                       </div>
                     </button>
@@ -496,10 +511,10 @@ export default function Dashboard() {
                             </button>
                           </div>
 
-                          <div className="px-8 pb-8 pt-6">
+                          <div className="px-4 md:px-8 pb-6 md:pb-8 pt-5 md:pt-6">
                             {candidateTab === 'dashboard' && (
                               <div className="animate-in fade-in duration-300">
-                                <div className="grid grid-cols-3 gap-5 mb-10">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5 mb-8 md:mb-10">
                                   <div className="bg-black p-5 rounded-2xl border border-white/5">
                                     <p className="text-xs text-zinc-500 font-medium mb-2 uppercase tracking-widest">Window Start</p>
                                     <p className="text-2xl font-mono text-white font-light">
@@ -554,7 +569,7 @@ export default function Dashboard() {
 
                             {candidateTab === 'jobs' && (
                               <div className="animate-in fade-in duration-300">
-                                <div className="grid grid-cols-4 gap-4 mb-8">
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 mb-8">
                                   <div className="bg-black p-4 rounded-xl border border-white/5">
                                     <p className="text-xs text-zinc-500 mb-1">Total</p>
                                     <p className="text-xl text-yellow-400 font-medium">{user.prompts_summary?.total || 0}</p>

@@ -54,10 +54,10 @@
     "semantic_hash": "e13723e2574429d9a6d849727e3ff695"
   },
   "frontend/src/pages/Dashboard.jsx": {
-    "mtime": 1790073939.5414603,
-    "seen": 1790142967.1449192,
-    "ast_hash": "6cfe67691ba2e2e7dc7aa147491a8cf8",
-    "semantic_hash": "6cfe67691ba2e2e7dc7aa147491a8cf8"
+    "mtime": 1790441619.503701,
+    "seen": 1790442027.057218,
+    "ast_hash": "0839ba0aedbda8e7ec3dd293799abd8b",
+    "semantic_hash": "0839ba0aedbda8e7ec3dd293799abd8b"
   },
   "frontend/src/pages/DesignPreview.jsx": {
     "mtime": 1789991810.006245,
@@ -66,10 +66,10 @@
     "semantic_hash": "e147a0dada1770807f0115f01fa29cfc"
   },
   "frontend/src/pages/DevLogs.jsx": {
-    "mtime": 1790438279.3831072,
-    "seen": 1790438340.4793139,
-    "ast_hash": "3f681ca3a7c9eae3122ae2b71caab3eb",
-    "semantic_hash": "3f681ca3a7c9eae3122ae2b71caab3eb"
+    "mtime": 1790441942.1744976,
+    "seen": 1790442027.05723,
+    "ast_hash": "d1c13e1ba2606fd3fadcf98c9799d2bc",
+    "semantic_hash": "d1c13e1ba2606fd3fadcf98c9799d2bc"
   },
   "frontend/src/pages/DevPreview.jsx": {
     "mtime": 1790017824.4020216,
