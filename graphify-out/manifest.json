@@ -388,5 +388,23 @@
     "seen": 1790333849.18764,
     "ast_hash": "04f85b04790f68e272cfcc017e5f99dd",
     "semantic_hash": "04f85b04790f68e272cfcc017e5f99dd"
+  },
+  "scripts/scratch-api-check.js": {
+    "mtime": 1790593934.4993,
+    "seen": 1790594524.3042,
+    "ast_hash": "6774e9465d2ae1de55cde838a0cb024d",
+    "semantic_hash": "6774e9465d2ae1de55cde838a0cb024d"
+  },
+  "scripts/scratch-db-check.js": {
+    "mtime": 1790593894.522596,
+    "seen": 1790594524.304201,
+    "ast_hash": "05291b25c70c527b096c159db3e101ab",
+    "semantic_hash": "05291b25c70c527b096c159db3e101ab"
+  },
+  "scripts/scratch-db-fix.js": {
+    "mtime": 1790594004.5167468,
+    "seen": 1790594524.304201,
+    "ast_hash": "176abfaec9fc07b81c53cd31364bf15e",
+    "semantic_hash": "176abfaec9fc07b81c53cd31364bf15e"
   }
 }
