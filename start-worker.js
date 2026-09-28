@@ -403,7 +403,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   if (applicationPage.url().includes('/login')) throw sessionExpiredError();
 
   if (!applicationPage.url().includes('dice.com')) {
-    console.warn(`[User ${chatId}] Skipped ${jobName}: Redirected to external site.`);
+    console.warn(`[User ${chatId}] Skipped ${jobName}: Redirected to external site. URL: ${applicationPage.url()}`);
     await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'external_redirect');
     await sendMessage(chatId, 'application failed, reviewing.');
     return false;
@@ -428,7 +428,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
         submitButton.waitFor({ state: 'visible', timeout: 10000 })
       ]);
     } catch (e) {
-      console.warn(`[User ${chatId}] Skipped ${jobName}: Missing Next/Submit (likely an extra question we could not fill).`);
+      console.warn(`[User ${chatId}] Skipped ${jobName}: Missing Next/Submit (likely an extra question we could not fill). URL: ${applicationPage.url()}`);
       await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'missing_next_or_submit');
       await sendMessage(chatId, 'application failed, reviewing.');
       return false;
@@ -453,14 +453,14 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
           await saveAppliedJob(chatId, url, jobName, 'skipped', filled.reason);
           return false;
         }
-        console.warn(`[User ${chatId}] Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'}`);
+        console.warn(`[User ${chatId}] Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'} URL: ${applicationPage.url()}`);
         await saveAppliedJob(chatId, url, jobName, 'apply_failed', filled.reason || 'unanswered_question');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
       }
 
       if (!await isVisibleEnabled(nextButton)) {
-        console.warn(`[User ${chatId}] Skipped ${jobName}: Next stayed disabled after filling questions.`);
+        console.warn(`[User ${chatId}] Skipped ${jobName}: Next stayed disabled after filling questions. URL: ${applicationPage.url()}`);
         await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'next_button_disabled');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
@@ -490,7 +490,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
     return true;
   }
 
-  console.warn(`[User ${chatId}] Skipped ${jobName}: Could not complete application.`);
+  console.warn(`[User ${chatId}] Skipped ${jobName}: Could not complete application (Submit button not clickable). URL: ${applicationPage.url()}`);
   await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'submit_button_not_clickable');
   await sendMessage(chatId, 'application failed, reviewing.');
   return false;
@@ -567,7 +567,8 @@ async function executeQueuedApply(job, { signal } = {}) {
           });
           retryAfterLogin = true;
         } else {
-          console.error(`[User ${chatId}] Failed to apply to ${url}:`, error.message);
+          const currentUrl = page ? page.url() : url;
+          console.error(`[User ${chatId}] Failed to apply to ${url}: ${error.message} | URL: ${currentUrl}`);
           await saveAppliedJob(chatId, url, 'Failed', 'apply_failed', error.message);
           await sendMessage(chatId, 'application failed, reviewing.');
           throw error;

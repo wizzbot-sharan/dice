@@ -794,18 +794,18 @@
       "degree": 11
     },
     {
-      "id": "start_worker_applytojobonpage",
-      "label": "applyToJobOnPage()",
-      "degree": 11
-    },
-    {
-      "id": "start_bot_handleconversationmessage",
-      "label": "handleConversationMessage()",
+      "id": "lib_job_application_db_saveappliedjob",
+      "label": "saveAppliedJob()",
       "degree": 11
     },
     {
       "id": "start_bot_sendmessage",
       "label": "sendMessage()",
+      "degree": 11
+    },
+    {
+      "id": "start_bot_handleconversationmessage",
+      "label": "handleConversationMessage()",
       "degree": 11
     }
   ],
@@ -844,63 +844,30 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "executeQueuedApply()",
-      "target": "closeBrowser()",
+      "source": "runSyncDaily()",
+      "target": "createServiceClient()",
       "source_files": [
-        "start-worker.js",
-        "lib/browser.js"
+        "scripts/sync-daily-pipeline.js",
+        "lib/azure.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "prevalidateJob()",
-      "target": "closeBrowser()",
+      "source": "main()",
+      "target": "createServiceClient()",
       "source_files": [
-        "start-worker.js",
-        "lib/browser.js"
+        "scripts/verify-client-lookup.js",
+        "lib/azure.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
+      "why": "connects across different repos/directories; peripheral node `main()` unexpectedly reaches hub `createServiceClient()`"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `node-telegram-bot-api` connect `scripts` to `start-bot.js`, `sync-daily-pipeline.js`, `sendMessage`?",
-      "why": "High betweenness centrality (0.044) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `createApplyQueue()` connect `createApplyQueue` to `createPool`, `apply-worker.js`, `apply-queue.test.js`, `start-worker.js`?",
-      "why": "High betweenness centrality (0.036) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 16 inferred relationships involving `createApplyQueue()` (e.g. with `apply-queue.js` and `claimNextJob()`) actually correct?",
-      "why": "`createApplyQueue()` has 16 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }` to the rest of the system?",
-      "why": "237 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `dice-apply-questions.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.053297199638663056 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `frontend/package.json` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05069124423963134 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `start-bot.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05454545454545454 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }

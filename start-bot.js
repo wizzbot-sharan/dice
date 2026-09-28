@@ -256,6 +256,11 @@ async function startNewday(chatId) {
     return;
   }
 
+  const clientId = await getClientIdForChat(chatId);
+  if (clientId) {
+    await applyQueue.resetStalePreflightPassedJobs(clientId);
+  }
+
   const sessionStartedAt = Date.now();
   const sessionDeadline = sessionStartedAt + SESSION_MS;
 
