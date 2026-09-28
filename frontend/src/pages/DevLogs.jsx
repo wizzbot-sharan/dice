@@ -263,6 +263,18 @@ export default function DevLogs() {
         (c.ca_name || '').toLowerCase().includes(query),
       );
     }
+    result = [...result].sort((a, b) => {
+      const aConnected = (a.telegram_chat_id && a.telegram_chat_id !== 'undefined' && a.telegram_chat_id !== 'null') ? 1 : 0;
+      const bConnected = (b.telegram_chat_id && b.telegram_chat_id !== 'undefined' && b.telegram_chat_id !== 'null') ? 1 : 0;
+      
+      if (aConnected !== bConnected) {
+        return bConnected - aConnected;
+      }
+      
+      const nameA = (a.full_name || a.company_email || '').toLowerCase();
+      const nameB = (b.full_name || b.company_email || '').toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
     return result;
   }, [displayedClients, globalSearch]);
 
@@ -326,7 +338,9 @@ export default function DevLogs() {
   }, [popupJobs, popupJobFilter]);
 
   // Derived stats
-  const totalUsers = overview?.stats?.total_candidates || 0;
+  const totalUsers = useMemo(() => {
+    return finalDisplayedClients.filter(c => c.telegram_chat_id && c.telegram_chat_id !== 'undefined' && c.telegram_chat_id !== 'null').length;
+  }, [finalDisplayedClients]);
   const jobsSent = overview?.stats?.jobs_sent || 0;
   const yesCount = overview?.stats?.jobs_yes || 0;
   const noCount = overview?.stats?.jobs_no || 0;
@@ -400,11 +414,11 @@ export default function DevLogs() {
       <div className="bg-[#0a0a0a] border-b border-white/5 px-3 py-2.5 shrink-0 flex items-center gap-2 overflow-x-auto custom-scrollbar">
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="text-xs text-zinc-500 font-medium whitespace-nowrap">From:</span>
-          <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)} className="bg-black border border-white/10 text-white text-xs md:text-sm rounded-md px-2 py-1 outline-none focus:border-white/20 transition-colors w-[120px] md:w-auto" style={{ colorScheme: 'dark' }} />
+          <input type="date" value={dateFrom} max={dateTo} onChange={e => setDateFrom(e.target.value)} className="bg-black border border-white/10 text-white text-xs md:text-sm rounded-md px-2 py-1 outline-none focus:border-white/20 transition-colors w-[120px] md:w-auto" style={{ colorScheme: 'dark' }} />
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="text-xs text-zinc-500 font-medium whitespace-nowrap">To:</span>
-          <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)} className="bg-black border border-white/10 text-white text-xs md:text-sm rounded-md px-2 py-1 outline-none focus:border-white/20 transition-colors w-[120px] md:w-auto" style={{ colorScheme: 'dark' }} />
+          <input type="date" value={dateTo} min={dateFrom} onChange={e => setDateTo(e.target.value)} className="bg-black border border-white/10 text-white text-xs md:text-sm rounded-md px-2 py-1 outline-none focus:border-white/20 transition-colors w-[120px] md:w-auto" style={{ colorScheme: 'dark' }} />
         </div>
         <select
           value={selectedCAGroup}
@@ -538,7 +552,7 @@ export default function DevLogs() {
                   {Object.keys(groupedClients).length === 0 && (
                     <div className="text-zinc-500 text-center py-8">No CA groups found.</div>
                   )}
-                  {Object.entries(groupedClients).map(([caName, clients]) => (
+                  {Object.entries(groupedClients).sort(([caA], [caB]) => caA.localeCompare(caB)).map(([caName, clients]) => (
                     <div key={caName} className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
                       <div onClick={() => toggleCAGroup(caName)} className="flex justify-between items-center p-3 md:p-4 bg-white/5 border-b border-white/5 cursor-pointer hover:bg-white/10 transition">
                         <div className="flex items-center gap-2 md:gap-3">

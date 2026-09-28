@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a Node.js Telegram automation service that links users to client profiles, discovers matching Dice jobs, requests application approval, and processes approved applications through a durable queue. It uses CommonJS JavaScript, Node's built-in test runner, PostgreSQL through `pg`, Playwright or Browserbase for browser automation, SendGrid for OTP email, and a small authenticated HTTP dashboard.
+This project is a Node.js Telegram automation service that links users to client profiles, discovers matching Dice jobs, requests application approval, and processes approved applications through a durable queue. It uses CommonJS JavaScript, Node's built-in test runner, PostgreSQL through `pg` on Azure, Playwright for local browser automation (Browserbase is not used), SendGrid for OTP email, and a small authenticated HTTP dashboard.
 
 ## Project Map
 
@@ -10,13 +10,13 @@ This project is a Node.js Telegram automation service that links users to client
 - `start-worker.js`: Dedicated queue worker service (executes preflight checks and job applications via browser automation).
 - `start-dashboard.js`: Web dashboard entry point (serves frontend assets and API endpoints).
 - `lib/`: Reusable runtime modules.
-  - `apply-queue.js`: Supabase-style durable application queue operations, including enqueueing, deduplication, claiming, completion, retry, and status checks.
+  - `apply-queue.js`: Azure-based durable application queue operations, including enqueueing, deduplication, claiming, completion, retry, and status checks.
   - `apply-worker.js`: Concurrent queue worker loops that claim jobs, execute them, record outcomes, and audit events.
-  - `browser.js`: Local Playwright and Browserbase browser-provider selection, concurrency limiting, and lifecycle management.
+  - `browser.js`: Local Playwright browser concurrency limiting and lifecycle management (no browserbase).
   - `dashboard-server.js`: HTTP routes, operator authentication, session cookies, dashboard queries, timezone handling, and static dashboard asset serving.
   - `dice-apply-questions.js`: Dice application form inspection and profile-driven radio, checkbox, and text-field answers.
   - `job-matching.js`: Deterministic job-title matching and excluded-company filtering helpers.
-  - `supabase.js`: PostgreSQL pool and a restricted Supabase-like query builder used by the application.
+  - `azure.js`: PostgreSQL pool and a restricted Supabase-like query builder for Azure PostgreSQL used by the application.
   - `workflow-state.js`: Persistence for workflow sessions, prompts, decisions, and audit events.
 - `public/`: Dashboard frontend assets served by `lib/dashboard-server.js`.
   - `dashboard.html`: Dashboard markup and login form.
@@ -28,7 +28,6 @@ This project is a Node.js Telegram automation service that links users to client
   - `map-client-record.js`: Normalizes imported client and profile records.
   - `create-operator.js`: Creates or updates dashboard operator credentials.
   - `verify-client-lookup.js`: Verifies a client/profile lookup.
-  - `smoke-browserbase.js`: Explicit Browserbase connectivity smoke test.
 - `test/`: Unit tests using `node:test` and `node:assert/strict`.
 - `data/`: Sample import data only. Treat real client exports as sensitive and do not add them to version control.
 - `link_telegram.html`: Static Telegram bot linking/QR page.
@@ -103,12 +102,6 @@ npm run create-operator -- --email=operator@example.com --password="at-least-12-
 npm run verify-client -- client@example.com
 ```
 
-The Browserbase smoke test is integration-only and requires valid Browserbase configuration:
-
-```sh
-npm run smoke-browserbase
-```
-
 Do not run integration commands against production data unless explicitly requested and the target environment is confirmed.
 
 ### Linting
@@ -121,14 +114,14 @@ No linter or `lint` npm script is configured in `package.json`. Do not claim lin
 - Use two-space indentation, semicolons, single-quoted strings, and trailing commas in multiline objects/calls, matching existing files.
 - Use descriptive camelCase names for variables and functions, PascalCase only for imported constructors/classes, and UPPER_SNAKE_CASE for module-level timing/configuration constants.
 - Prefer small named functions and dependency injection, as used by `createApplyQueue`, `createWorkflowStateStore`, and `createDashboardServer`.
-- Keep database access behind the existing `supabase.js` client abstraction or the existing dashboard `pg` pool boundary. Use parameterized SQL for raw queries and validate SQL identifiers through the existing helper.
+- Keep database access behind the existing `azure.js` client abstraction or the existing dashboard `pg` pool boundary. Use parameterized SQL for raw queries and validate SQL identifiers through the existing helper.
 - Keep workflow state durable in PostgreSQL. Do not rely on in-memory state for correctness across restarts; in-memory state in `start-bot.js` or `start-worker.js` is a runtime coordination cache.
 - Preserve queue idempotency and deduplication by client/job URL. Queue transitions must correctly distinguish queued, running, completed, failed, and retryable work.
-- Keep browser-provider behavior behind `lib/browser.js`. Always close pages, contexts, and browser handles in `finally` blocks, and preserve Browserbase concurrency limits.
+- Keep browser-provider behavior behind `lib/browser.js`. Always close pages, contexts, and browser handles in `finally` blocks, and preserve local concurrency limits.
 - Keep Telegram/API transport concerns separate from job matching, queueing, profile mapping, and application-question rules where practical.
 - Escape user/database-controlled values before inserting them into dashboard HTML. Preserve the existing `escapeHtml` pattern for rendered values.
 - Normalize imported data through `scripts/map-client-record.js`; preserve raw payloads and convert invalid or empty values to the established null representation.
-- Add or update focused tests in `test/` for behavior changes. Prefer deterministic fakes over live databases, Telegram, Dice, SendGrid, Browserbase, or external HTTP services.
+- Add or update focused tests in `test/` for behavior changes. Prefer deterministic fakes over live databases, Telegram, Dice, SendGrid, or external HTTP services.
 - Test failure paths and boundary conditions for retries, prompt expiry, duplicate jobs, missing profile fields, invalid imports, and session recovery when those paths are changed.
 - Avoid arbitrary sleeps in tests. Do not add comments that merely narrate obvious code; comments should explain non-obvious constraints only.
 
@@ -137,7 +130,7 @@ No linter or `lint` npm script is configured in `package.json`. Do not claim lin
 - Never modify `.env`, credentials, access tokens, browser storage states, or other secret-bearing files. Never write secrets, OTPs, passwords, database URLs, or API tokens into source files, tests, logs, fixtures, or documentation.
 - Never edit `repomix-output.xml`; it is a generated read-only snapshot. Modify the original repository files instead.
 - Treat `data/sample-clients.json`, imported client records, resumes, phone numbers, email addresses, and database exports as sensitive. Do not add real client data to tests or commit new sensitive fixtures.
-- Never call live Telegram, Dice, Supabase/PostgreSQL, SendGrid, Browserbase, or external APIs from unit tests. Use fakes and isolated fixtures. Integration tests require explicit approval and safe test credentials/data.
+- Never call live Telegram, Dice, Azure/PostgreSQL, SendGrid, or external APIs from unit tests. Use fakes and isolated fixtures. Integration tests require explicit approval and safe test credentials/data.
 - Do not remove, weaken, skip, or rewrite failing tests merely to obtain a green result. Fix the implementation or document the failure and its cause.
 - Do not alter database migrations, schema assumptions, deployment files, or environment-variable contracts for an unrelated feature or test change.
 - Do not change authentication, OTP validation, session-cookie flags, SQL parameterization, HTML escaping, or browser cleanup in a way that reduces security or reliability.
