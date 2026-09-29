@@ -304,6 +304,8 @@ async function runPreflightLoop() {
   console.log('[dice_apply_worker] Pre-flight scanner loop stopped.');
 }
 
+const loginAttempts = new Map();
+
 // === BACKGROUND LOGIN CHECKER ===
 // Automatically runs runLogin for any newly linked accounts where storage_state is null
 async function runPendingLoginsLoop() {
@@ -312,17 +314,32 @@ async function runPendingLoginsLoop() {
       const pending = await getSessionsPendingLogin();
       for (const session of pending) {
         const chatId = Number(session.telegram_chat_id);
-        console.log(`[dice_apply_worker] Running initial background login for chat ${chatId} (${session.email})...`);
+        const attempts = loginAttempts.get(chatId) || 0;
+        
+        if (attempts >= 3) {
+          continue; // Skip trying if it has already failed 3 times
+        }
+
+        console.log(`[dice_apply_worker] Running initial background login for chat ${chatId} (${session.email}) - Attempt ${attempts + 1}/3...`);
         try {
           await runLogin(chatId, {
             email: session.email,
             applywizz_id: session.applywizz_id,
             clientId: session.client_id,
           }, true);
+          loginAttempts.delete(chatId); // Reset on success
           await sendMessage(chatId, 'Dice login successful.');
         } catch (loginErr) {
+          const newAttempts = attempts + 1;
+          loginAttempts.set(chatId, newAttempts);
+          
           console.error(`[dice_apply_worker] Initial login failed for user ${chatId}:`, loginErr.message);
-          await sendMessage(chatId, `Dice login failed: ${loginErr.message}`);
+          
+          if (newAttempts >= 3) {
+            await sendMessage(chatId, `Dice login failed 3 times and has been paused. Please check your credentials or login manually: ${loginErr.message}`);
+          } else {
+            await sendMessage(chatId, `Dice login failed (Attempt ${newAttempts}/3): ${loginErr.message}`);
+          }
         }
       }
     } catch (err) {
