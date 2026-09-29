@@ -813,18 +813,18 @@
       "degree": 11
     },
     {
-      "id": "start_bot_handleconversationmessage",
-      "label": "handleConversationMessage()",
-      "degree": 11
-    },
-    {
-      "id": "start_bot_sendmessage",
-      "label": "sendMessage()",
+      "id": "start_worker_applytojobonpage",
+      "label": "applyToJobOnPage()",
       "degree": 11
     },
     {
       "id": "lib_job_application_db_saveappliedjob",
       "label": "saveAppliedJob()",
+      "degree": 11
+    },
+    {
+      "id": "start_bot_sendmessage",
+      "label": "sendMessage()",
       "degree": 11
     }
   ],
@@ -852,29 +852,29 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
+      "source": "runSyncDaily()",
+      "target": "createServiceClient()",
+      "source_files": [
+        "scripts/sync-daily-pipeline.js",
+        "lib/azure.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "main()",
+      "target": "createServiceClient()",
+      "source_files": [
+        "scripts/verify-client-lookup.js",
+        "lib/azure.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `main()` unexpectedly reaches hub `createServiceClient()`"
+    },
+    {
       "source": "executeQueuedApply()",
-      "target": "closeBrowser()",
-      "source_files": [
-        "start-worker.js",
-        "lib/browser.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "prevalidateJob()",
-      "target": "closeBrowser()",
-      "source_files": [
-        "start-worker.js",
-        "lib/browser.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "runLogin()",
       "target": "closeBrowser()",
       "source_files": [
         "start-worker.js",

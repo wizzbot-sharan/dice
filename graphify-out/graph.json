@@ -1741,7 +1741,7 @@
       "file_type": "code",
       "norm_label": "handlejobcallback()",
       "source_file": "start-bot.js",
-      "source_location": "L355"
+      "source_location": "L357"
     },
     {
       "id": "start_bot_persistworkflowpatch",
@@ -1765,7 +1765,7 @@
       "file_type": "code",
       "norm_label": "processcallbackupdate()",
       "source_file": "start-bot.js",
-      "source_location": "L413"
+      "source_location": "L415"
     },
     {
       "id": "start_bot_sendotpemail",
@@ -1837,7 +1837,7 @@
       "file_type": "code",
       "norm_label": "handlecommand()",
       "source_file": "start-bot.js",
-      "source_location": "L295"
+      "source_location": "L297"
     },
     {
       "id": "start_bot_processmessageupdate",
@@ -1849,7 +1849,7 @@
       "file_type": "code",
       "norm_label": "processmessageupdate()",
       "source_file": "start-bot.js",
-      "source_location": "L384"
+      "source_location": "L386"
     },
     {
       "id": "start_bot_sendmessage",
@@ -1885,7 +1885,7 @@
       "file_type": "code",
       "norm_label": "startnewday()",
       "source_file": "start-bot.js",
-      "source_location": "L246"
+      "source_location": "L248"
     },
     {
       "id": "lib_dice_session_getsessionspendinglogin",
@@ -2209,7 +2209,7 @@
       "file_type": "code",
       "norm_label": "handlependinganswermessage()",
       "source_file": "start-bot.js",
-      "source_location": "L323"
+      "source_location": "L325"
     },
     {
       "id": "start_worker_createtelegramquestionprompt",
@@ -2785,7 +2785,7 @@
       "file_type": "code",
       "norm_label": "createhttpserver()",
       "source_file": "start-bot.js",
-      "source_location": "L465"
+      "source_location": "L467"
     },
     {
       "id": "start_bot_shutdown",
@@ -2797,7 +2797,7 @@
       "file_type": "code",
       "norm_label": "shutdown()",
       "source_file": "start-bot.js",
-      "source_location": "L542"
+      "source_location": "L544"
     },
     {
       "id": "start_bot_startpollingmode",
@@ -2809,7 +2809,7 @@
       "file_type": "code",
       "norm_label": "startpollingmode()",
       "source_file": "start-bot.js",
-      "source_location": "L489"
+      "source_location": "L491"
     },
     {
       "id": "start_bot_startwebhookmode",
@@ -2821,7 +2821,7 @@
       "file_type": "code",
       "norm_label": "startwebhookmode()",
       "source_file": "start-bot.js",
-      "source_location": "L494"
+      "source_location": "L496"
     },
     {
       "id": "lib_apply_queue_createapplyqueue",
@@ -10309,7 +10309,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L516",
+      "source_location": "L518",
       "weight": 1.0
     },
     {
@@ -10333,7 +10333,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L300",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -10345,7 +10345,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L311",
+      "source_location": "L313",
       "weight": 1.0
     },
     {
@@ -10357,7 +10357,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L319",
+      "source_location": "L321",
       "weight": 1.0
     },
     {
@@ -10477,7 +10477,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L370",
+      "source_location": "L372",
       "weight": 1.0
     },
     {
@@ -10489,7 +10489,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L324",
+      "source_location": "L326",
       "weight": 1.0
     },
     {
@@ -10501,7 +10501,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L328",
+      "source_location": "L330",
       "weight": 1.0
     },
     {
@@ -10513,7 +10513,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L329",
+      "source_location": "L331",
       "weight": 1.0
     },
     {
@@ -10525,7 +10525,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L444",
+      "source_location": "L446",
       "weight": 1.0
     },
     {
@@ -10537,7 +10537,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L397",
+      "source_location": "L399",
       "weight": 1.0
     },
     {
@@ -10549,7 +10549,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L402",
+      "source_location": "L404",
       "weight": 1.0
     },
     {
@@ -10561,7 +10561,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L406",
+      "source_location": "L408",
       "weight": 1.0
     },
     {
@@ -10573,7 +10573,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L409",
+      "source_location": "L411",
       "weight": 1.0
     },
     {
@@ -10645,7 +10645,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L249",
+      "source_location": "L251",
       "weight": 1.0
     },
     {
@@ -10657,7 +10657,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L253",
+      "source_location": "L255",
       "weight": 1.0
     },
     {
@@ -10669,7 +10669,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L259",
+      "source_location": "L261",
       "weight": 1.0
     },
     {
@@ -10681,7 +10681,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L267",
+      "source_location": "L269",
       "weight": 1.0
     },
     {
@@ -10693,7 +10693,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L283",
+      "source_location": "L285",
       "weight": 1.0
     },
     {
@@ -10705,7 +10705,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L495",
+      "source_location": "L497",
       "weight": 1.0
     },
     {
@@ -11389,7 +11389,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L384",
+      "source_location": "L386",
       "weight": 1.0
     },
     {
@@ -11401,7 +11401,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L413",
+      "source_location": "L415",
       "weight": 1.0
     },
     {
@@ -11413,7 +11413,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L489",
+      "source_location": "L491",
       "weight": 1.0
     },
     {
@@ -11425,7 +11425,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-bot.js",
-      "source_location": "L494",
+      "source_location": "L496",
       "weight": 1.0
     },
     {
@@ -18387,7 +18387,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-bot.js",
-      "source_location": "L295",
+      "source_location": "L297",
       "weight": 1.0
     },
     {
@@ -18420,7 +18420,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-bot.js",
-      "source_location": "L323",
+      "source_location": "L325",
       "weight": 1.0
     },
     {
@@ -18464,7 +18464,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-bot.js",
-      "source_location": "L465",
+      "source_location": "L467",
       "weight": 1.0
     },
     {
@@ -19851,7 +19851,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "start-bot.js",
-      "source_location": "L552",
+      "source_location": "L554",
       "weight": 1.0
     },
     {
@@ -21231,7 +21231,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L517",
+      "source_location": "L519",
       "weight": 1.0
     },
     {
@@ -21243,24 +21243,12 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L518",
+      "source_location": "L520",
       "weight": 1.0
     },
     {
       "source": "start_bot",
       "target": "lib_job_application_db_saveappliedjob",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "collection",
-      "source_file": "start-bot.js",
-      "source_location": "L521",
-      "weight": 1.0
-    },
-    {
-      "source": "start_bot",
-      "target": "start_bot_audit",
       "relation": "indirect_call",
       "_origin": "ast",
       "confidence": "INFERRED",
@@ -21272,19 +21260,7 @@
     },
     {
       "source": "start_bot",
-      "target": "start_bot_sendmessage",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "collection",
-      "source_file": "start-bot.js",
-      "source_location": "L524",
-      "weight": 1.0
-    },
-    {
-      "source": "start_bot",
-      "target": "start_bot_sendmessagewithbuttons",
+      "target": "start_bot_audit",
       "relation": "indirect_call",
       "_origin": "ast",
       "confidence": "INFERRED",
@@ -21296,31 +21272,31 @@
     },
     {
       "source": "start_bot",
+      "target": "start_bot_sendmessage",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "start-bot.js",
+      "source_location": "L526",
+      "weight": 1.0
+    },
+    {
+      "source": "start_bot",
+      "target": "start_bot_sendmessagewithbuttons",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "start-bot.js",
+      "source_location": "L527",
+      "weight": 1.0
+    },
+    {
+      "source": "start_bot",
       "target": "start_bot_beginsignin",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "collection",
-      "source_file": "start-bot.js",
-      "source_location": "L558",
-      "weight": 1.0
-    },
-    {
-      "source": "start_bot",
-      "target": "start_bot_startnewday",
-      "relation": "indirect_call",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "context": "collection",
-      "source_file": "start-bot.js",
-      "source_location": "L559",
-      "weight": 1.0
-    },
-    {
-      "source": "start_bot",
-      "target": "start_bot_handlejobcallback",
       "relation": "indirect_call",
       "_origin": "ast",
       "confidence": "INFERRED",
@@ -21332,7 +21308,7 @@
     },
     {
       "source": "start_bot",
-      "target": "start_bot_persistworkflowpatch",
+      "target": "start_bot_startnewday",
       "relation": "indirect_call",
       "_origin": "ast",
       "confidence": "INFERRED",
@@ -21340,6 +21316,30 @@
       "context": "collection",
       "source_file": "start-bot.js",
       "source_location": "L561",
+      "weight": 1.0
+    },
+    {
+      "source": "start_bot",
+      "target": "start_bot_handlejobcallback",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "start-bot.js",
+      "source_location": "L562",
+      "weight": 1.0
+    },
+    {
+      "source": "start_bot",
+      "target": "start_bot_persistworkflowpatch",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "start-bot.js",
+      "source_location": "L563",
       "weight": 1.0
     },
     {
@@ -21351,7 +21351,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L376",
+      "source_location": "L378",
       "weight": 1.0
     },
     {
@@ -21363,7 +21363,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L377",
+      "source_location": "L379",
       "weight": 1.0
     },
     {
@@ -21375,7 +21375,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L378",
+      "source_location": "L380",
       "weight": 1.0
     },
     {
@@ -21387,7 +21387,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L379",
+      "source_location": "L381",
       "weight": 1.0
     },
     {
@@ -21399,7 +21399,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-bot.js",
-      "source_location": "L380",
+      "source_location": "L382",
       "weight": 1.0
     },
     {
@@ -21428,5 +21428,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2c1362f6b97e9a9beeca26f046d1b9817f47fcc3"
+  "built_at_commit": "936f32246dcf268f01d06fb75ae1c7e1f8039dbc"
 }

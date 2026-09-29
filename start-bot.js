@@ -227,7 +227,9 @@ async function handleConversationMessage(chatId, text, row) {
 
     await linkTelegramChat(chatId, user.id);
     const existingSession = await getSessionRow(chatId);
-    if (!existingSession) {
+    
+    // If no session exists, or the session belongs to an older client, we reset it
+    if (!existingSession || existingSession.client_id !== user.id) {
       await azure.from('dice_sessions').upsert({
         telegram_chat_id: chatId,
         client_id: user.id,
