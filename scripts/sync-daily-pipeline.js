@@ -34,7 +34,7 @@ async function fetchJson(url, options = {}) {
   return response.json();
 }
 
-async function syncCAs(db) {
+async function syncCAs(db, deleteMissing = false) {
   const caApiUrl = process.env.CA_DETAILS_API || process.env.CA_DETAILS_API_URL;
   if (!caApiUrl) {
     console.warn('[sync] CA_DETAILS_API not configured in environment. Fetching existing CAs from database.');
@@ -62,6 +62,12 @@ async function syncCAs(db) {
     console.warn('[sync] No CA records returned from CA_DETAILS_API.');
     const result = await db.query(`select id, email, name, role from dice_ca_accounts where disabled = false`);
     return result.rows;
+  }
+
+  let existingCaIds = new Set();
+  if (deleteMissing) {
+    const existing = await db.query(`select id from dice_ca_accounts where role in ('CA', 'Junior CA')`);
+    existingCaIds = new Set(existing.rows.map(r => r.id));
   }
 
   const syncedCAs = [];
@@ -110,15 +116,25 @@ async function syncCAs(db) {
     }
 
     if (res.rows[0]) {
+      const syncedId = res.rows[0].id;
       syncedCAs.push(res.rows[0]);
+      if (deleteMissing && syncedId) {
+        existingCaIds.delete(syncedId);
+      }
     }
+  }
+
+  if (deleteMissing && existingCaIds.size > 0) {
+    const idsToDelete = Array.from(existingCaIds);
+    await db.query(`delete from dice_ca_accounts where id = ANY($1::uuid[])`, [idsToDelete]);
+    console.log(`[sync] Deleted ${idsToDelete.length} stale CAs from database.`);
   }
 
   console.log(`[sync] Step 1 Complete: Synced ${syncedCAs.length} CAs in dice_ca_accounts.`);
   return syncedCAs;
 }
 
-async function syncMappings(db, azure, targetDate, cas) {
+async function syncMappings(db, azure, targetDate, cas, deleteMissing = false) {
   const mappingApiUrl = process.env.CA_CLIENT_MAPPING_API || process.env.CA_CLIENT_MAPPING_API_URL;
   if (!mappingApiUrl) {
     throw new Error('CA_CLIENT_MAPPING_API is not configured in environment.');
@@ -132,6 +148,14 @@ async function syncMappings(db, azure, targetDate, cas) {
   let clientsHydrated = 0;
   let failedCount = 0;
 
+  let existingClientIds = new Set();
+  let abortDeletion = false;
+
+  if (deleteMissing) {
+    const existing = await db.query(`select id from clients_additional_info`);
+    existingClientIds = new Set(existing.rows.map(r => r.id));
+  }
+
   for (const ca of cas) {
     const email = ca.email.toLowerCase();
     const caId = ca.id;
@@ -144,6 +168,7 @@ async function syncMappings(db, azure, targetDate, cas) {
       payload = await fetchJson(url);
     } catch (error) {
       console.warn(`[sync] Mapping fetch failed for ${email}: ${error.message}`);
+      abortDeletion = true;
       continue;
     }
 
@@ -165,8 +190,10 @@ async function syncMappings(db, azure, targetDate, cas) {
       if (!applywizzId) continue;
 
       try {
+        let finalClientId = null;
         const clientId = record.client_id || record.id || null;
         const clientEmail = String(record.client_email || record.company_email || '').trim().toLowerCase();
+        
         const updateRes = await db.query(
           `update clients_additional_info
               set career_associate_id = $1,
@@ -180,6 +207,8 @@ async function syncMappings(db, azure, targetDate, cas) {
 
         if (updateRes.rowCount > 0) {
           clientsUpdated += 1;
+          finalClientId = updateRes.rows[0].id;
+          if (deleteMissing && finalClientId) existingClientIds.delete(finalClientId);
           continue;
         }
 
@@ -223,6 +252,7 @@ async function syncMappings(db, azure, targetDate, cas) {
             }
 
             clientsHydrated += 1;
+            finalClientId = clientRow.id;
             console.log(`[sync] Hydrated new client from API: ${applywizzId}`);
           } catch (fetchError) {
             failedCount += 1;
@@ -230,18 +260,18 @@ async function syncMappings(db, azure, targetDate, cas) {
           }
         } else {
           // If no CLIENTS_API configured, insert minimal stub record so dashboard has it
-          const clientId = record.client_id || record.id || require('crypto').randomUUID();
-          const clientEmail = String(record.client_email || '').trim().toLowerCase();
+          const fallbackClientId = record.client_id || record.id || require('crypto').randomUUID();
+          const stubEmail = String(record.client_email || '').trim().toLowerCase();
           const clientName = String(record.client_name || '').trim();
 
-          if (clientEmail) {
+          if (stubEmail) {
             const existingRes = await db.query(
               `select id from clients_additional_info 
                 where lower(company_email) = $1 or applywizz_id = $2
                 limit 1`,
-              [clientEmail, applywizzId]
+              [stubEmail, applywizzId]
             ).catch(() => ({ rows: [] }));
-            const targetId = existingRes.rows[0]?.id || clientId;
+            const targetId = existingRes.rows[0]?.id || fallbackClientId;
 
             await db.query(
               `insert into clients_additional_info (id, applywizz_id, full_name, company_email, career_associate_id, raw_payload)
@@ -250,15 +280,31 @@ async function syncMappings(db, azure, targetDate, cas) {
                  career_associate_id = excluded.career_associate_id,
                  applywizz_id = coalesce(clients_additional_info.applywizz_id, excluded.applywizz_id),
                  full_name = coalesce(clients_additional_info.full_name, excluded.full_name)`,
-              [targetId, applywizzId, clientName || null, clientEmail, caId, JSON.stringify(record)]
+              [targetId, applywizzId, clientName || null, stubEmail, caId, JSON.stringify(record)]
             );
             clientsUpdated += 1;
+            finalClientId = targetId;
           }
+        }
+
+        if (deleteMissing && finalClientId) {
+          existingClientIds.delete(finalClientId);
         }
       } catch (err) {
         failedCount += 1;
         console.error(`[sync] Failed to map client ${applywizzId}:`, err.message);
       }
+    }
+  }
+
+  if (deleteMissing) {
+    if (abortDeletion) {
+      console.warn(`[sync] Skipping client deletion step because one or more CA mapping API calls failed.`);
+    } else if (existingClientIds.size > 0) {
+      const idsToDelete = Array.from(existingClientIds);
+      await db.query(`delete from client_profiles where id = ANY($1::uuid[])`, [idsToDelete]);
+      await db.query(`delete from clients_additional_info where id = ANY($1::uuid[])`, [idsToDelete]);
+      console.log(`[sync] Deleted ${idsToDelete.length} stale clients from database.`);
     }
   }
 
@@ -311,6 +357,7 @@ async function runSyncDaily(options = {}) {
   const targetCA = options.targetCA || null;
   const targetCAs = options.targetCAs || (targetCA ? [targetCA] : null);
 
+  const isGlobalSync = !targetCAs;
   const modeStr = targetCAs
     ? `Scoped to ${targetCAs.length} CA(s): ${targetCAs.map((c) => c.email).join(', ')}`
     : 'Global (All CAs)';
@@ -318,8 +365,8 @@ async function runSyncDaily(options = {}) {
   const startTime = Date.now();
 
   try {
-    const cas = targetCAs || await syncCAs(db);
-    const mappingStats = await syncMappings(db, azure, targetDate, cas);
+    const cas = targetCAs || await syncCAs(db, isGlobalSync);
+    const mappingStats = await syncMappings(db, azure, targetDate, cas, isGlobalSync);
     const managersDerived = await deriveManagerLinks(db, cas);
 
     const durationSeconds = ((Date.now() - startTime) / 1000).toFixed(2);

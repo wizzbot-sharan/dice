@@ -3,17 +3,26 @@ const { createPool } = require('./lib/azure');
 const pool = createPool();
 
 async function check() {
-  const clientId = '34700b47-abb1-494a-9697-7bdea4994ae2';
-  const chatId = '8902972040';
-
-  console.log('--- ALL SESSIONS FOR THESE ---');
-  const session = await pool.query('SELECT telegram_chat_id, client_id, email, applywizz_id FROM dice_sessions WHERE client_id = $1 OR telegram_chat_id = $2', [clientId, chatId]);
-  console.log(session.rows);
-
-  console.log('\n--- CLIENT INFO ---');
-  const client = await pool.query('SELECT id, applywizz_id, company_email, full_name FROM clients_additional_info WHERE id = $1', [clientId]);
-  console.log(client.rows);
-
+  const fks = await pool.query(`
+    SELECT
+        tc.table_name, 
+        kcu.column_name, 
+        ccu.table_name AS foreign_table_name,
+        ccu.column_name AS foreign_column_name,
+        rc.delete_rule
+    FROM 
+        information_schema.table_constraints AS tc 
+        JOIN information_schema.key_column_usage AS kcu
+          ON tc.constraint_name = kcu.constraint_name
+          AND tc.table_schema = kcu.table_schema
+        JOIN information_schema.constraint_column_usage AS ccu
+          ON ccu.constraint_name = tc.constraint_name
+          AND ccu.table_schema = tc.table_schema
+        JOIN information_schema.referential_constraints AS rc
+          ON rc.constraint_name = tc.constraint_name
+    WHERE constraint_type = 'FOREIGN KEY' AND ccu.table_name = 'dice_ca_accounts';
+  `);
+  console.log(fks.rows);
   await pool.end();
 }
 check().catch(console.error);
