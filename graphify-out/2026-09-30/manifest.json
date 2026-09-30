@@ -258,10 +258,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1790762463.3666124,
-    "seen": 1790763090.290904,
-    "ast_hash": "7d8c9fda75039a54f01daed7129ca104",
-    "semantic_hash": "7d8c9fda75039a54f01daed7129ca104"
+    "mtime": 1790765839.3340883,
+    "seen": 1790768892.463881,
+    "ast_hash": "320b37687c3ae78d30e000846fb4e20d",
+    "semantic_hash": "320b37687c3ae78d30e000846fb4e20d"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,

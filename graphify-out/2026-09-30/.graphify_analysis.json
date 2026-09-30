@@ -856,6 +856,17 @@
   ],
   "surprises": [
     {
+      "source": "test()",
+      "target": "createPool()",
+      "source_files": [
+        "scratch-test-db.js",
+        "lib/azure.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities; peripheral node `test()` unexpectedly reaches hub `createPool()`"
+    },
+    {
       "source": "run()",
       "target": "createPool()",
       "source_files": [
@@ -878,17 +889,6 @@
       "why": "connects across different repos/directories; bridges separate communities; peripheral node `fixMissingCAs()` unexpectedly reaches hub `createPool()`"
     },
     {
-      "source": "test()",
-      "target": "createPool()",
-      "source_files": [
-        "scratch-test-db.js",
-        "lib/azure.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities; peripheral node `test()` unexpectedly reaches hub `createPool()`"
-    },
-    {
       "source": "applyToJobOnPage()",
       "target": "fillCurrentStep()",
       "source_files": [
@@ -900,11 +900,11 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "handleJobCallback()",
-      "target": "applyPromptDecision()",
+      "source": "importOperators()",
+      "target": "createPool()",
       "source_files": [
-        "start-bot.js",
-        "lib/bot-prompt-handler.js"
+        "scripts/import-operators.js",
+        "lib/azure.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",

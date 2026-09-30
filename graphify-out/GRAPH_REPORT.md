@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5c3f8362`
+- Built from commit: `b3134314`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -68,12 +68,12 @@
 10. `fillCheckboxGroups()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `test()` --calls--> `createPool()`  [EXTRACTED]
+  scratch-test-db.js → lib/azure.js
 - `run()` --calls--> `createPool()`  [EXTRACTED]
   scripts/scratch-db-check.js → lib/azure.js
 - `fixMissingCAs()` --calls--> `createPool()`  [EXTRACTED]
   scripts/scratch-db-fix.js → lib/azure.js
-- `test()` --calls--> `createPool()`  [EXTRACTED]
-  scratch-test-db.js → lib/azure.js
 - `applyToJobOnPage()` --calls--> `fillCurrentStep()`  [EXTRACTED]
   start-worker.js → lib/dice-apply-questions.js
 - `importOperators()` --calls--> `createPool()`  [EXTRACTED]

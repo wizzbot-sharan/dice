@@ -563,6 +563,7 @@ async function executeQueuedApply(job, { signal } = {}) {
       const page = await handle.context.newPage();
       try {
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+        await page.waitForLoadState('load', { timeout: 45000 }).catch(() => {});
         await page.waitForTimeout(3000);
 
         if (page.url().includes('/login')) {
