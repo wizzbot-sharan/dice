@@ -40,8 +40,8 @@ const applyQueue = createApplyQueue(azure);
 const workflowStateStore = createWorkflowStateStore(azure);
 
 const loginUrl = 'https://www.dice.com/dashboard/login';
-const APPLY_TIMEOUT_MINUTES = Number(process.env.APPLY_TIMEOUT_MINUTES || 5);
-const APPLY_TIMEOUT_MS = (Number.isFinite(APPLY_TIMEOUT_MINUTES) && APPLY_TIMEOUT_MINUTES > 0 ? APPLY_TIMEOUT_MINUTES : 5) * 60 * 1000;
+const APPLY_TIMEOUT_MINUTES = Number(process.env.APPLY_TIMEOUT_MINUTES || 20);
+const APPLY_TIMEOUT_MS = (Number.isFinite(APPLY_TIMEOUT_MINUTES) && APPLY_TIMEOUT_MINUTES > 0 ? APPLY_TIMEOUT_MINUTES : 20) * 60 * 1000;
 
 let applyWorkerController = null;
 let preflightStopping = false;
@@ -216,7 +216,7 @@ async function prevalidateJob(chatId, job, storageState = null) {
       handle = await openBrowser({ storageState: activeState });
       const { page } = handle;
       await page.goto(job.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await page.waitForLoadState('networkidle').catch(() => {});
+      await page.waitForLoadState('load', { timeout: 45000 }).catch(() => {});
 
       const jobName = await getJobName(page).catch(() => job.title || 'Unknown Job');
 
@@ -417,7 +417,14 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   ]) || page;
 
   await applicationPage.waitForLoadState('domcontentloaded').catch(() => { });
-  await applicationPage.waitForLoadState('networkidle').catch(() => { });
+  await applicationPage.waitForLoadState('load', { timeout: 45000 }).catch(() => { });
+  
+  try {
+    if (!applicationPage.url().includes('dice.com')) {
+      await applicationPage.waitForURL('**/*dice.com*/**', { timeout: 15000 });
+    }
+  } catch (err) {}
+
   await waitRandom(5, 15, 'After Apply opens application page');
   if (applicationPage.url().includes('/login')) throw sessionExpiredError();
 
@@ -487,7 +494,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
 
       await nextButton.first().scrollIntoViewIfNeeded();
       await nextButton.first().click();
-      await applicationPage.waitForLoadState('networkidle').catch(() => { });
+      await applicationPage.waitForLoadState('load', { timeout: 45000 }).catch(() => { });
       await waitRandom(10, 20, 'After Next opens new page');
       continue;
     }
@@ -501,7 +508,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   if (await isVisibleEnabled(submitButton)) {
     await submitButton.first().scrollIntoViewIfNeeded();
     await submitButton.first().click();
-    await applicationPage.waitForLoadState('networkidle').catch(() => { });
+    await applicationPage.waitForLoadState('load', { timeout: 45000 }).catch(() => { });
     await waitRandom(1, 4, 'After Submit opens next page');
 
     await saveAppliedJob(chatId, url, jobName, 'completed');
