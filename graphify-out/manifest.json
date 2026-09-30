@@ -372,10 +372,10 @@
     "semantic_hash": "8659360176e943fbc7c8993d5ca74301"
   },
   "lib/logger.js": {
-    "mtime": 1790743530.2399452,
-    "seen": 1790759916.026895,
-    "ast_hash": "2c89725daa767a5d3c97e5f2f32f6b5d",
-    "semantic_hash": "2c89725daa767a5d3c97e5f2f32f6b5d"
+    "mtime": 1790763184.368972,
+    "seen": 1790763471.97562,
+    "ast_hash": "6a566ca2849b09e837dd796558a74109",
+    "semantic_hash": "6a566ca2849b09e837dd796558a74109"
   },
   "data/sample-operators.json": {
     "mtime": 1790311069.1745105,
@@ -418,5 +418,11 @@
     "seen": 1790759916.026964,
     "ast_hash": "396749bbfee2ca5f736729d0afc675e2",
     "semantic_hash": "396749bbfee2ca5f736729d0afc675e2"
+  },
+  "scratch-test-db.js": {
+    "mtime": 1790763165.9971251,
+    "seen": 1790763471.975704,
+    "ast_hash": "8e6bf7fec0b9c6b5ce345f90ac918423",
+    "semantic_hash": "8e6bf7fec0b9c6b5ce345f90ac918423"
   }
 }
