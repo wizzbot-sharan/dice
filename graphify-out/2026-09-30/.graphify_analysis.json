@@ -186,7 +186,11 @@
       "lib_dashboard_server_sendoperatorotpemail",
       "lib_dashboard_server_setcookie",
       "lib_dashboard_server_verifyotp",
+      "ref_fs",
       "ref_os",
+      "scratch_replace_logs",
+      "scratch_replace_logs_filestoupdate",
+      "scratch_replace_logs_fs",
       "start_dashboard",
       "start_dashboard_createdashboardserver",
       "start_dashboard_createpool",
@@ -195,11 +199,6 @@
       "start_dashboard_pool",
       "start_dashboard_server",
       "start_dashboard_shutdown",
-      "test_operator_auth_test",
-      "test_operator_auth_test_assert",
-      "test_operator_auth_test_hashotp_generate6digitotp",
-      "test_operator_auth_test_mapoperatorrecord",
-      "test_operator_auth_test_test",
       "users_sharan_desktop_dice_scaling_copy_lib_mailer_sendemail",
       "users_sharan_desktop_dice_scaling_copy_scripts_sync_daily_pipeline_runsyncdaily"
     ],
@@ -234,12 +233,6 @@
       "test_apply_queue_test_mocktask",
       "test_apply_queue_test_release",
       "test_apply_queue_test_test",
-      "test_apply_timeout_test",
-      "test_apply_timeout_test_assert",
-      "test_apply_timeout_test_createapplyqueue",
-      "test_apply_timeout_test_from",
-      "test_apply_timeout_test_startapplyworkers",
-      "test_apply_timeout_test_test",
       "test_job_matching_test",
       "test_job_matching_test_assert",
       "test_job_matching_test_companyisexcluded_jobmatchesprofile_rolematchesjobtitle",
@@ -257,6 +250,7 @@
     "4": [
       "lib_dashboard_server_sync_cooldown_ms",
       "lib_dashboard_server_synccooldowns",
+      "ref_crypto",
       "ref_http",
       "ref_stream",
       "scripts_sync_daily_pipeline",
@@ -297,82 +291,48 @@
       "users_sharan_desktop_dice_scaling_copy_scripts_map_client_record_mapimportitem"
     ],
     "5": [
-      "lib_apply_worker_sleep",
-      "lib_apply_worker_startapplyworkers",
-      "lib_apply_worker_startapplyworkers_workerloop",
-      "lib_bot_prompt_handler",
-      "lib_bot_prompt_handler_applypromptdecision",
-      "lib_bot_prompt_handler_crypto",
-      "lib_bot_prompt_handler_getclientprefix_getjobdisplay",
-      "lib_bot_prompt_handler_randomminutes",
-      "lib_bot_prompt_handler_sendjobprompt",
-      "lib_due_work_ticker",
-      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
-      "lib_due_work_ticker_createdueworkticker",
-      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
-      "lib_due_work_ticker_createdueworkticker_processduechat",
-      "lib_due_work_ticker_createdueworkticker_start",
-      "lib_due_work_ticker_createdueworkticker_stop",
-      "lib_due_work_ticker_createdueworkticker_tick",
-      "lib_due_work_ticker_createpool",
-      "lib_due_work_ticker_enqueue_batch_cap",
-      "lib_due_work_ticker_getclientprefix",
-      "lib_due_work_ticker_listdueworkflowchats",
-      "lib_due_work_ticker_newday_lookback_ms",
-      "lib_due_work_ticker_send_spacing_ms",
-      "lib_due_work_ticker_ticker_batch_size",
-      "lib_due_work_ticker_ticker_interval_ms",
-      "lib_logger",
-      "lib_logger_clientcache",
-      "lib_logger_createpool",
-      "lib_logger_getclientprefix",
-      "lib_logger_getjobdisplay",
-      "lib_logger_jobcache",
-      "ref_crypto",
-      "test_due_work_ticker_test",
-      "test_due_work_ticker_test_assert",
-      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
-      "test_due_work_ticker_test_test",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms"
+      "lib_dice_session_linktelegramchat",
+      "start_bot",
+      "start_bot_applypromptdecision",
+      "start_bot_audit",
+      "start_bot_azure",
+      "start_bot_bot",
+      "start_bot_createdueworkticker",
+      "start_bot_createhttpserver",
+      "start_bot_createserviceclient",
+      "start_bot_createwebhookserver",
+      "start_bot_createworkflowstatestore",
+      "start_bot_crypto",
+      "start_bot_deleteotp",
+      "start_bot_findactivependingquestion_recordpendinganswer",
+      "start_bot_finduserbyemail",
+      "start_bot_generateotp",
+      "start_bot_getclientidforchat_linktelegramchat_getsessionrow",
+      "start_bot_getclientprefix",
+      "start_bot_handleconversationmessage",
+      "start_bot_hashotp",
+      "start_bot_http",
+      "start_bot_listenport",
+      "start_bot_loadapplyprofile",
+      "start_bot_newday_lookback_ms",
+      "start_bot_saveappliedjob_applyqueue",
+      "start_bot_saveotp",
+      "start_bot_sendemail",
+      "start_bot_sendotpemail",
+      "start_bot_shutdown",
+      "start_bot_startpollingmode",
+      "start_bot_startwebhookmode",
+      "start_bot_telegrammode",
+      "start_bot_verifyotp",
+      "start_bot_workflowstatestore",
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
+      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_findactivependingquestion",
+      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_recordpendinganswer",
+      "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore"
     ],
     "6": [
-      "start_worker",
-      "start_worker_apply_timeout_minutes",
-      "start_worker_applyqueue",
-      "start_worker_azure",
-      "start_worker_createapplyqueue",
-      "start_worker_createpool_createserviceclient",
-      "start_worker_createworkflowstatestore",
-      "start_worker_crypto",
-      "start_worker_fillcurrentstep_isvisibleenabled_loadapplyprofile",
-      "start_worker_getjobspendingpreflight_updatejobpreflightstatus",
-      "start_worker_loginattempts",
-      "start_worker_openbrowser_closebrowser_closesharedbrowser_usebrowserbase_maxconcurrent",
-      "start_worker_pool",
-      "start_worker_preflight_concurrency",
-      "start_worker_preflightqueue",
-      "start_worker_saveappliedjob",
-      "start_worker_savependingquestion_getanswerforquestion_clearexpiredpendingquestions",
-      "start_worker_sendmessage",
-      "start_worker_startapplyworkers",
-      "start_worker_storagestateisvalid_getsessionrow_readactivesession_savesession_getclientidforchat_getsessionspendinglogin",
-      "start_worker_workflowstatestore",
-      "users_sharan_desktop_dice_scaling_copy_lib_apply_worker_startapplyworkers",
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_closesharedbrowser",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionspendinglogin",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_readactivesession",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_savesession",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_storagestateisvalid",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_updatejobpreflightstatus",
-      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_clearexpiredpendingquestions",
-      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_getanswerforquestion",
-      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_savependingquestion",
-      "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage"
-    ],
-    "7": [
       "package",
       "package_dependencies",
       "package_dependencies_bcryptjs",
@@ -402,50 +362,50 @@
       "ref_bcryptjs",
       "ref_dotenv",
       "ref_husky",
+      "ref_node_telegram_bot_api",
       "ref_pdf_parse",
       "ref_pg",
       "ref_playwright",
       "ref_playwright_core",
       "ref_xenova_transformers"
     ],
-    "8": [
-      "start_bot",
-      "start_bot_applypromptdecision",
-      "start_bot_azure",
-      "start_bot_bot",
-      "start_bot_createdueworkticker",
-      "start_bot_createhttpserver",
-      "start_bot_createserviceclient",
-      "start_bot_createwebhookserver",
-      "start_bot_createworkflowstatestore",
-      "start_bot_crypto",
-      "start_bot_findactivependingquestion_recordpendinganswer",
-      "start_bot_getclientidforchat_linktelegramchat_getsessionrow",
-      "start_bot_http",
-      "start_bot_listenport",
-      "start_bot_loadapplyprofile",
-      "start_bot_newday_lookback_ms",
-      "start_bot_saveappliedjob_applyqueue",
-      "start_bot_sendemail",
-      "start_bot_shutdown",
-      "start_bot_startpollingmode",
-      "start_bot_startwebhookmode",
-      "start_bot_telegrammode",
-      "start_bot_workflowstatestore",
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionrow",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_linktelegramchat",
-      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_applyqueue",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_saveappliedjob",
-      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_findactivependingquestion",
-      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_recordpendinganswer",
-      "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore"
+    "7": [
+      "start_worker",
+      "start_worker_apply_timeout_minutes",
+      "start_worker_applyqueue",
+      "start_worker_azure",
+      "start_worker_createapplyqueue",
+      "start_worker_createpool_createserviceclient",
+      "start_worker_createworkflowstatestore",
+      "start_worker_crypto",
+      "start_worker_fillcurrentstep_isvisibleenabled_loadapplyprofile",
+      "start_worker_getclientprefix",
+      "start_worker_getjobspendingpreflight_updatejobpreflightstatus",
+      "start_worker_loginattempts",
+      "start_worker_openbrowser_closebrowser_closesharedbrowser_usebrowserbase_maxconcurrent",
+      "start_worker_pool",
+      "start_worker_preflight_concurrency",
+      "start_worker_preflightqueue",
+      "start_worker_saveappliedjob",
+      "start_worker_savependingquestion_getanswerforquestion_clearexpiredpendingquestions",
+      "start_worker_sendmessage",
+      "start_worker_sessionexpirederror",
+      "start_worker_startapplyworkers",
+      "start_worker_storagestateisvalid_getsessionrow_readactivesession_savesession_getclientidforchat_getsessionspendinglogin",
+      "start_worker_workflowstatestore",
+      "users_sharan_desktop_dice_scaling_copy_lib_apply_worker_startapplyworkers",
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_closesharedbrowser",
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
+      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight",
+      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_updatejobpreflightstatus",
+      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_clearexpiredpendingquestions",
+      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_getanswerforquestion",
+      "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_savependingquestion"
     ],
-    "9": [
+    "8": [
       "lib_azure_createserviceclient",
-      "ref_fs",
+      "ref_path",
       "scripts_import_clients",
       "scripts_import_clients_createserviceclient",
       "scripts_import_clients_fs",
@@ -472,7 +432,94 @@
       "scripts_verify_client_lookup_email",
       "scripts_verify_client_lookup_main"
     ],
+    "9": [
+      "lib_apply_queue",
+      "lib_apply_queue_createpool",
+      "lib_apply_worker",
+      "lib_apply_worker_crypto",
+      "lib_apply_worker_getclientprefix_getjobdisplay",
+      "lib_apply_worker_openbrowser_closebrowser_usebrowserbase_maxconcurrent",
+      "lib_apply_worker_sleep",
+      "lib_apply_worker_startapplyworkers",
+      "lib_apply_worker_startapplyworkers_workerloop",
+      "test_apply_timeout_test",
+      "test_apply_timeout_test_assert",
+      "test_apply_timeout_test_createapplyqueue",
+      "test_apply_timeout_test_from",
+      "test_apply_timeout_test_startapplyworkers",
+      "test_apply_timeout_test_test",
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_closebrowser",
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_maxconcurrent",
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_openbrowser",
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
+      "users_sharan_desktop_dice_scaling_copy_lib_logger_getclientprefix",
+      "users_sharan_desktop_dice_scaling_copy_lib_logger_getjobdisplay"
+    ],
     "10": [
+      "lib_bot_prompt_handler",
+      "lib_bot_prompt_handler_applypromptdecision",
+      "lib_bot_prompt_handler_crypto",
+      "lib_bot_prompt_handler_getclientprefix_getjobdisplay",
+      "lib_bot_prompt_handler_randomminutes",
+      "lib_bot_prompt_handler_sendjobprompt",
+      "lib_due_work_ticker",
+      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
+      "lib_due_work_ticker_createpool",
+      "lib_due_work_ticker_getclientprefix",
+      "lib_due_work_ticker_newday_lookback_ms",
+      "lib_due_work_ticker_send_spacing_ms",
+      "lib_due_work_ticker_ticker_batch_size",
+      "lib_due_work_ticker_ticker_interval_ms",
+      "lib_logger",
+      "lib_logger_clientcache",
+      "lib_logger_createpool",
+      "lib_logger_getjobdisplay",
+      "lib_logger_jobcache",
+      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms"
+    ],
+    "11": [
+      "lib_dice_apply_questions_isvisibleenabled",
+      "lib_dice_apply_questions_loadapplyprofile",
+      "lib_dice_session_getclientidforchat",
+      "lib_dice_session_getsessionrow",
+      "lib_dice_session_readactivesession",
+      "lib_job_application_db_hashandledjob",
+      "lib_job_application_db_saveappliedjob",
+      "lib_logger_getclientprefix",
+      "lib_telegram_notify",
+      "lib_telegram_notify_bot",
+      "lib_telegram_notify_getbot",
+      "lib_telegram_notify_getclientprefix",
+      "lib_telegram_notify_sendmessage",
+      "lib_telegram_notify_sendmessagewithbuttons",
+      "start_bot_handlejobcallback",
+      "start_bot_processcallbackupdate",
+      "start_worker_applytojobonpage",
+      "start_worker_executequeuedapply",
+      "start_worker_refreshlogin"
+    ],
+    "12": [
+      "scripts_import_operators",
+      "scripts_import_operators_createpool",
+      "scripts_import_operators_fs",
+      "scripts_import_operators_importoperators",
+      "scripts_import_operators_loadoperatorrecords",
+      "scripts_import_operators_mapoperatorrecord",
+      "scripts_import_operators_path",
+      "scripts_map_operator_record",
+      "scripts_map_operator_record_asboolean",
+      "scripts_map_operator_record_astext",
+      "scripts_map_operator_record_asuuid",
+      "scripts_map_operator_record_crypto",
+      "scripts_map_operator_record_mapoperatorrecord",
+      "scripts_map_operator_record_unwrapoperatorrecord",
+      "test_operator_auth_test",
+      "test_operator_auth_test_assert",
+      "test_operator_auth_test_hashotp_generate6digitotp",
+      "test_operator_auth_test_mapoperatorrecord",
+      "test_operator_auth_test_test"
+    ],
+    "13": [
       "lib_browser",
       "lib_browser_acquirebrowserticket",
       "lib_browser_chromium_localchromium",
@@ -492,57 +539,12 @@
       "test_browser_tickets_test_maxconcurrent_acquirebrowserticket_releasebrowserticket",
       "test_browser_tickets_test_test"
     ],
-    "11": [
-      "ref_path",
-      "scripts_import_operators",
-      "scripts_import_operators_createpool",
-      "scripts_import_operators_fs",
-      "scripts_import_operators_importoperators",
-      "scripts_import_operators_loadoperatorrecords",
-      "scripts_import_operators_mapoperatorrecord",
-      "scripts_import_operators_path",
-      "scripts_map_operator_record",
-      "scripts_map_operator_record_asboolean",
-      "scripts_map_operator_record_astext",
-      "scripts_map_operator_record_asuuid",
-      "scripts_map_operator_record_crypto",
-      "scripts_map_operator_record_mapoperatorrecord",
-      "scripts_map_operator_record_unwrapoperatorrecord"
-    ],
-    "12": [
-      "lib_apply_queue",
-      "lib_apply_queue_createapplyqueue",
-      "lib_apply_queue_createapplyqueue_clearstaleclientjobs",
-      "lib_apply_queue_createapplyqueue_countqueuedahead",
-      "lib_apply_queue_createapplyqueue_getqueueposition",
-      "lib_apply_queue_createapplyqueue_getreadypreflightpassedjobs",
-      "lib_apply_queue_createapplyqueue_hasactiveclientjob",
-      "lib_apply_queue_createapplyqueue_hasactiveorfinishedqueueitem",
-      "lib_apply_queue_createapplyqueue_markcompleted",
-      "lib_apply_queue_createapplyqueue_markfailed",
-      "lib_apply_queue_createapplyqueue_markfailedorretry",
-      "lib_apply_queue_createapplyqueue_resetstalepreflightpassedjobs",
-      "lib_apply_queue_createapplyqueue_updatejobstatus",
-      "lib_apply_queue_createpool"
-    ],
-    "13": [
-      "lib_apply_queue_createapplyqueue_countactivequeueitems",
-      "lib_apply_queue_createapplyqueue_enqueueapplyjob",
-      "lib_apply_queue_createapplyqueue_recoverstuckjobs",
-      "lib_azure_createpool",
-      "lib_azure_requiredatabaseurl",
-      "lib_pending_answers",
-      "lib_pending_answers_clearexpiredpendingquestions",
-      "lib_pending_answers_createpool",
-      "lib_pending_answers_findactivependingquestion",
-      "lib_pending_answers_getanswerforquestion",
-      "lib_pending_answers_recordpendinganswer",
-      "lib_pending_answers_savependingquestion",
-      "start_bot_handlependinganswermessage",
-      "start_worker_createtelegramquestionprompt"
-    ],
     "14": [
       "lib_apply_queue_createapplyqueue_claimnextjob",
+      "lib_azure",
+      "lib_azure_parsecolumns",
+      "lib_azure_pool",
+      "lib_azure_requiredatabaseurl",
       "scripts_scratch_db_check",
       "scripts_scratch_db_check_createpool",
       "scripts_scratch_db_check_run",
@@ -556,44 +558,46 @@
       "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool"
     ],
     "15": [
-      "lib_azure",
-      "lib_azure_assertidentifier",
-      "lib_azure_createquerybuilder",
-      "lib_azure_createquerybuilder_addfilter",
-      "lib_azure_createquerybuilder_builder",
-      "lib_azure_createquerybuilder_builder_catch",
-      "lib_azure_createquerybuilder_builder_finally",
-      "lib_azure_createquerybuilder_builder_then",
-      "lib_azure_createquerybuilder_buildwhere",
-      "lib_azure_createquerybuilder_execute",
-      "lib_azure_parsecolumns",
-      "lib_azure_pool"
+      "lib_azure_createpool",
+      "lib_job_scanner",
+      "lib_job_scanner_createpool",
+      "lib_job_scanner_getjobspendingpreflight",
+      "lib_job_scanner_readjoburls",
+      "lib_job_scanner_updatejobpreflightstatus",
+      "lib_pending_answers",
+      "lib_pending_answers_clearexpiredpendingquestions",
+      "lib_pending_answers_createpool",
+      "lib_pending_answers_findactivependingquestion",
+      "lib_pending_answers_getanswerforquestion",
+      "lib_pending_answers_recordpendinganswer",
+      "lib_pending_answers_savependingquestion",
+      "start_bot_handlependinganswermessage",
+      "start_worker_createtelegramquestionprompt",
+      "start_worker_runpreflightloop"
     ],
     "16": [
-      "lib_apply_worker",
-      "lib_apply_worker_crypto",
-      "lib_apply_worker_getclientprefix_getjobdisplay",
-      "lib_apply_worker_openbrowser_closebrowser_usebrowserbase_maxconcurrent",
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_closebrowser",
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_maxconcurrent",
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_openbrowser",
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
-      "users_sharan_desktop_dice_scaling_copy_lib_logger_getclientprefix",
-      "users_sharan_desktop_dice_scaling_copy_lib_logger_getjobdisplay"
+      "lib_apply_queue_createapplyqueue",
+      "lib_apply_queue_createapplyqueue_clearstaleclientjobs",
+      "lib_apply_queue_createapplyqueue_countactivequeueitems",
+      "lib_apply_queue_createapplyqueue_countqueuedahead",
+      "lib_apply_queue_createapplyqueue_enqueueapplyjob",
+      "lib_apply_queue_createapplyqueue_getqueueposition",
+      "lib_apply_queue_createapplyqueue_getreadypreflightpassedjobs",
+      "lib_apply_queue_createapplyqueue_hasactiveclientjob",
+      "lib_apply_queue_createapplyqueue_hasactiveorfinishedqueueitem",
+      "lib_apply_queue_createapplyqueue_markcompleted",
+      "lib_apply_queue_createapplyqueue_markfailed",
+      "lib_apply_queue_createapplyqueue_markfailedorretry",
+      "lib_apply_queue_createapplyqueue_recoverstuckjobs",
+      "lib_apply_queue_createapplyqueue_resetstalepreflightpassedjobs",
+      "lib_apply_queue_createapplyqueue_updatejobstatus"
     ],
     "17": [
-      "lib_dice_session_getsessionrow",
-      "lib_dice_session_readactivesession",
-      "lib_dice_session_storagestateisvalid",
-      "start_worker_acquirepreflight",
-      "start_worker_executequeuedapply",
-      "start_worker_getanyvalidstoragestate",
-      "start_worker_getjobname",
-      "start_worker_prevalidatejob",
-      "start_worker_refreshlogin",
-      "start_worker_releasepreflight"
-    ],
-    "18": [
+      "lib_dice_session",
+      "lib_dice_session_azure",
+      "lib_dice_session_createserviceclient",
+      "lib_dice_session_getallregisteredusers",
+      "lib_dice_session_getclientprefix",
       "lib_job_application_db",
       "lib_job_application_db_applyqueue",
       "lib_job_application_db_azure",
@@ -602,48 +606,61 @@
       "lib_job_application_db_getclientidforchat",
       "lib_job_application_db_getclientprefix_getjobdisplay",
       "users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue",
-      "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat"
+      "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient"
+    ],
+    "18": [
+      "lib_due_work_ticker_createdueworkticker",
+      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
+      "lib_due_work_ticker_createdueworkticker_processduechat",
+      "lib_due_work_ticker_createdueworkticker_start",
+      "lib_due_work_ticker_createdueworkticker_stop",
+      "lib_due_work_ticker_createdueworkticker_tick",
+      "lib_due_work_ticker_enqueue_batch_cap",
+      "lib_due_work_ticker_listdueworkflowchats",
+      "test_due_work_ticker_test",
+      "test_due_work_ticker_test_assert",
+      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
+      "test_due_work_ticker_test_test"
     ],
     "19": [
-      "lib_dice_apply_questions_isvisibleenabled",
-      "lib_dice_apply_questions_loadapplyprofile",
-      "start_worker_applytojobonpage",
-      "start_worker_audit",
-      "start_worker_randomdelay",
-      "start_worker_runlogin",
-      "start_worker_sessionexpirederror",
-      "start_worker_typewithhumandelay",
-      "start_worker_waitrandom"
+      "lib_azure_assertidentifier",
+      "lib_azure_createquerybuilder",
+      "lib_azure_createquerybuilder_addfilter",
+      "lib_azure_createquerybuilder_builder",
+      "lib_azure_createquerybuilder_builder_catch",
+      "lib_azure_createquerybuilder_builder_finally",
+      "lib_azure_createquerybuilder_builder_then",
+      "lib_azure_createquerybuilder_buildwhere",
+      "lib_azure_createquerybuilder_execute"
     ],
     "20": [
       "lib_dice_session_getsessionspendinglogin",
-      "lib_telegram_notify",
-      "lib_telegram_notify_bot",
-      "lib_telegram_notify_getbot",
-      "lib_telegram_notify_sendmessage",
-      "lib_telegram_notify_sendmessagewithbuttons",
-      "ref_node_telegram_bot_api",
-      "start_worker_runpendingloginsloop"
+      "lib_dice_session_savesession",
+      "start_worker_audit",
+      "start_worker_randomdelay",
+      "start_worker_runlogin",
+      "start_worker_runpendingloginsloop",
+      "start_worker_typewithhumandelay",
+      "start_worker_waitrandom"
     ],
     "21": [
-      "lib_dice_session_linktelegramchat",
-      "start_bot_deleteotp",
-      "start_bot_finduserbyemail",
-      "start_bot_generateotp",
-      "start_bot_handleconversationmessage",
-      "start_bot_hashotp",
-      "start_bot_saveotp",
-      "start_bot_verifyotp"
+      "lib_dice_session_storagestateisvalid",
+      "lib_job_scanner_newday_lookback_ms",
+      "start_worker_getanyvalidstoragestate",
+      "test_service_split_test",
+      "test_service_split_test_assert",
+      "test_service_split_test_newday_lookback_ms",
+      "test_service_split_test_storagestateisvalid",
+      "test_service_split_test_test"
     ],
     "22": [
-      "lib_dice_session",
-      "lib_dice_session_azure",
-      "lib_dice_session_createserviceclient",
-      "lib_dice_session_getallregisteredusers",
-      "lib_dice_session_getclientidforchat",
-      "lib_dice_session_savesession",
-      "lib_job_application_db_hashandledjob"
+      "start_bot_beginsignin",
+      "start_bot_handlecommand",
+      "start_bot_persistworkflowpatch",
+      "start_bot_processmessageupdate",
+      "start_bot_sendmessage",
+      "start_bot_sendmessagewithbuttons",
+      "start_bot_startnewday"
     ],
     "23": [
       "frontend_oxlintrc",
@@ -654,128 +671,132 @@
       "frontend_oxlintrc_schema"
     ],
     "24": [
-      "lib_job_application_db_saveappliedjob",
-      "start_bot_audit",
-      "start_bot_handlejobcallback",
-      "start_bot_persistworkflowpatch",
-      "start_bot_processcallbackupdate",
-      "start_bot_sendotpemail"
-    ],
-    "25": [
-      "lib_job_scanner",
-      "lib_job_scanner_createpool",
-      "lib_job_scanner_getjobspendingpreflight",
-      "lib_job_scanner_readjoburls",
-      "lib_job_scanner_updatejobpreflightstatus",
-      "start_worker_runpreflightloop"
-    ],
-    "26": [
-      "lib_job_scanner_newday_lookback_ms",
-      "test_service_split_test",
-      "test_service_split_test_assert",
-      "test_service_split_test_newday_lookback_ms",
-      "test_service_split_test_storagestateisvalid",
-      "test_service_split_test_test"
-    ],
-    "27": [
-      "start_bot_beginsignin",
-      "start_bot_handlecommand",
-      "start_bot_processmessageupdate",
-      "start_bot_sendmessage",
-      "start_bot_sendmessagewithbuttons",
-      "start_bot_startnewday"
-    ],
-    "28": [
       "database_migrations_009_create_dice_archived_jobs",
       "database_migrations_009_create_dice_archived_jobs_dice_archieved_jobs",
       "database_migrations_009_create_dice_archived_jobs_dice_archived_jobs",
       "database_migrations_009_create_dice_archived_jobs_idx_archived_jobs_applywizz_id",
       "database_migrations_009_create_dice_archived_jobs_idx_archived_jobs_scraped_at"
     ],
-    "29": [
+    "25": [
       "scripts_create_operator",
       "scripts_create_operator_args",
       "scripts_create_operator_createpool",
       "scripts_create_operator_email"
     ],
-    "30": [
+    "26": [
+      "start_worker_acquirepreflight",
+      "start_worker_getjobname",
+      "start_worker_prevalidatejob",
+      "start_worker_releasepreflight"
+    ],
+    "27": [
       "database_migrations_006_preflight_status",
       "database_migrations_006_preflight_status_idx_scraped_jobs_preflight",
       "dice_scraped_jobs"
     ],
-    "31": [
+    "28": [
       "database_migrations_007_pending_answers",
       "database_migrations_007_pending_answers_dice_pending_answers",
       "database_migrations_007_pending_answers_idx_pending_answers_chat_token"
     ],
-    "32": [
+    "29": [
       "re",
       "rewrite_dev_overview"
     ],
-    "33": [
+    "30": [
       "scripts_scratch_api_check",
       "scripts_scratch_api_check_run"
     ],
-    "34": [
+    "31": [
       "database_migrations_008_update_queue_status_check"
     ],
-    "35": [
+    "32": [
       "database_migrations_010_workflow_conversation"
     ],
-    "36": [
+    "33": [
       "database_migrations_011_bifurcate_failed_status"
     ],
-    "37": [
+    "34": [
       "dice_applied_jobs"
     ],
-    "38": [
+    "35": [
       "dice_apply_queue"
     ],
-    "39": [
+    "36": [
       "dice_workflow_sessions"
     ],
-    "40": [
+    "37": [
       "lib_browser_usebrowserbase"
     ],
-    "41": [
+    "38": [
       "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes"
     ],
-    "42": [
+    "39": [
       "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt"
+    ],
+    "40": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat"
+    ],
+    "41": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionrow"
+    ],
+    "42": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionspendinglogin"
+    ],
+    "43": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_linktelegramchat"
+    ],
+    "44": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_readactivesession"
+    ],
+    "45": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_savesession"
+    ],
+    "46": [
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_storagestateisvalid"
+    ],
+    "47": [
+      "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_applyqueue"
+    ],
+    "48": [
+      "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_saveappliedjob"
+    ],
+    "49": [
+      "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage"
     ]
   },
   "cohesion": {
     "0": 0.053297199638663056,
     "1": 0.05069124423963134,
-    "2": 0.07692307692307693,
-    "3": 0.06037414965986394,
-    "4": 0.0641025641025641,
-    "5": 0.08858858858858859,
+    "2": 0.0784313725490196,
+    "3": 0.07087486157253599,
+    "4": 0.06341463414634146,
+    "5": 0.06538461538461539,
     "6": 0.05714285714285714,
-    "7": 0.058823529411764705,
-    "8": 0.0625,
-    "9": 0.1452991452991453,
-    "10": 0.16339869281045752,
-    "11": 0.2,
-    "12": 0.14285714285714285,
-    "13": 0.21978021978021978,
-    "14": 0.16666666666666666,
-    "15": 0.2727272727272727,
-    "16": 0.2,
-    "17": 0.26666666666666666,
-    "18": 0.2,
-    "19": 0.2222222222222222,
-    "20": 0.32142857142857145,
-    "21": 0.32142857142857145,
-    "22": 0.3333333333333333,
+    "7": 0.0625,
+    "8": 0.1452991452991453,
+    "9": 0.10952380952380952,
+    "10": 0.14210526315789473,
+    "11": 0.2046783625730994,
+    "12": 0.15204678362573099,
+    "13": 0.16339869281045752,
+    "14": 0.15,
+    "15": 0.21666666666666667,
+    "16": 0.13333333333333333,
+    "17": 0.15384615384615385,
+    "18": 0.22727272727272727,
+    "19": 0.3611111111111111,
+    "20": 0.25,
+    "21": 0.25,
+    "22": 0.42857142857142855,
     "23": 0.3333333333333333,
-    "24": 0.3333333333333333,
-    "25": 0.4,
-    "26": 0.3333333333333333,
-    "27": 0.5333333333333333,
-    "28": 0.7,
-    "29": 0.5,
-    "30": 0.6666666666666666,
+    "24": 0.7,
+    "25": 0.5,
+    "26": 0.5,
+    "27": 0.6666666666666666,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
     "31": 1.0,
     "32": 1.0,
     "33": 1.0,
@@ -787,12 +808,24 @@
     "39": 1.0,
     "40": 1.0,
     "41": 1.0,
-    "42": 1.0
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0
   },
   "gods": [
     {
       "id": "lib_azure_createpool",
       "label": "createPool()",
+      "degree": 27
+    },
+    {
+      "id": "lib_logger_getclientprefix",
+      "label": "getClientPrefix()",
       "degree": 27
     },
     {
@@ -821,38 +854,22 @@
       "degree": 14
     },
     {
-      "id": "lib_dice_apply_questions_fillcheckboxgroups",
-      "label": "fillCheckboxGroups()",
-      "degree": 11
+      "id": "lib_dice_session_getclientidforchat",
+      "label": "getClientIdForChat()",
+      "degree": 12
     },
     {
-      "id": "start_bot_handleconversationmessage",
-      "label": "handleConversationMessage()",
-      "degree": 11
+      "id": "start_bot_sendmessage",
+      "label": "sendMessage()",
+      "degree": 12
     },
     {
       "id": "start_worker_applytojobonpage",
       "label": "applyToJobOnPage()",
-      "degree": 11
-    },
-    {
-      "id": "lib_job_application_db_saveappliedjob",
-      "label": "saveAppliedJob()",
-      "degree": 11
+      "degree": 12
     }
   ],
   "surprises": [
-    {
-      "source": "handleJobCallback()",
-      "target": "getClientIdForChat()",
-      "source_files": [
-        "start-bot.js",
-        "lib/dice-session.js"
-      ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
-    },
     {
       "source": "run()",
       "target": "createPool()",
@@ -887,11 +904,22 @@
       "why": "connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "runSyncDaily()",
-      "target": "createServiceClient()",
+      "source": "executeQueuedApply()",
+      "target": "closeBrowser()",
       "source_files": [
-        "scripts/sync-daily-pipeline.js",
-        "lib/azure.js"
+        "start-worker.js",
+        "lib/browser.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "prevalidateJob()",
+      "target": "closeBrowser()",
+      "source_files": [
+        "start-worker.js",
+        "lib/browser.js"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",

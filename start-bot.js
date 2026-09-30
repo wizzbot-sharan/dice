@@ -1,4 +1,6 @@
 require('dotenv').config();
+const { getClientPrefix } = require('./lib/logger');
+
 
 const crypto = require('crypto');
 const http = require('http');
@@ -60,7 +62,7 @@ async function sendMessage(chatId, text, options = {}) {
     await bot.api.sendMessage({ chat_id: chatId, text, ...options });
     return true;
   } catch (error) {
-    console.error(`[User ${chatId}] Telegram message failed:`, error.message);
+    console.error(`${await getClientPrefix(chatId)} Telegram message failed:`, error.message);
     return false;
   }
 }
@@ -114,7 +116,7 @@ async function verifyOTP(chatId, enteredCode) {
 
 async function deleteOTP(chatId) {
   const { error } = await azure.from('dice_telegram_otps').delete().eq('telegram_chat_id', chatId);
-  if (error) console.error(`[User ${chatId}] Failed to delete OTP:`, error.message);
+  if (error) console.error(`${await getClientPrefix(chatId)} Failed to delete OTP:`, error.message);
 }
 
 async function sendOTPEmail(email, otp, chatId = null) {
@@ -407,7 +409,7 @@ async function processMessageUpdate(ctx) {
 
     await handleCommand(chatId, text);
   } catch (error) {
-    console.error(`[User ${chatId}] message handler failed:`, error.message);
+    console.error(`${await getClientPrefix(chatId)} message handler failed:`, error.message);
     await sendMessage(chatId, `Operation failed: ${error.message}`).catch(() => {});
   }
 }
@@ -448,7 +450,7 @@ async function processCallbackUpdate(ctx) {
       await handleJobCallback(chatId, data, 'no');
     }
   } catch (error) {
-    console.error(`[User ${chatId}] callback handler failed:`, error.message);
+    console.error(`${await getClientPrefix(chatId)} callback handler failed:`, error.message);
   }
 }
 

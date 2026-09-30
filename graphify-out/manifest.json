@@ -126,16 +126,16 @@
     "semantic_hash": "f1c49cb852a9e9f8ec433cb6bfc44d3a"
   },
   "lib/dice-session.js": {
-    "mtime": 1789977921.4673853,
-    "seen": 1790142967.144922,
-    "ast_hash": "95d11c7d0c43ff22366a6916a4f247fd",
-    "semantic_hash": "95d11c7d0c43ff22366a6916a4f247fd"
+    "mtime": 1790744138.6365688,
+    "seen": 1790759916.026855,
+    "ast_hash": "d768b48e368d543bf7b6db3041949bda",
+    "semantic_hash": "d768b48e368d543bf7b6db3041949bda"
   },
   "lib/job-application-db.js": {
-    "mtime": 1790223534.6526952,
-    "seen": 1790223954.56538,
-    "ast_hash": "9e5fa37ee012709aaf41b6ecafeebb35",
-    "semantic_hash": "9e5fa37ee012709aaf41b6ecafeebb35"
+    "mtime": 1790744138.6364102,
+    "seen": 1790759916.026865,
+    "ast_hash": "b066893d7439e1158c42b5a532c5c28d",
+    "semantic_hash": "b066893d7439e1158c42b5a532c5c28d"
   },
   "lib/job-matching.js": {
     "mtime": 1788429237.442267,
@@ -174,10 +174,10 @@
     "semantic_hash": "05281639132c15fd804c3c2a5e7f9913"
   },
   "lib/telegram-notify.js": {
-    "mtime": 1789977870.899102,
-    "seen": 1790142967.1449249,
-    "ast_hash": "5a6c8118653beb6d7b0dbf21c124b8a0",
-    "semantic_hash": "5a6c8118653beb6d7b0dbf21c124b8a0"
+    "mtime": 1790744138.6364841,
+    "seen": 1790759916.026926,
+    "ast_hash": "1919098869bee751578981c1e11af138",
+    "semantic_hash": "1919098869bee751578981c1e11af138"
   },
   "lib/unknown-questions.js": {
     "mtime": 1789448584.5869255,
@@ -246,10 +246,10 @@
     "semantic_hash": "0eca6bf4eb233013edcd5915da0a179a"
   },
   "start-bot.js": {
-    "mtime": 1790660383.2412298,
-    "seen": 1790660447.2066271,
-    "ast_hash": "5339951f38745a83d847f53cb051d864",
-    "semantic_hash": "5339951f38745a83d847f53cb051d864"
+    "mtime": 1790744138.63444,
+    "seen": 1790759916.027065,
+    "ast_hash": "b98bb1808aff82a4e6caebd1f58688ca",
+    "semantic_hash": "b98bb1808aff82a4e6caebd1f58688ca"
   },
   "start-dashboard.js": {
     "mtime": 1789977892.3148952,
@@ -258,10 +258,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1790659893.8416789,
-    "seen": 1790659956.911671,
-    "ast_hash": "44d4e838afac74bf1bebe7b7f894c837",
-    "semantic_hash": "44d4e838afac74bf1bebe7b7f894c837"
+    "mtime": 1790744138.6363108,
+    "seen": 1790759916.027074,
+    "ast_hash": "337592a31872bc526c64ec6e3b128fd6",
+    "semantic_hash": "337592a31872bc526c64ec6e3b128fd6"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,
@@ -372,10 +372,10 @@
     "semantic_hash": "8659360176e943fbc7c8993d5ca74301"
   },
   "lib/logger.js": {
-    "mtime": 1790223512.690921,
-    "seen": 1790223954.5654101,
-    "ast_hash": "3cc571f31fd392158f74c77f2eaadd0c",
-    "semantic_hash": "3cc571f31fd392158f74c77f2eaadd0c"
+    "mtime": 1790743530.2399452,
+    "seen": 1790759916.026895,
+    "ast_hash": "2c89725daa767a5d3c97e5f2f32f6b5d",
+    "semantic_hash": "2c89725daa767a5d3c97e5f2f32f6b5d"
   },
   "data/sample-operators.json": {
     "mtime": 1790311069.1745105,
@@ -412,5 +412,11 @@
     "seen": 1790739458.012776,
     "ast_hash": "37c5d6a34850ba82c125a41b153efbdb",
     "semantic_hash": "37c5d6a34850ba82c125a41b153efbdb"
+  },
+  "scratch-replace-logs.js": {
+    "mtime": 1790744132.5823288,
+    "seen": 1790759916.026964,
+    "ast_hash": "396749bbfee2ca5f736729d0afc675e2",
+    "semantic_hash": "396749bbfee2ca5f736729d0afc675e2"
   }
 }

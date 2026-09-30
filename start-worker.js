@@ -1,4 +1,6 @@
 require('dotenv').config();
+const { getClientPrefix } = require('./lib/logger');
+
 
 const crypto = require('crypto');
 const { createPool, createServiceClient } = require('./lib/azure');
@@ -87,7 +89,7 @@ async function runLogin(chatId, credentials, isBackgroundRefresh = true) {
   try {
     await audit(chatId, 'dice_login_started', { background: isBackgroundRefresh });
     if (sessionId) {
-      console.log(`[User ${chatId}] Login browser session: ${sessionId}`);
+      console.log(`${await getClientPrefix(chatId)} Login browser session: ${sessionId}`);
     }
 
     await page.goto(loginUrl, { waitUntil: 'domcontentloaded' });
@@ -115,7 +117,7 @@ async function runLogin(chatId, credentials, isBackgroundRefresh = true) {
       credentials.applywizz_id,
       credentials.clientId
     );
-    console.log(`[User ${chatId}] Login completed successfully.`);
+    console.log(`${await getClientPrefix(chatId)} Login completed successfully.`);
     await audit(chatId, 'dice_login_completed');
     return savedSession;
   } finally {
@@ -124,7 +126,7 @@ async function runLogin(chatId, credentials, isBackgroundRefresh = true) {
 }
 
 async function refreshLogin(chatId) {
-  console.log(`[User ${chatId}] Dice session is missing or expired. Running background auto-login...`);
+  console.log(`${await getClientPrefix(chatId)} Dice session is missing or expired. Running background auto-login...`);
   const sessionRow = await getSessionRow(chatId);
   if (!sessionRow || !sessionRow.email) {
     throw new Error(`No session record found for user ${chatId} to refresh.`);
@@ -420,7 +422,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   if (applicationPage.url().includes('/login')) throw sessionExpiredError();
 
   if (!applicationPage.url().includes('dice.com')) {
-    console.warn(`[User ${chatId}] Skipped ${jobName}: Redirected to external site. URL: ${applicationPage.url()}`);
+    console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: Redirected to external site. URL: ${applicationPage.url()}`);
     await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'external_redirect');
     await sendMessage(chatId, 'application failed, reviewing.');
     return false;
@@ -445,7 +447,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
         submitButton.waitFor({ state: 'visible', timeout: 10000 })
       ]);
     } catch (e) {
-      console.warn(`[User ${chatId}] Skipped ${jobName}: Missing Next/Submit (likely an extra question we could not fill). URL: ${applicationPage.url()}`);
+      console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: Missing Next/Submit (likely an extra question we could not fill). URL: ${applicationPage.url()}`);
       await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'missing_next_or_submit');
       await sendMessage(chatId, 'application failed, reviewing.');
       return false;
@@ -466,18 +468,18 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
       });
       if (!filled.ok) {
         if (filled.reason === 'SKIPPED_BY_USER' || filled.reason?.includes("didn't give response")) {
-          console.log(`[User ${chatId}] Job skipped: ${filled.reason}`);
+          console.log(`${await getClientPrefix(chatId)} Job skipped: ${filled.reason}`);
           await saveAppliedJob(chatId, url, jobName, 'skipped', filled.reason);
           return false;
         }
-        console.warn(`[User ${chatId}] Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'} URL: ${applicationPage.url()}`);
+        console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'} URL: ${applicationPage.url()}`);
         await saveAppliedJob(chatId, url, jobName, 'apply_failed', filled.reason || 'unanswered_question');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
       }
 
       if (!await isVisibleEnabled(nextButton)) {
-        console.warn(`[User ${chatId}] Skipped ${jobName}: Next stayed disabled after filling questions. URL: ${applicationPage.url()}`);
+        console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: Next stayed disabled after filling questions. URL: ${applicationPage.url()}`);
         await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'next_button_disabled');
         await sendMessage(chatId, 'application failed, reviewing.');
         return false;
@@ -507,7 +509,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
     return true;
   }
 
-  console.warn(`[User ${chatId}] Skipped ${jobName}: Could not complete application (Submit button not clickable). URL: ${applicationPage.url()}`);
+  console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: Could not complete application (Submit button not clickable). URL: ${applicationPage.url()}`);
   await saveAppliedJob(chatId, url, jobName, 'apply_failed', 'submit_button_not_clickable');
   await sendMessage(chatId, 'application failed, reviewing.');
   return false;
@@ -534,11 +536,11 @@ async function executeQueuedApply(job, { signal } = {}) {
     headless: useBrowserbase,
   });
   if (handle.sessionId) {
-    console.log(`[User ${chatId}] Apply browser session: ${handle.sessionId}`);
+    console.log(`${await getClientPrefix(chatId)} Apply browser session: ${handle.sessionId}`);
   }
 
-  const onAbort = () => {
-    console.warn(`[User ${chatId}] Apply timeout reached: closing browser.`);
+  const onAbort = async () => {
+    console.warn(`${await getClientPrefix(chatId)} Apply timeout reached: closing browser.`);
     closeBrowser(handle).catch(() => {});
   };
 
@@ -571,7 +573,7 @@ async function executeQueuedApply(job, { signal } = {}) {
         await applyToJobOnPage(page, jobName, url, chatId);
       } catch (error) {
         if (signal?.aborted) {
-          console.warn(`[User ${chatId}] Application to ${url} aborted due to timeout.`);
+          console.warn(`${await getClientPrefix(chatId)} Application to ${url} aborted due to timeout.`);
           await saveAppliedJob(chatId, url, 'Failed', 'apply_failed', 'application_timeout').catch(() => {});
           throw error;
         }
@@ -585,7 +587,7 @@ async function executeQueuedApply(job, { signal } = {}) {
           retryAfterLogin = true;
         } else {
           const currentUrl = page ? page.url() : url;
-          console.error(`[User ${chatId}] Failed to apply to ${url}: ${error.message} | URL: ${currentUrl}`);
+          console.error(`${await getClientPrefix(chatId)} Failed to apply to ${url}: ${error.message} | URL: ${currentUrl}`);
           await saveAppliedJob(chatId, url, 'Failed', 'apply_failed', error.message);
           await sendMessage(chatId, 'application failed, reviewing.');
           throw error;
