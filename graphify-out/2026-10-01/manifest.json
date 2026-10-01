@@ -78,10 +78,10 @@
     "semantic_hash": "9e26f979c0334ccf52f32a1a1114e67b"
   },
   "lib/apply-queue.js": {
-    "mtime": 1790835059.3396327,
-    "seen": 1790836508.291741,
-    "ast_hash": "7befaa1847e0510ad3cd3b20cea658fe",
-    "semantic_hash": "7befaa1847e0510ad3cd3b20cea658fe"
+    "mtime": 1790839350.091302,
+    "seen": 1790840142.026688,
+    "ast_hash": "4fd9af563e9971727c2ed1912913232f",
+    "semantic_hash": "4fd9af563e9971727c2ed1912913232f"
   },
   "lib/apply-worker.js": {
     "mtime": 1790834892.396384,
@@ -108,10 +108,10 @@
     "semantic_hash": "3226f593d417abeced2ada9bb06ffbbc"
   },
   "lib/dice-apply-questions.js": {
-    "mtime": 1789448553.4463968,
-    "seen": 1790142967.144922,
-    "ast_hash": "f1c49cb852a9e9f8ec433cb6bfc44d3a",
-    "semantic_hash": "f1c49cb852a9e9f8ec433cb6bfc44d3a"
+    "mtime": 1790839278.6193128,
+    "seen": 1790840142.026727,
+    "ast_hash": "9f97808d11fd5361534c04a8cb191bfa",
+    "semantic_hash": "9f97808d11fd5361534c04a8cb191bfa"
   },
   "lib/dice-session.js": {
     "mtime": 1790744138.6365688,
@@ -228,10 +228,10 @@
     "semantic_hash": "0eca6bf4eb233013edcd5915da0a179a"
   },
   "start-bot.js": {
-    "mtime": 1790835010.590775,
-    "seen": 1790836508.2919521,
-    "ast_hash": "4246899c8f688e0a34e15837efbffe2c",
-    "semantic_hash": "4246899c8f688e0a34e15837efbffe2c"
+    "mtime": 1790839495.2991443,
+    "seen": 1790840142.026915,
+    "ast_hash": "b194ef1a4a016433448a809d8fba6690",
+    "semantic_hash": "b194ef1a4a016433448a809d8fba6690"
   },
   "start-dashboard.js": {
     "mtime": 1789977892.3148952,
@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1790835292.9547932,
-    "seen": 1790836508.2919612,
-    "ast_hash": "25fe2689da8eb4a720998275c85b8c47",
-    "semantic_hash": "25fe2689da8eb4a720998275c85b8c47"
+    "mtime": 1790839325.0765605,
+    "seen": 1790840142.0269241,
+    "ast_hash": "adadeede048f213632f31a217e60aa53",
+    "semantic_hash": "adadeede048f213632f31a217e60aa53"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,
@@ -318,16 +318,16 @@
     "semantic_hash": "f42676fe74f16691241062ce4d1c8c17"
   },
   "lib/bot-prompt-handler.js": {
-    "mtime": 1790835037.4627562,
-    "seen": 1790836508.2917519,
-    "ast_hash": "f3d72b23c5a0ecc25ac035fd17afd191",
-    "semantic_hash": "f3d72b23c5a0ecc25ac035fd17afd191"
+    "mtime": 1790839994.364976,
+    "seen": 1790840142.026708,
+    "ast_hash": "5210ced51f46adb097d9fe048ba0db21",
+    "semantic_hash": "5210ced51f46adb097d9fe048ba0db21"
   },
   "lib/due-work-ticker.js": {
-    "mtime": 1790223750.977631,
-    "seen": 1790223954.56538,
-    "ast_hash": "7eafe4db5d67bf835f3c7a35a60b3c82",
-    "semantic_hash": "7eafe4db5d67bf835f3c7a35a60b3c82"
+    "mtime": 1790839471.5674512,
+    "seen": 1790840142.026736,
+    "ast_hash": "61ae9934a4c4eac8ad758fe587ff90b9",
+    "semantic_hash": "61ae9934a4c4eac8ad758fe587ff90b9"
   },
   "test/bot-webhook.test.js": {
     "mtime": 1790149224.4665627,
@@ -370,5 +370,17 @@
     "seen": 1790333849.18764,
     "ast_hash": "04f85b04790f68e272cfcc017e5f99dd",
     "semantic_hash": "04f85b04790f68e272cfcc017e5f99dd"
+  },
+  "database/migrations/012_preflight_step_count.sql": {
+    "mtime": 1790839253.7261953,
+    "seen": 1790840142.0265899,
+    "ast_hash": "a52ab026d51201af3bd8a342fdd7e581",
+    "semantic_hash": "a52ab026d51201af3bd8a342fdd7e581"
+  },
+  "test/preflight-questions.test.js": {
+    "mtime": 1790839510.8158112,
+    "seen": 1790840142.027028,
+    "ast_hash": "afac6c609f0f99c4130065a2827a4f81",
+    "semantic_hash": "afac6c609f0f99c4130065a2827a4f81"
   }
 }

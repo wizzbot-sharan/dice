@@ -19,7 +19,10 @@ const { saveAppliedJob, applyQueue } = require('./lib/job-application-db');
 const {
   findActivePendingQuestion,
   recordPendingAnswer,
+  savePendingQuestion,
+  getAnswerForQuestion,
 } = require('./lib/pending-answers');
+const { saveKnownAnswer } = require('./lib/unknown-questions');
 const { createDueWorkTicker } = require('./lib/due-work-ticker');
 const { applyPromptDecision } = require('./lib/bot-prompt-handler');
 
@@ -366,6 +369,9 @@ async function handleJobCallback(chatId, data, decision) {
     sendMessage,
     persistWorkflowPatch,
     getClientIdForChat,
+    savePendingQuestion,
+    getAnswerForQuestion,
+    saveKnownAnswer,
   });
 }
 

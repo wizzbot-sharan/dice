@@ -8,7 +8,7 @@ const { openBrowser, closeBrowser, closeSharedBrowser, maxConcurrent } = require
 const { createApplyQueue } = require('./lib/apply-queue');
 const { startApplyWorkers } = require('./lib/apply-worker');
 const { createWorkflowStateStore } = require('./lib/workflow-state');
-const { fillCurrentStep, isVisibleEnabled, loadApplyProfile } = require('./lib/dice-apply-questions');
+const { fillCurrentStep, isVisibleEnabled, loadApplyProfile, readTotalStepCount, extractPreflightQuestions } = require('./lib/dice-apply-questions');
 const { sendMessage } = require('./lib/telegram-notify');
 const {
   savePendingQuestion,
@@ -224,7 +224,38 @@ async function prevalidateJob(chatId, job, storageState = null) {
         return { ok: false, reason: 'external', jobName };
       }
 
-      return { ok: true, jobName };
+      // --- Detect step count ---
+      const stepCount = await readTotalStepCount(applicationPage).catch(() => null);
+
+      if (stepCount !== 3) {
+        // 2-step (or unknown): existing behaviour
+        return { ok: true, jobName, stepCount: stepCount || 2 };
+      }
+
+      // --- 3-step: navigate to Step 2 and extract unknown questions ---
+      const clientId = await getClientIdForChat(chatId).catch(() => null);
+      const applyProfile = clientId
+        ? await loadApplyProfile(azure, clientId).catch(() => ({}))
+        : {};
+
+      const nextButton = applicationPage.getByRole('button', { name: /^Next$/i });
+      const nextVisible = await nextButton.count() > 0 &&
+        await nextButton.first().isVisible().catch(() => false);
+
+      if (!nextVisible) {
+        return { ok: false, reason: 'preflight_extraction_failed: next_button_not_found', jobName };
+      }
+
+      await nextButton.first().click();
+      await applicationPage.waitForLoadState('domcontentloaded', { timeout: 20000 }).catch(() => {});
+
+      const extraction = await extractPreflightQuestions(applicationPage, applyProfile, { dbPool: pool });
+
+      if (!extraction.ok) {
+        return { ok: false, reason: extraction.reason, jobName };
+      }
+
+      return { ok: true, jobName, stepCount: 3, unknownQuestions: extraction.unknownQuestions };
     } catch (error) {
       console.warn(`[pre-flight] Validation error for ${job.url}:`, error.message);
       return { ok: true, jobName: job.title || 'Unknown Job' };
@@ -557,6 +588,12 @@ async function executeQueuedApply(job, { signal } = {}) {
       if (!precheck.ok) {
         await saveAppliedJob(chatId, job.url, precheck.jobName || 'Unknown Job', 'preflight_failed', precheck.reason);
         throw new Error(`preflight_failed: ${precheck.reason}`);
+      }
+      if (precheck.stepCount || precheck.unknownQuestions) {
+        await applyQueue.setPreflightMetadata(job.id, {
+          stepCount: precheck.stepCount || 2,
+          unknownQuestions: precheck.unknownQuestions || [],
+        });
       }
     },
     audit,
