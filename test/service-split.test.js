@@ -26,7 +26,6 @@ test('telegram-notify exports getBot, sendMessage, and sendMessageWithButtons', 
 test('job-scanner exports expected functions', () => {
   const scanner = require('../lib/job-scanner');
   assert.equal(typeof scanner.readJobUrls, 'function');
-  assert.equal(typeof scanner.getJobsPendingPreflight, 'function');
   assert.equal(typeof scanner.updateJobPreflightStatus, 'function');
 });
 

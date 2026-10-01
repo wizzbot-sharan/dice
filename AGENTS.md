@@ -2,11 +2,11 @@
 
 ## Overview
 
-This project is a Node.js Telegram automation service that links users to client profiles, discovers matching Dice jobs, requests application approval, and processes approved applications through a durable queue. It uses CommonJS JavaScript, Node's built-in test runner, PostgreSQL through `pg` on Azure, Playwright for local browser automation (Browserbase is not used), SendGrid for OTP email, and a small authenticated HTTP dashboard.
+This project is a Node.js Telegram automation service that links users to client profiles, discovers matching Dice jobs, requests application approval, and processes approved applications through a durable queue. It is deployed as three separate Railway processes (bot webhook, worker+Chromium, dashboard). It uses CommonJS JavaScript, Node's built-in test runner, PostgreSQL through `pg` on Azure, Playwright for local Chromium browser automation (Browserbase is completely removed), Microsoft Graph mailer for OTP email, and a small authenticated HTTP dashboard.
 
 ## Project Map
 
-- `start-bot.js`: Telegram bot entry point and workflow coordinator (handles user interaction, OTP login flow, job scanning, and approval prompts).
+- `start-bot.js`: Telegram bot entry point and workflow coordinator. (Note: `CHAT_ID` env var is an optional debug allowlist; if set, it ignores everyone else. Must be unset for 500+ clients.)
 - `start-worker.js`: Dedicated queue worker service (executes preflight checks and job applications via browser automation).
 - `start-dashboard.js`: Web dashboard entry point (serves frontend assets and API endpoints).
 - `lib/`: Reusable runtime modules.
@@ -18,10 +18,7 @@ This project is a Node.js Telegram automation service that links users to client
   - `job-matching.js`: Deterministic job-title matching and excluded-company filtering helpers.
   - `azure.js`: PostgreSQL pool and a restricted Supabase-like query builder for Azure PostgreSQL used by the application.
   - `workflow-state.js`: Persistence for workflow sessions, prompts, decisions, and audit events.
-- `public/`: Dashboard frontend assets served by `lib/dashboard-server.js`.
-  - `dashboard.html`: Dashboard markup and login form.
-  - `dashboard.js`: Dashboard API client, rendering, polling, countdowns, and escaping.
-  - `dashboard.css`: Dashboard layout and visual styling.
+- `frontend/`: React frontend (Vite/Tailwind). Build output in `frontend/dist` is served by `lib/dashboard-server.js`.
 - `database/migrations/`: SQL migrations for operator accounts/sessions, dashboard indexes, and workflow fields. The tables are already created and being used, this is just for reference.
 - `scripts/`: Operational utilities.
   - `import-clients.js`: Imports client records from a JSON file or configured API.
@@ -121,7 +118,7 @@ No linter or `lint` npm script is configured in `package.json`. Do not claim lin
 - Keep Telegram/API transport concerns separate from job matching, queueing, profile mapping, and application-question rules where practical.
 - Escape user/database-controlled values before inserting them into dashboard HTML. Preserve the existing `escapeHtml` pattern for rendered values.
 - Normalize imported data through `scripts/map-client-record.js`; preserve raw payloads and convert invalid or empty values to the established null representation.
-- Add or update focused tests in `test/` for behavior changes. Prefer deterministic fakes over live databases, Telegram, Dice, SendGrid, or external HTTP services.
+- Add or update focused tests in `test/` for behavior changes. Prefer deterministic fakes over live databases, Telegram, Dice, Microsoft Graph mailer, or external HTTP services.
 - Test failure paths and boundary conditions for retries, prompt expiry, duplicate jobs, missing profile fields, invalid imports, and session recovery when those paths are changed.
 - Avoid arbitrary sleeps in tests. Do not add comments that merely narrate obvious code; comments should explain non-obvious constraints only.
 

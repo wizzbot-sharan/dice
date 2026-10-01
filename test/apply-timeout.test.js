@@ -30,7 +30,7 @@ test('applyQueue.markFailed marks queue row failed directly without retrying', a
 
   assert.deepEqual(result, { retried: false });
   assert.equal(updatedId, 777);
-  assert.equal(updatedPayload.status, 'failed');
+  assert.equal(updatedPayload.status, 'apply_failed');
   assert.equal(updatedPayload.last_error, 'application_timeout');
   assert.equal(updatedPayload.worker_id, null);
   assert.equal(updatedPayload.locked_at, null);

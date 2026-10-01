@@ -4,7 +4,6 @@ const { getClientPrefix } = require('./lib/logger');
 
 const crypto = require('crypto');
 const http = require('http');
-const { Bot } = require('node-telegram-bot-api');
 const { createWebhookServer } = require('node-telegram-bot-api/node');
 const { createServiceClient } = require('./lib/azure');
 const { createWorkflowStateStore } = require('./lib/workflow-state');
@@ -25,6 +24,7 @@ const { createDueWorkTicker } = require('./lib/due-work-ticker');
 const { applyPromptDecision } = require('./lib/bot-prompt-handler');
 
 const botToken = process.env.BOT_TOKEN;
+// CHAT_ID is an optional debug allowlist. It must be unset for production (500 clients). If set, the bot silently ignores everyone else.
 const allowedChatId = process.env.CHAT_ID ? Number(process.env.CHAT_ID) : null;
 const telegramMode = (process.env.TELEGRAM_MODE || 'webhook').toLowerCase();
 const webhookPath = process.env.TELEGRAM_WEBHOOK_PATH || '/telegram';
@@ -49,7 +49,8 @@ const workflowStateStore = createWorkflowStateStore(azure);
 
 const SESSION_MS = 9 * 60 * 60 * 1000;
 
-const bot = new Bot(botToken);
+const { getBot, sendMessage, sendMessageWithButtons } = require('./lib/telegram-notify');
+const bot = getBot();
 let httpServer = null;
 let dueWorkTicker = null;
 
@@ -57,23 +58,6 @@ function audit(chatId, event, details = {}) {
   return workflowStateStore.log(chatId, event, details);
 }
 
-async function sendMessage(chatId, text, options = {}) {
-  try {
-    await bot.api.sendMessage({ chat_id: chatId, text, ...options });
-    return true;
-  } catch (error) {
-    console.error(`${await getClientPrefix(chatId)} Telegram message failed:`, error.message);
-    return false;
-  }
-}
-
-function sendMessageWithButtons(chatId, text, buttons) {
-  return sendMessage(chatId, text, {
-    reply_markup: {
-      inline_keyboard: buttons,
-    },
-  });
-}
 
 function generateOTP() {
   return crypto.randomInt(100000, 999999).toString();

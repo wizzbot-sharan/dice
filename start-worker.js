@@ -4,7 +4,7 @@ const { getClientPrefix } = require('./lib/logger');
 
 const crypto = require('crypto');
 const { createPool, createServiceClient } = require('./lib/azure');
-const { openBrowser, closeBrowser, closeSharedBrowser, useBrowserbase, maxConcurrent } = require('./lib/browser');
+const { openBrowser, closeBrowser, closeSharedBrowser, maxConcurrent } = require('./lib/browser');
 const { createApplyQueue } = require('./lib/apply-queue');
 const { startApplyWorkers } = require('./lib/apply-worker');
 const { createWorkflowStateStore } = require('./lib/workflow-state');
@@ -25,7 +25,6 @@ const {
 } = require('./lib/dice-session');
 const { saveAppliedJob } = require('./lib/job-application-db');
 const {
-  getJobsPendingPreflight,
   updateJobPreflightStatus,
 } = require('./lib/job-scanner');
 
@@ -83,7 +82,7 @@ async function getJobName(page) {
 
 // === LOGIN & SESSION REFRESH ===
 async function runLogin(chatId, credentials, isBackgroundRefresh = true) {
-  const handle = await openBrowser({ headless: isBackgroundRefresh || useBrowserbase });
+  const handle = await openBrowser({ headless: true });
   const { context, page, sessionId } = handle;
 
   try {
@@ -168,34 +167,6 @@ function releasePreflight() {
   }
 }
 
-async function getAnyValidStorageState(preferredApplywizzId = null) {
-  // 1. Try session with matching applywizz_id
-  if (preferredApplywizzId) {
-    const { data } = await azure
-      .from('dice_sessions')
-      .select('telegram_chat_id, storage_state')
-      .eq('applywizz_id', preferredApplywizzId)
-      .maybeSingle();
-
-    if (data && storageStateIsValid(data.storage_state)) {
-      return { chatId: Number(data.telegram_chat_id), storageState: data.storage_state };
-    }
-  }
-
-  // 2. Fall back to any active session
-  const { data: anySession } = await azure
-    .from('dice_sessions')
-    .select('telegram_chat_id, storage_state')
-    .order('updated_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (anySession && storageStateIsValid(anySession.storage_state)) {
-    return { chatId: Number(anySession.telegram_chat_id), storageState: anySession.storage_state };
-  }
-
-  return null;
-}
 
 async function prevalidateJob(chatId, job, storageState = null) {
   await acquirePreflight();
@@ -267,44 +238,7 @@ async function prevalidateJob(chatId, job, storageState = null) {
   }
 }
 
-async function runPreflightLoop() {
-  console.log('[dice_apply_worker] Pre-flight scanner loop started.');
-  while (!preflightStopping) {
-    try {
-      const pendingJobs = await getJobsPendingPreflight(5);
-      if (pendingJobs.length === 0) {
-        await new Promise((r) => setTimeout(r, 8000));
-        continue;
-      }
 
-      for (const job of pendingJobs) {
-        if (preflightStopping) break;
-
-        const sessionInfo = await getAnyValidStorageState(job.applywizz_id);
-        const chatId = sessionInfo?.chatId || null;
-        const storageState = sessionInfo?.storageState || null;
-
-        console.log(`[pre-flight] Validating job ${job.id}: ${job.url}...`);
-        const precheck = await prevalidateJob(chatId, job, storageState);
-
-        if (precheck.ok) {
-          console.log(`[pre-flight] Job ${job.id} PASSED pre-flight.`);
-          await updateJobPreflightStatus(job.id, 'passed');
-        } else {
-          console.log(`[pre-flight] Job ${job.id} FAILED pre-flight: ${precheck.reason}`);
-          await updateJobPreflightStatus(job.id, 'preflight_failed');
-          if (chatId) {
-            await saveAppliedJob(chatId, job.url, precheck.jobName || job.title || 'Unknown Job', 'preflight_failed', precheck.reason);
-          }
-        }
-      }
-    } catch (err) {
-      console.error('[pre-flight] Error in pre-flight loop:', err.message);
-      await new Promise((r) => setTimeout(r, 10000));
-    }
-  }
-  console.log('[dice_apply_worker] Pre-flight scanner loop stopped.');
-}
 
 const loginAttempts = new Map();
 
@@ -540,8 +474,7 @@ async function executeQueuedApply(job, { signal } = {}) {
 
   let handle = await openBrowser({
     storageState: activeSession.storageState,
-    headless: useBrowserbase,
-  });
+    headless: true });
   if (handle.sessionId) {
     console.log(`${await getClientPrefix(chatId)} Apply browser session: ${handle.sessionId}`);
   }
@@ -571,8 +504,7 @@ async function executeQueuedApply(job, { signal } = {}) {
           await closeBrowser(handle);
           handle = await openBrowser({
             storageState: activeSession.storageState,
-            headless: useBrowserbase,
-          });
+            headless: true });
           retryAfterLogin = true;
           continue;
         }
@@ -590,8 +522,7 @@ async function executeQueuedApply(job, { signal } = {}) {
           await closeBrowser(handle);
           handle = await openBrowser({
             storageState: activeSession.storageState,
-            headless: useBrowserbase,
-          });
+            headless: true });
           retryAfterLogin = true;
         } else {
           const currentUrl = page ? page.url() : url;
@@ -615,7 +546,7 @@ async function executeQueuedApply(job, { signal } = {}) {
 // === BOOTSTRAP ===
 (async () => {
   console.log('[dice_apply_worker] Initializing apply queue workers...');
-  console.log(`[dice_apply_worker] Browser provider: ${useBrowserbase ? `browserbase (max ${maxConcurrent} concurrent)` : 'local'}`);
+  console.log(`[dice_apply_worker] Browser provider: local (max ${maxConcurrent} concurrent)`);
 
   applyWorkerController = startApplyWorkers({
     queue: applyQueue,
