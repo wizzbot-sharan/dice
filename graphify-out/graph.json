@@ -4981,13 +4981,13 @@
       "source_location": "L3"
     },
     {
-      "id": "lib_job_application_db_createserviceclient",
-      "label": "{ createServiceClient }",
+      "id": "lib_job_application_db_createserviceclient_createpool",
+      "label": "{ createServiceClient, createPool }",
       "_origin": "ast",
       "community": 22,
       "community_name": "job-application-db.js",
       "file_type": "code",
-      "norm_label": "{ createserviceclient }",
+      "norm_label": "{ createserviceclient, createpool }",
       "source_file": "lib/job-application-db.js",
       "source_location": "L1"
     },
@@ -7753,6 +7753,18 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "_origin": "semantic",
+      "community": 9,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
       "_origin": "semantic",
@@ -7785,6 +7797,18 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
+      "_origin": "semantic",
+      "community": 9,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
       "source_file": "",
       "type": "external"
     },
@@ -7845,28 +7869,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_clearexpiredpendingquestions",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "community": 9,
-      "community_name": "start-worker.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
-      "community": 9,
-      "community_name": "start-worker.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
       "source_file": "",
       "type": "external"
     }
@@ -12790,6 +12792,18 @@
       "context": "import",
       "source_file": "lib/due-work-ticker.js",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "lib_job_application_db",
+      "target": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "lib/job-application-db.js",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -18091,7 +18105,7 @@
     },
     {
       "source": "lib_job_application_db",
-      "target": "lib_job_application_db_createserviceclient",
+      "target": "lib_job_application_db_createserviceclient_createpool",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -22623,5 +22637,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3baeea8ee88bf56a199fc69c16ba19dec3871b74"
+  "built_at_commit": "65aaf65546a25609268b0db1efc73266255b6d9c"
 }

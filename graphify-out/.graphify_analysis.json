@@ -644,7 +644,7 @@
       "lib_job_application_db_applyqueue",
       "lib_job_application_db_azure",
       "lib_job_application_db_createapplyqueue",
-      "lib_job_application_db_createserviceclient",
+      "lib_job_application_db_createserviceclient_createpool",
       "lib_job_application_db_getclientidforchat",
       "lib_job_application_db_getclientprefix_getjobdisplay",
       "users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue",

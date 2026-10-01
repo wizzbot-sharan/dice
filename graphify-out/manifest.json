@@ -120,10 +120,10 @@
     "semantic_hash": "d768b48e368d543bf7b6db3041949bda"
   },
   "lib/job-application-db.js": {
-    "mtime": 1790851076.5966485,
-    "seen": 1790852702.8128362,
-    "ast_hash": "e7f5a86017ec406dd3cff046f7481e0f",
-    "semantic_hash": "e7f5a86017ec406dd3cff046f7481e0f"
+    "mtime": 1790854097.9661527,
+    "seen": 1790854243.565248,
+    "ast_hash": "9f66dac35c00963c7567263291b82b1e",
+    "semantic_hash": "9f66dac35c00963c7567263291b82b1e"
   },
   "lib/job-matching.js": {
     "mtime": 1788429237.442267,

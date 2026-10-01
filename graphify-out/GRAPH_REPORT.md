@@ -4,12 +4,12 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 686 nodes · 1262 edges · 51 communities (31 shown, 20 thin omitted)
+- 686 nodes · 1263 edges · 51 communities (31 shown, 20 thin omitted)
 - Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 145 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3baeea8e`
+- Built from commit: `65aaf655`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -176,7 +176,7 @@ Nodes (5): assertIdentifier(), createQueryBuilder(), builder, buildWhere(), exec
 
 ### Community 22 - "job-application-db.js"
 Cohesion: 0.22
-Nodes (8): applyQueue, azure, { createApplyQueue }, { createServiceClient }, { getClientIdForChat }, { getClientPrefix, getJobDisplay }, users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue, users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat
+Nodes (8): applyQueue, azure, { createApplyQueue }, { createServiceClient, createPool }, { getClientIdForChat }, { getClientPrefix, getJobDisplay }, users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue, users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat
 
 ### Community 23 - "handleConversationMessage"
 Cohesion: 0.32
