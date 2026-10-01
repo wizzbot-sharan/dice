@@ -23,7 +23,9 @@ const {
   getClientIdForChat,
   getSessionsPendingLogin,
 } = require('./lib/dice-session');
-const { saveAppliedJob } = require('./lib/job-application-db');
+const { saveAppliedJob, patchJobProof } = require('./lib/job-application-db');
+const { hasAwsS3Config, uploadScreenshot } = require('./lib/s3-screenshot');
+const { verifyJobApplicationEmail } = require('./lib/zoho-mail-reader');
 const {
   updateJobPreflightStatus,
 } = require('./lib/job-scanner');
@@ -473,11 +475,79 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
   if (await isVisibleEnabled(submitButton)) {
     await submitButton.first().scrollIntoViewIfNeeded();
     await submitButton.first().click();
-    await applicationPage.waitForLoadState('load', { timeout: 45000 }).catch(() => { });
-    await waitRandom(1, 4, 'After Submit opens next page');
+    
+    // Application Proof System: 1. Screenshot
+    console.log(`${await getClientPrefix(chatId)} Wait 3s before injecting banner...`);
+    await applicationPage.waitForTimeout(3000);
+    
+    // Inject floating URL banner
+    await applicationPage.evaluate(() => {
+      const banner = document.createElement('div');
+      banner.style.position = 'fixed';
+      banner.style.top = '0';
+      banner.style.left = '0';
+      banner.style.width = '100%';
+      banner.style.background = 'rgba(0, 0, 0, 0.8)';
+      banner.style.color = 'white';
+      banner.style.padding = '8px';
+      banner.style.zIndex = '99999';
+      banner.style.fontFamily = 'monospace';
+      banner.style.fontSize = '14px';
+      banner.innerText = 'Application URL: ' + window.location.href;
+      document.body.appendChild(banner);
+    });
 
+    console.log(`${await getClientPrefix(chatId)} Wait 2s for banner to settle...`);
+    await applicationPage.waitForTimeout(2000);
+
+    const buffer = await applicationPage.screenshot({ type: 'png' });
+    let screenshotUrl = null;
+
+    if (hasAwsS3Config()) {
+      const companyMatch = jobName.split(' - ');
+      const company = companyMatch[0] || 'UnknownCompany';
+      const title = companyMatch[1] || 'UnknownTitle';
+      const applyProfileDetails = await pool.query('SELECT applywizz_id FROM clients_additional_info WHERE id = $1', [clientId]);
+      const awlId = applyProfileDetails.rows[0]?.applywizz_id || 'UNKNOWN';
+
+      screenshotUrl = await uploadScreenshot(buffer, awlId, company, title);
+    } else {
+      console.log(`${await getClientPrefix(chatId)} AWS S3 config missing. Skipping screenshot upload.`);
+    }
+
+    // Save as completed FIRST so we don't lose the successful submission status
     await saveAppliedJob(chatId, url, jobName, 'completed');
     await sendMessage(chatId, `✅ Application submitted successfully for:\n${jobName}`);
+
+    // Application Proof System: 2. Zoho Mail Verification
+    let emailJson = { status: "not connected" };
+    
+    // Check if user is connected
+    const connectionRes = await pool.query('SELECT zoho_connection, company_email FROM clients_additional_info WHERE id = $1', [clientId]);
+    const isConnected = connectionRes.rows[0]?.zoho_connection === true;
+    const companyEmail = connectionRes.rows[0]?.company_email;
+
+    if (isConnected && companyEmail) {
+      if (!process.env.ZOHO_MAIL_READER_URL || !process.env.ZOHO_ADMIN_USERNAME) {
+        emailJson = { status: "reader not configured" };
+      } else {
+        console.log(`${await getClientPrefix(chatId)} Starting Zoho Mail verification for ${companyEmail}...`);
+        const companyMatch = jobName.split(' - ');
+        const company = companyMatch[0] || '';
+        const title = companyMatch[1] || jobName;
+
+        // Note: verifyJobApplicationEmail handles its own abortSignal checks internally 
+        // to not block if the worker timeout hits.
+        const mailResult = await verifyJobApplicationEmail(companyEmail, company, title, null /* no strict signal yet */);
+        emailJson = mailResult;
+      }
+    } else {
+      console.log(`${await getClientPrefix(chatId)} Skipping Zoho verification (not connected).`);
+    }
+
+    // Patch the proof fields
+    await patchJobProof(chatId, url, screenshotUrl, emailJson);
+
     return true;
   }
 

@@ -54,10 +54,10 @@
     "semantic_hash": "e13723e2574429d9a6d849727e3ff695"
   },
   "frontend/src/pages/Dashboard.jsx": {
-    "mtime": 1790441619.503701,
-    "seen": 1790442027.057218,
-    "ast_hash": "0839ba0aedbda8e7ec3dd293799abd8b",
-    "semantic_hash": "0839ba0aedbda8e7ec3dd293799abd8b"
+    "mtime": 1790851333.5058606,
+    "seen": 1790852702.81272,
+    "ast_hash": "450033fbefca236a35bf6c3766383bee",
+    "semantic_hash": "450033fbefca236a35bf6c3766383bee"
   },
   "frontend/src/pages/DevLogs.jsx": {
     "mtime": 1790592985.8248417,
@@ -102,10 +102,10 @@
     "semantic_hash": "eeabeaa53df654e5d614ad2d664f8108"
   },
   "lib/dashboard-server.js": {
-    "mtime": 1790834892.4019392,
-    "seen": 1790836508.291753,
-    "ast_hash": "3226f593d417abeced2ada9bb06ffbbc",
-    "semantic_hash": "3226f593d417abeced2ada9bb06ffbbc"
+    "mtime": 1790851160.2327342,
+    "seen": 1790852702.812808,
+    "ast_hash": "f0b477e13c7f19807badf0dc6149d081",
+    "semantic_hash": "f0b477e13c7f19807badf0dc6149d081"
   },
   "lib/dice-apply-questions.js": {
     "mtime": 1790839278.6193128,
@@ -120,10 +120,10 @@
     "semantic_hash": "d768b48e368d543bf7b6db3041949bda"
   },
   "lib/job-application-db.js": {
-    "mtime": 1790744138.6364102,
-    "seen": 1790759916.026865,
-    "ast_hash": "b066893d7439e1158c42b5a532c5c28d",
-    "semantic_hash": "b066893d7439e1158c42b5a532c5c28d"
+    "mtime": 1790851076.5966485,
+    "seen": 1790852702.8128362,
+    "ast_hash": "e7f5a86017ec406dd3cff046f7481e0f",
+    "semantic_hash": "e7f5a86017ec406dd3cff046f7481e0f"
   },
   "lib/job-matching.js": {
     "mtime": 1788429237.442267,
@@ -180,10 +180,10 @@
     "semantic_hash": "0ee8220e0511e540fd0bf1efd076e28e"
   },
   "package.json": {
-    "mtime": 1790144066.0265687,
-    "seen": 1790144137.3062558,
-    "ast_hash": "115c1fa20efb7a6bd08e4fdc6775964b",
-    "semantic_hash": "115c1fa20efb7a6bd08e4fdc6775964b"
+    "mtime": 1790850946.0730183,
+    "seen": 1790852702.8129358,
+    "ast_hash": "50c90dc22b0a4cc5174dbfc423b08b63",
+    "semantic_hash": "50c90dc22b0a4cc5174dbfc423b08b63"
   },
   "scripts/create-operator.js": {
     "mtime": 1789041620.778129,
@@ -216,10 +216,10 @@
     "semantic_hash": "05c74384f8abc6e3acaf8bde044ffe67"
   },
   "scripts/sync-daily-pipeline.js": {
-    "mtime": 1790682013.8391135,
-    "seen": 1790739458.0127401,
-    "ast_hash": "18782b3c3074efe8940a739bc6f80e5d",
-    "semantic_hash": "18782b3c3074efe8940a739bc6f80e5d"
+    "mtime": 1790851112.6721153,
+    "seen": 1790852702.812991,
+    "ast_hash": "e38d36946b8fea4a742b0ef4f792b94a",
+    "semantic_hash": "e38d36946b8fea4a742b0ef4f792b94a"
   },
   "scripts/verify-client-lookup.js": {
     "mtime": 1789041687.0935614,
@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1790839325.0765605,
-    "seen": 1790840142.0269241,
-    "ast_hash": "adadeede048f213632f31a217e60aa53",
-    "semantic_hash": "adadeede048f213632f31a217e60aa53"
+    "mtime": 1790851048.2679114,
+    "seen": 1790852702.8130162,
+    "ast_hash": "1102a6c0f6afa3480942ec59d8733efc",
+    "semantic_hash": "1102a6c0f6afa3480942ec59d8733efc"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,
@@ -382,5 +382,23 @@
     "seen": 1790840142.027028,
     "ast_hash": "afac6c609f0f99c4130065a2827a4f81",
     "semantic_hash": "afac6c609f0f99c4130065a2827a4f81"
+  },
+  "database/migrations/012_application_proof.sql": {
+    "mtime": 1790850920.2427542,
+    "seen": 1790852702.8126569,
+    "ast_hash": "51868d69ca01fe48561c3a30f2eedba8",
+    "semantic_hash": "51868d69ca01fe48561c3a30f2eedba8"
+  },
+  "lib/s3-screenshot.js": {
+    "mtime": 1790850957.795909,
+    "seen": 1790852702.812908,
+    "ast_hash": "309b32f6b3d1fd6cd1151b92717ea17e",
+    "semantic_hash": "309b32f6b3d1fd6cd1151b92717ea17e"
+  },
+  "lib/zoho-mail-reader.js": {
+    "mtime": 1790850980.8726642,
+    "seen": 1790852702.8129358,
+    "ast_hash": "47e8ad40acc4c8d4226299411642adda",
+    "semantic_hash": "47e8ad40acc4c8d4226299411642adda"
   }
 }

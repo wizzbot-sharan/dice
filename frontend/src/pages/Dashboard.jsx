@@ -11,6 +11,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const [showTelegramModal, setShowTelegramModal] = useState(false);
+  const [proofModal, setProofModal] = useState({ show: false, type: null, data: null });
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [expandedCandidate, setExpandedCandidate] = useState(null);
   const [candidateTab, setCandidateTab] = useState('dashboard');
@@ -711,6 +712,7 @@ export default function Dashboard() {
                         <th className="px-6 py-4 font-medium">Job</th>
                         <th className="px-6 py-4 font-medium">Status</th>
                         <th className="px-6 py-4 font-medium">Applied At</th>
+                        <th className="px-6 py-4 font-medium">Proof</th>
                         <th className="px-6 py-4 font-medium text-right">Link</th>
                       </tr>
                     </thead>
@@ -730,6 +732,27 @@ export default function Dashboard() {
                           <td className="px-6 py-4 text-zinc-400 text-xs">
                             {app.applied_at ? new Date(app.applied_at).toLocaleString() : '--'}
                           </td>
+                          <td className="px-6 py-4">
+                            {app.status === 'completed' ? (
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => setProofModal({ show: true, type: 'screenshot', data: app.screenshot_link })}
+                                  disabled={!app.screenshot_link}
+                                  className={`px-2 py-1 rounded text-[10px] uppercase font-bold ${app.screenshot_link ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' : 'bg-white/5 text-zinc-600 cursor-not-allowed'}`}
+                                >
+                                  Screenshot
+                                </button>
+                                <button
+                                  onClick={() => setProofModal({ show: true, type: 'email', data: app.email_json })}
+                                  className={`px-2 py-1 rounded text-[10px] uppercase font-bold bg-green-500/20 text-green-400 hover:bg-green-500/30`}
+                                >
+                                  Email Proof
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="text-zinc-600 text-xs">--</span>
+                            )}
+                          </td>
                           <td className="px-6 py-4 text-right">
                             <a href={app.url} target="_blank" rel="noreferrer" className="text-white hover:text-zinc-300 text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg transition-colors">
                               View ↗
@@ -739,7 +762,7 @@ export default function Dashboard() {
                       ))}
                       {(!data.global_stats?.all_applications || data.global_stats.all_applications.length === 0) && (
                         <tr>
-                          <td colSpan="6" className="px-6 py-8 text-center text-zinc-500">No applications found.</td>
+                          <td colSpan="7" className="px-6 py-8 text-center text-zinc-500">No applications found.</td>
                         </tr>
                       )}
                     </tbody>
@@ -786,6 +809,31 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {proofModal.show && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#111] border border-white/10 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white uppercase tracking-wider">
+                {proofModal.type === "screenshot" ? "Dice Submission Proof" : "Email Verification Proof"}
+              </h3>
+              <button onClick={() => setProofModal({ show: false, type: null, data: null })} className="text-zinc-500 hover:text-white transition-colors">
+                <X size={24} />
+              </button>
+            </div>
+            {proofModal.type === "screenshot" && (
+              <div className="rounded-xl overflow-hidden border border-white/5">
+                <img src={proofModal.data} alt="Dice Application Proof" className="w-full h-auto" />
+              </div>
+            )}
+            {proofModal.type === "email" && (
+              <div className="bg-black/50 border border-white/5 rounded-xl p-4 font-mono text-xs text-zinc-300 overflow-x-auto whitespace-pre-wrap">
+                {typeof proofModal.data === "object" ? JSON.stringify(proofModal.data, null, 2) : proofModal.data}
+              </div>
+            )}
           </div>
         </div>
       )}

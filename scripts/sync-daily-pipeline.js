@@ -369,6 +369,8 @@ async function runSyncDaily(options = {}) {
     const mappingStats = await syncMappings(db, azure, targetDate, cas, isGlobalSync);
     const managersDerived = await deriveManagerLinks(db, cas);
 
+    const { syncConnectedClients } = require('../lib/zoho-mail-reader');
+    await syncConnectedClients(db);
     const durationSeconds = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`=== Daily Sync Finished successfully in ${durationSeconds}s ===`);
 
