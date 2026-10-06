@@ -1,4 +1,4 @@
-# Graph Report - Dice_scaling copy  (2026-10-01)
+# Graph Report - Dice_scaling copy  (2026-10-06)
 
 ## Corpus Check
 - cluster-only mode — file stats not available
@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `65aaf655`
+- Built from commit: `6e81e6c5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

@@ -67,6 +67,7 @@ export default function DevLogs() {
   const [popupJobFilter, setPopupJobFilter] = useState('ALL');
   const [isPopupLoading, setIsPopupLoading] = useState(false);
   const [popupTimezone, setPopupTimezone] = useState('Asia/Kolkata');
+  const [proofModal, setProofModal] = useState({ show: false, type: null, data: null });
 
   const logsEndRef = useRef(null);
   const eventSourceRef = useRef(null);
@@ -769,6 +770,32 @@ export default function DevLogs() {
         </div>
       </div>
 
+
+      {proofModal.show && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={(e) => { if (e.target === e.currentTarget) setProofModal({ show: false, type: null, data: null }); }}>
+          <div className="bg-[#111] border border-white/10 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white uppercase tracking-wider">
+                {proofModal.type === "screenshot" ? "Dice Submission Proof" : "Email Verification Proof"}
+              </h3>
+              <button onClick={() => setProofModal({ show: false, type: null, data: null })} className="text-zinc-500 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+            {proofModal.type === "screenshot" && (
+              <div className="rounded-xl overflow-hidden border border-white/5">
+                <img src={proofModal.data} alt="Dice Application Proof" className="w-full h-auto" />
+              </div>
+            )}
+            {proofModal.type === "email" && (
+              <div className="bg-black/50 border border-white/5 rounded-xl p-4 font-mono text-xs text-zinc-300 overflow-x-auto whitespace-pre-wrap">
+                {typeof proofModal.data === "object" ? JSON.stringify(proofModal.data, null, 2) : proofModal.data}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Fix A: POPUP — fixed inset-0, full screen on mobile */}
       {selectedClientForPopup && (
         <div
@@ -847,11 +874,12 @@ export default function DevLogs() {
                           <th className="px-4 md:px-6 py-3 font-medium">URL</th>
                           <th className="px-4 md:px-6 py-3 font-medium whitespace-nowrap">Time (Applied)</th>
                           <th className="px-4 md:px-6 py-3 font-medium">Status</th>
+                          {popupJobFilter === 'completed' && <th className="px-4 md:px-6 py-3 font-medium">Proof</th>}
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
                         {filteredPopupJobs.length === 0 ? (
-                          <tr><td colSpan="4" className="px-6 py-4 text-zinc-500 text-center">No jobs found for this filter.</td></tr>
+                          <tr><td colSpan={popupJobFilter === 'completed' ? 5 : 4} className="px-6 py-4 text-zinc-500 text-center">No jobs found for this filter.</td></tr>
                         ) : filteredPopupJobs.map((job, idx) => (
                           <tr key={idx} className="hover:bg-white/5">
                             <td className="px-4 md:px-6 py-3 md:py-4 text-white font-medium whitespace-nowrap">{job.job_name}</td>
