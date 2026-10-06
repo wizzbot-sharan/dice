@@ -2600,7 +2600,7 @@
       "file_type": "code",
       "norm_label": "syncconnectedclients()",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L207"
+      "source_location": "L224"
     },
     {
       "id": "lib_zoho_mail_reader_verifyjobapplicationemail",
@@ -10506,7 +10506,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L209",
+      "source_location": "L226",
       "weight": 1.0
     },
     {
@@ -10518,7 +10518,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L210",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -10530,7 +10530,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L213",
+      "source_location": "L230",
       "weight": 1.0
     },
     {
@@ -10542,7 +10542,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L262",
+      "source_location": "L279",
       "weight": 1.0
     },
     {
@@ -10590,7 +10590,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L203",
+      "source_location": "L220",
       "weight": 1.0
     },
     {
@@ -22657,7 +22657,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L267",
+      "source_location": "L284",
       "weight": 1.0
     },
     {
@@ -22669,7 +22669,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "lib/zoho-mail-reader.js",
-      "source_location": "L268",
+      "source_location": "L285",
       "weight": 1.0
     },
     {
@@ -22974,5 +22974,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8ab54fcd8579ce348f3cc803bf5fe5c407a14568"
+  "built_at_commit": "b9d9b8b32a182b2f5b886a7093c57c4cdf650d2d"
 }
