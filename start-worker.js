@@ -443,7 +443,7 @@ async function applyToJobOnPage(page, jobName, url, chatId) {
       if (!filled.ok) {
         if (filled.reason === 'SKIPPED_BY_USER' || filled.reason?.includes("didn't give response")) {
           console.log(`${await getClientPrefix(chatId)} Job skipped: ${filled.reason}`);
-          await saveAppliedJob(chatId, url, jobName, 'skipped', filled.reason);
+          await saveAppliedJob(chatId, url, jobName, 'apply_failed', filled.reason);
           return false;
         }
         console.warn(`${await getClientPrefix(chatId)} Skipped ${jobName}: ${filled.reason || 'Could not answer an application question.'} URL: ${applicationPage.url()}`);

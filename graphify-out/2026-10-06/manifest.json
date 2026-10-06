@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1790851048.2679114,
-    "seen": 1790852702.8130162,
-    "ast_hash": "1102a6c0f6afa3480942ec59d8733efc",
-    "semantic_hash": "1102a6c0f6afa3480942ec59d8733efc"
+    "mtime": 1791267833.7491622,
+    "seen": 1791268800.361469,
+    "ast_hash": "d00e9e19dd188aa653de982d29d6e85d",
+    "semantic_hash": "d00e9e19dd188aa653de982d29d6e85d"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,
@@ -318,10 +318,10 @@
     "semantic_hash": "f42676fe74f16691241062ce4d1c8c17"
   },
   "lib/bot-prompt-handler.js": {
-    "mtime": 1790839994.364976,
-    "seen": 1790840142.026708,
-    "ast_hash": "5210ced51f46adb097d9fe048ba0db21",
-    "semantic_hash": "5210ced51f46adb097d9fe048ba0db21"
+    "mtime": 1791267858.7799008,
+    "seen": 1791268800.361196,
+    "ast_hash": "71f1305fd32b44d07aaa3a10c4e97ee9",
+    "semantic_hash": "71f1305fd32b44d07aaa3a10c4e97ee9"
   },
   "lib/due-work-ticker.js": {
     "mtime": 1790839471.5674512,
@@ -396,10 +396,10 @@
     "semantic_hash": "5a0388e85e7053b6b96b48dd24bd1a53"
   },
   "lib/zoho-mail-reader.js": {
-    "mtime": 1791261281.2780104,
-    "seen": 1791261353.676835,
-    "ast_hash": "443c6d2f2e41474860f0a34dcf3267b7",
-    "semantic_hash": "443c6d2f2e41474860f0a34dcf3267b7"
+    "mtime": 1791268642.9795005,
+    "seen": 1791268800.361355,
+    "ast_hash": "911cf4233f96616f4299901df0dc4e40",
+    "semantic_hash": "911cf4233f96616f4299901df0dc4e40"
   },
   "scratch-migrate.js": {
     "mtime": 1791265045.9792182,
