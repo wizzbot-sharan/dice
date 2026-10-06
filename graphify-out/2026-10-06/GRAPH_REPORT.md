@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `071c314b`
+- Built from commit: `ac636da8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -234,7 +234,7 @@ Cohesion: 0.50
 Nodes (3): args, { createPool }, email
 
 ## Knowledge Gaps
-- **263 isolated node(s):** `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }`, `IGNORED_COLUMN_KEYS`, `INTENTS` (+258 more)
+- **263 isolated node(s):** `INTENTS`, `LABELS`, `QUESTION_MAPPINGS`, `{ SKILL_ALIASES }`, `assert` (+258 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 352 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -247,7 +247,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?**
   _`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }` to the rest of the system?**
+- **What connects `INTENTS`, `LABELS`, `QUESTION_MAPPINGS` to the rest of the system?**
   _263 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `dice-apply-questions.js` be split into smaller, more focused modules?**
   _Cohesion score 0.08106219426974144 - nodes in this community are weakly interconnected._

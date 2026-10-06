@@ -1,6 +1,67 @@
 {
   "communities": {
     "0": [
+      "frontend_package",
+      "frontend_package_dependencies",
+      "frontend_package_dependencies_axios",
+      "frontend_package_dependencies_lucide_react",
+      "frontend_package_dependencies_react",
+      "frontend_package_dependencies_react_dom",
+      "frontend_package_dependencies_react_router_dom",
+      "frontend_package_devdependencies",
+      "frontend_package_devdependencies_autoprefixer",
+      "frontend_package_devdependencies_oxlint",
+      "frontend_package_devdependencies_postcss",
+      "frontend_package_devdependencies_tailwindcss",
+      "frontend_package_devdependencies_tailwindcss_vite",
+      "frontend_package_devdependencies_types_react",
+      "frontend_package_devdependencies_types_react_dom",
+      "frontend_package_devdependencies_vite",
+      "frontend_package_devdependencies_vitejs_plugin_react",
+      "frontend_package_name",
+      "frontend_package_private",
+      "frontend_package_scripts",
+      "frontend_package_scripts_build",
+      "frontend_package_scripts_dev",
+      "frontend_package_scripts_lint",
+      "frontend_package_scripts_preview",
+      "frontend_package_type",
+      "frontend_package_version",
+      "frontend_src_app",
+      "frontend_src_app_app",
+      "frontend_src_app_protectedroute",
+      "frontend_src_context_authcontext",
+      "frontend_src_context_authcontext_authcontext",
+      "frontend_src_context_authcontext_authprovider",
+      "frontend_src_context_authcontext_useauth",
+      "frontend_src_index",
+      "frontend_src_main",
+      "frontend_src_pages_dashboard",
+      "frontend_src_pages_dashboard_dashboard",
+      "frontend_src_pages_devlogs",
+      "frontend_src_pages_devlogs_devlogs",
+      "frontend_src_pages_devlogs_formatappliedat",
+      "frontend_src_pages_devlogs_popup_timezones",
+      "frontend_src_pages_devlogs_tab_labels",
+      "frontend_src_pages_login",
+      "frontend_src_pages_login_login",
+      "frontend_vite_config",
+      "ref_autoprefixer",
+      "ref_axios",
+      "ref_lucide_react",
+      "ref_oxlint",
+      "ref_postcss",
+      "ref_react",
+      "ref_react_dom",
+      "ref_react_router_dom",
+      "ref_tailwindcss",
+      "ref_tailwindcss_vite",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_vite",
+      "ref_vitejs_plugin_react"
+    ],
+    "1": [
       "lib_dice_apply_questions",
       "lib_dice_apply_questions_answerstolist",
       "lib_dice_apply_questions_applyquestionform",
@@ -54,162 +115,10 @@
       "users_sharan_desktop_dice_scaling_copy_lib_resume_parser_getcandidateresumedata",
       "users_sharan_desktop_dice_scaling_copy_lib_resume_parser_getexperienceforskill",
       "users_sharan_desktop_dice_scaling_copy_lib_resume_parser_searchresumeforanswer",
-      "users_sharan_desktop_dice_scaling_copy_lib_unknown_questions_findknownanswer"
-    ],
-    "1": [
-      "frontend_package",
-      "frontend_package_dependencies",
-      "frontend_package_dependencies_axios",
-      "frontend_package_dependencies_lucide_react",
-      "frontend_package_dependencies_react",
-      "frontend_package_dependencies_react_dom",
-      "frontend_package_dependencies_react_router_dom",
-      "frontend_package_name",
-      "frontend_package_private",
-      "frontend_package_scripts",
-      "frontend_package_scripts_build",
-      "frontend_package_scripts_dev",
-      "frontend_package_scripts_lint",
-      "frontend_package_scripts_preview",
-      "frontend_package_type",
-      "frontend_package_version",
-      "frontend_src_app",
-      "frontend_src_app_app",
-      "frontend_src_app_protectedroute",
-      "frontend_src_context_authcontext",
-      "frontend_src_context_authcontext_authcontext",
-      "frontend_src_context_authcontext_authprovider",
-      "frontend_src_context_authcontext_useauth",
-      "frontend_src_index",
-      "frontend_src_main",
-      "frontend_src_pages_dashboard",
-      "frontend_src_pages_dashboard_dashboard",
-      "frontend_src_pages_devlogs",
-      "frontend_src_pages_devlogs_devlogs",
-      "frontend_src_pages_devlogs_formatappliedat",
-      "frontend_src_pages_devlogs_popup_timezones",
-      "frontend_src_pages_devlogs_tab_labels",
-      "frontend_src_pages_login",
-      "frontend_src_pages_login_login",
-      "frontend_vite_config",
-      "ref_autoprefixer",
-      "ref_axios",
-      "ref_lucide_react",
-      "ref_oxlint",
-      "ref_postcss",
-      "ref_react",
-      "ref_react_dom",
-      "ref_react_router_dom",
-      "ref_tailwindcss",
-      "ref_tailwindcss_vite",
-      "ref_types_react",
-      "ref_types_react_dom",
-      "ref_vite",
-      "ref_vitejs_plugin_react"
+      "users_sharan_desktop_dice_scaling_copy_lib_unknown_questions_findknownanswer",
+      "users_sharan_desktop_dice_scaling_copy_lib_unknown_questions_saveknownanswer"
     ],
     "2": [
-      "lib_apply_worker",
-      "lib_apply_worker_crypto",
-      "lib_apply_worker_getclientprefix_getjobdisplay",
-      "lib_apply_worker_openbrowser_closebrowser_maxconcurrent",
-      "lib_apply_worker_sleep",
-      "lib_apply_worker_startapplyworkers",
-      "lib_apply_worker_startapplyworkers_workerloop",
-      "lib_bot_prompt_handler",
-      "lib_bot_prompt_handler_applypromptdecision",
-      "lib_bot_prompt_handler_collectandsavepreflightanswer",
-      "lib_bot_prompt_handler_createpool",
-      "lib_bot_prompt_handler_crypto",
-      "lib_bot_prompt_handler_getclientprefix_getjobdisplay",
-      "lib_bot_prompt_handler_randomminutes",
-      "lib_bot_prompt_handler_sendjobprompt",
-      "lib_due_work_ticker",
-      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
-      "lib_due_work_ticker_createdueworkticker",
-      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
-      "lib_due_work_ticker_createdueworkticker_processduechat",
-      "lib_due_work_ticker_createdueworkticker_start",
-      "lib_due_work_ticker_createdueworkticker_stop",
-      "lib_due_work_ticker_createdueworkticker_tick",
-      "lib_due_work_ticker_createpool",
-      "lib_due_work_ticker_enqueue_batch_cap",
-      "lib_due_work_ticker_getclientprefix",
-      "lib_due_work_ticker_listdueworkflowchats",
-      "lib_due_work_ticker_newday_lookback_ms",
-      "lib_due_work_ticker_send_spacing_ms",
-      "lib_due_work_ticker_ticker_batch_size",
-      "lib_due_work_ticker_ticker_interval_ms",
-      "lib_logger",
-      "lib_logger_clientcache",
-      "lib_logger_createpool",
-      "lib_logger_getjobdisplay",
-      "lib_logger_jobcache",
-      "ref_crypto",
-      "ref_node_test",
-      "test_due_work_ticker_test",
-      "test_due_work_ticker_test_assert",
-      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
-      "test_due_work_ticker_test_test",
-      "test_preflight_questions_test",
-      "test_preflight_questions_test_assert",
-      "test_preflight_questions_test_sendjobprompt_applypromptdecision",
-      "test_preflight_questions_test_test",
-      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms",
-      "users_sharan_desktop_dice_scaling_copy_lib_logger_getclientprefix",
-      "users_sharan_desktop_dice_scaling_copy_lib_logger_getjobdisplay"
-    ],
-    "3": [
-      "lib_dashboard_server_sync_cooldown_ms",
-      "lib_dashboard_server_synccooldowns",
-      "lib_mailer",
-      "lib_mailer_getaccesstoken",
-      "lib_mailer_getauthconfig",
-      "lib_mailer_sendemail",
-      "ref_http",
-      "ref_node_assert",
-      "ref_stream",
-      "scripts_sync_daily_pipeline",
-      "scripts_sync_daily_pipeline_createpool_createserviceclient",
-      "scripts_sync_daily_pipeline_derivemanagerlinks",
-      "scripts_sync_daily_pipeline_fetchjson",
-      "scripts_sync_daily_pipeline_getyesterdaydate",
-      "scripts_sync_daily_pipeline_mapimportitem",
-      "scripts_sync_daily_pipeline_parsecliargs",
-      "scripts_sync_daily_pipeline_path",
-      "scripts_sync_daily_pipeline_runsyncdaily",
-      "scripts_sync_daily_pipeline_synccas",
-      "scripts_sync_daily_pipeline_syncmappings",
-      "test_bot_webhook_test",
-      "test_bot_webhook_test_assert",
-      "test_bot_webhook_test_bot",
-      "test_bot_webhook_test_createwebhookserver",
-      "test_bot_webhook_test_http",
-      "test_bot_webhook_test_invokeserver",
-      "test_bot_webhook_test_stream",
-      "test_bot_webhook_test_test",
-      "test_mailer_test",
-      "test_mailer_test_assert",
-      "test_mailer_test_getauthconfig_sendemail",
-      "test_mailer_test_test",
-      "test_manager_role_test",
-      "test_manager_role_test_assert",
-      "test_manager_role_test_createdashboardserver",
-      "test_manager_role_test_crypto",
-      "test_manager_role_test_derivemanagerlinks_runsyncdaily",
-      "test_manager_role_test_invokeserver",
-      "test_manager_role_test_stream",
-      "test_manager_role_test_test",
-      "test_sync_pipeline_test",
-      "test_sync_pipeline_test_assert",
-      "test_sync_pipeline_test_createdashboardserver_synccooldowns_sync_cooldown_ms",
-      "test_sync_pipeline_test_crypto",
-      "test_sync_pipeline_test_getyesterdaydate_runsyncdaily",
-      "test_sync_pipeline_test_invokeserver",
-      "test_sync_pipeline_test_stream",
-      "test_sync_pipeline_test_test",
-      "users_sharan_desktop_dice_scaling_copy_scripts_map_client_record_mapimportitem"
-    ],
-    "4": [
       "lib_dashboard_server",
       "lib_dashboard_server_activesyncs",
       "lib_dashboard_server_archiveoldjobs",
@@ -246,16 +155,20 @@
       "lib_dashboard_server_sendoperatorotpemail",
       "lib_dashboard_server_setcookie",
       "lib_dashboard_server_verifyotp",
+      "patch_browser",
+      "patch_browser_code",
+      "patch_browser_fs",
+      "ref_fs",
       "ref_os",
+      "ref_path",
       "test_operator_auth_test",
       "test_operator_auth_test_assert",
       "test_operator_auth_test_hashotp_generate6digitotp",
       "test_operator_auth_test_mapoperatorrecord",
       "test_operator_auth_test_test",
-      "users_sharan_desktop_dice_scaling_copy_lib_mailer_sendemail",
       "users_sharan_desktop_dice_scaling_copy_scripts_sync_daily_pipeline_runsyncdaily"
     ],
-    "5": [
+    "3": [
       "start_worker",
       "start_worker_apply_timeout_minutes",
       "start_worker_applyqueue",
@@ -297,7 +210,7 @@
       "users_sharan_desktop_dice_scaling_copy_lib_s3_screenshot_hasawss3config",
       "users_sharan_desktop_dice_scaling_copy_lib_s3_screenshot_uploadscreenshot"
     ],
-    "6": [
+    "4": [
       "start_bot",
       "start_bot_applypromptdecision",
       "start_bot_azure",
@@ -328,6 +241,7 @@
       "users_sharan_desktop_dice_scaling_copy_lib_dice_session_linktelegramchat",
       "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_applyqueue",
       "users_sharan_desktop_dice_scaling_copy_lib_job_application_db_saveappliedjob",
+      "users_sharan_desktop_dice_scaling_copy_lib_mailer_sendemail",
       "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_findactivependingquestion",
       "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_getanswerforquestion",
       "users_sharan_desktop_dice_scaling_copy_lib_pending_answers_recordpendinganswer",
@@ -335,10 +249,9 @@
       "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_getbot",
       "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
       "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessagewithbuttons",
-      "users_sharan_desktop_dice_scaling_copy_lib_unknown_questions_saveknownanswer",
       "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore"
     ],
-    "7": [
+    "5": [
       "lib_resume_parser",
       "lib_resume_parser_calculatedurationyears",
       "lib_resume_parser_clearresumecache",
@@ -377,9 +290,45 @@
       "test_resume_parser_test_parseresumetext_normalizeskillname_getexperienceforskill_calculatedurationyears",
       "test_resume_parser_test_test"
     ],
-    "8": [
+    "6": [
+      "package",
+      "package_dependencies",
+      "package_dependencies_aws_sdk_client_s3",
+      "package_dependencies_bcryptjs",
+      "package_dependencies_dotenv",
+      "package_dependencies_node_telegram_bot_api",
+      "package_dependencies_pdf_parse",
+      "package_dependencies_pg",
+      "package_dependencies_playwright",
+      "package_dependencies_playwright_core",
+      "package_dependencies_xenova_transformers",
+      "package_devdependencies",
+      "package_devdependencies_husky",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_create_operator",
+      "package_scripts_import_clients",
+      "package_scripts_import_operators",
+      "package_scripts_prepare",
+      "package_scripts_start",
+      "package_scripts_start_bot",
+      "package_scripts_start_dashboard",
+      "package_scripts_start_worker",
+      "package_scripts_sync_daily",
+      "package_scripts_test",
+      "package_scripts_update_docs",
+      "package_scripts_verify_client",
+      "ref_bcryptjs",
+      "ref_dotenv",
+      "ref_husky",
+      "ref_pdf_parse",
+      "ref_pg",
+      "ref_playwright",
+      "ref_playwright_core",
+      "ref_xenova_transformers"
+    ],
+    "7": [
       "lib_azure_createserviceclient",
-      "ref_fs",
       "scratch_test_error",
       "scratch_test_error_createserviceclient",
       "scratch_test_error_run",
@@ -413,45 +362,10 @@
       "scripts_verify_client_lookup_main",
       "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient"
     ],
-    "9": [
-      "package",
-      "package_dependencies",
-      "package_dependencies_aws_sdk_client_s3",
-      "package_dependencies_bcryptjs",
-      "package_dependencies_dotenv",
-      "package_dependencies_node_telegram_bot_api",
-      "package_dependencies_pdf_parse",
-      "package_dependencies_pg",
-      "package_dependencies_playwright",
-      "package_dependencies_playwright_core",
-      "package_dependencies_xenova_transformers",
-      "package_devdependencies",
-      "package_devdependencies_husky",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_create_operator",
-      "package_scripts_import_clients",
-      "package_scripts_import_operators",
-      "package_scripts_prepare",
-      "package_scripts_start",
-      "package_scripts_start_bot",
-      "package_scripts_start_dashboard",
-      "package_scripts_start_worker",
-      "package_scripts_sync_daily",
-      "package_scripts_test",
-      "package_scripts_update_docs",
-      "package_scripts_verify_client",
-      "ref_bcryptjs",
-      "ref_dotenv",
-      "ref_husky",
-      "ref_pdf_parse",
-      "ref_pg",
-      "ref_playwright_core",
-      "ref_xenova_transformers"
-    ],
-    "10": [
+    "8": [
       "lib_browser",
       "lib_browser_acquirebrowserticket",
+      "lib_browser_cancelidletimeout",
       "lib_browser_chromium_localchromium",
       "lib_browser_closebrowser",
       "lib_browser_closesharedbrowser",
@@ -462,6 +376,7 @@
       "lib_browser_openlocalbrowser",
       "lib_browser_recycle_threshold",
       "lib_browser_releasebrowserticket",
+      "lib_browser_startidletimeout",
       "lib_browser_ticketwaiters",
       "lib_zoho_mail_reader",
       "lib_zoho_mail_reader_fs",
@@ -474,7 +389,6 @@
       "lib_zoho_mail_reader_syncconnectedclients",
       "lib_zoho_mail_reader_verifyjobapplicationemail",
       "lib_zoho_mail_reader_zoho_session_path",
-      "ref_playwright",
       "start_worker_shutdown",
       "test_browser_tickets_test",
       "test_browser_tickets_test_assert",
@@ -483,7 +397,26 @@
       "users_sharan_desktop_dice_scaling_copy_lib_browser_closebrowser",
       "users_sharan_desktop_dice_scaling_copy_lib_browser_openbrowser"
     ],
-    "11": [
+    "9": [
+      "lib_apply_queue",
+      "lib_apply_queue_createpool",
+      "lib_apply_worker",
+      "lib_apply_worker_crypto",
+      "lib_apply_worker_getclientprefix_getjobdisplay",
+      "lib_apply_worker_openbrowser_closebrowser_maxconcurrent",
+      "lib_apply_worker_sleep",
+      "lib_apply_worker_startapplyworkers",
+      "lib_apply_worker_startapplyworkers_workerloop",
+      "test_apply_timeout_test",
+      "test_apply_timeout_test_assert",
+      "test_apply_timeout_test_createapplyqueue",
+      "test_apply_timeout_test_from",
+      "test_apply_timeout_test_startapplyworkers",
+      "test_apply_timeout_test_test",
+      "users_sharan_desktop_dice_scaling_copy_lib_logger_getclientprefix",
+      "users_sharan_desktop_dice_scaling_copy_lib_logger_getjobdisplay"
+    ],
+    "10": [
       "lib_apply_queue_createapplyqueue",
       "lib_apply_queue_createapplyqueue_clearstaleclientjobs",
       "lib_apply_queue_createapplyqueue_countactivequeueitems",
@@ -501,8 +434,56 @@
       "lib_apply_queue_createapplyqueue_setpreflightmetadata",
       "lib_apply_queue_createapplyqueue_updatejobstatus"
     ],
+    "11": [
+      "lib_workflow_state",
+      "lib_workflow_state_createworkflowstatestore",
+      "lib_workflow_state_createworkflowstatestore_claimtelegramupdate",
+      "lib_workflow_state_createworkflowstatestore_clearconversation",
+      "lib_workflow_state_createworkflowstatestore_get",
+      "lib_workflow_state_createworkflowstatestore_log",
+      "lib_workflow_state_createworkflowstatestore_recorddecision",
+      "lib_workflow_state_createworkflowstatestore_recordprompt",
+      "lib_workflow_state_createworkflowstatestore_save",
+      "ref_node_test",
+      "test_workflow_state_webhook_test",
+      "test_workflow_state_webhook_test_assert",
+      "test_workflow_state_webhook_test_createworkflowstatestore",
+      "test_workflow_state_webhook_test_from",
+      "test_workflow_state_webhook_test_test"
+    ],
     "12": [
-      "ref_path",
+      "lib_bot_prompt_handler",
+      "lib_bot_prompt_handler_applypromptdecision",
+      "lib_bot_prompt_handler_collectandsavepreflightanswer",
+      "lib_bot_prompt_handler_createpool",
+      "lib_bot_prompt_handler_crypto",
+      "lib_bot_prompt_handler_getclientprefix_getjobdisplay",
+      "lib_bot_prompt_handler_randomminutes",
+      "lib_bot_prompt_handler_sendjobprompt",
+      "lib_logger_getjobdisplay",
+      "ref_crypto",
+      "test_preflight_questions_test",
+      "test_preflight_questions_test_assert",
+      "test_preflight_questions_test_sendjobprompt_applypromptdecision",
+      "test_preflight_questions_test_test"
+    ],
+    "13": [
+      "lib_due_work_ticker",
+      "lib_due_work_ticker_applypromptdecision_sendjobprompt_randomminutes",
+      "lib_due_work_ticker_createpool",
+      "lib_due_work_ticker_enqueue_batch_cap",
+      "lib_due_work_ticker_getclientprefix",
+      "lib_due_work_ticker_newday_lookback_ms",
+      "lib_due_work_ticker_send_spacing_ms",
+      "lib_due_work_ticker_ticker_batch_size",
+      "lib_due_work_ticker_ticker_interval_ms",
+      "test_due_work_ticker_test",
+      "test_due_work_ticker_test_assert",
+      "test_due_work_ticker_test_createdueworkticker_enqueue_batch_cap",
+      "test_due_work_ticker_test_test",
+      "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_newday_lookback_ms"
+    ],
+    "14": [
       "scripts_import_operators",
       "scripts_import_operators_createpool",
       "scripts_import_operators_fs",
@@ -518,10 +499,9 @@
       "scripts_map_operator_record_mapoperatorrecord",
       "scripts_map_operator_record_unwrapoperatorrecord"
     ],
-    "13": [
+    "15": [
       "lib_apply_queue_createapplyqueue_claimnextjob",
       "lib_azure",
-      "lib_azure_assertidentifier",
       "lib_azure_parsecolumns",
       "lib_azure_pool",
       "lib_azure_requiredatabaseurl",
@@ -534,51 +514,20 @@
       "scratch_migrate_run",
       "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool"
     ],
-    "14": [
+    "16": [
       "lib_dice_session",
       "lib_dice_session_azure",
       "lib_dice_session_createserviceclient",
       "lib_dice_session_getallregisteredusers",
-      "lib_dice_session_getclientprefix",
-      "lib_dice_session_linktelegramchat",
-      "lib_dice_session_storagestateisvalid",
-      "lib_job_scanner_newday_lookback_ms",
-      "test_service_split_test",
-      "test_service_split_test_assert",
-      "test_service_split_test_newday_lookback_ms",
-      "test_service_split_test_storagestateisvalid",
-      "test_service_split_test_test",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_storagestateisvalid"
-    ],
-    "15": [
-      "lib_workflow_state",
-      "lib_workflow_state_createworkflowstatestore",
-      "lib_workflow_state_createworkflowstatestore_claimtelegramupdate",
-      "lib_workflow_state_createworkflowstatestore_clearconversation",
-      "lib_workflow_state_createworkflowstatestore_get",
-      "lib_workflow_state_createworkflowstatestore_log",
-      "lib_workflow_state_createworkflowstatestore_recorddecision",
-      "lib_workflow_state_createworkflowstatestore_recordprompt",
-      "lib_workflow_state_createworkflowstatestore_save",
-      "test_workflow_state_webhook_test",
-      "test_workflow_state_webhook_test_assert",
-      "test_workflow_state_webhook_test_createworkflowstatestore",
-      "test_workflow_state_webhook_test_from",
-      "test_workflow_state_webhook_test_test"
-    ],
-    "16": [
-      "lib_dice_apply_questions_isvisibleenabled",
       "lib_dice_session_getclientidforchat",
+      "lib_dice_session_getclientprefix",
       "lib_dice_session_getsessionrow",
       "lib_dice_session_readactivesession",
       "lib_job_application_db_hashandledjob",
-      "lib_job_application_db_patchjobproof",
       "lib_job_application_db_saveappliedjob",
       "lib_logger_getclientprefix",
-      "start_worker_applytojobonpage",
       "start_worker_executequeuedapply",
-      "start_worker_refreshlogin",
-      "start_worker_sessionexpirederror"
+      "start_worker_refreshlogin"
     ],
     "17": [
       "lib_telegram_notify",
@@ -595,6 +544,20 @@
       "start_bot_startnewday"
     ],
     "18": [
+      "scripts_sync_daily_pipeline",
+      "scripts_sync_daily_pipeline_createpool_createserviceclient",
+      "scripts_sync_daily_pipeline_derivemanagerlinks",
+      "scripts_sync_daily_pipeline_fetchjson",
+      "scripts_sync_daily_pipeline_getyesterdaydate",
+      "scripts_sync_daily_pipeline_mapimportitem",
+      "scripts_sync_daily_pipeline_parsecliargs",
+      "scripts_sync_daily_pipeline_path",
+      "scripts_sync_daily_pipeline_runsyncdaily",
+      "scripts_sync_daily_pipeline_synccas",
+      "scripts_sync_daily_pipeline_syncmappings",
+      "users_sharan_desktop_dice_scaling_copy_scripts_map_client_record_mapimportitem"
+    ],
+    "19": [
       "lib_job_matching",
       "lib_job_matching_companyisexcluded",
       "lib_job_matching_jobmatchesprofile",
@@ -607,51 +570,44 @@
       "test_job_matching_test_companyisexcluded_jobmatchesprofile_rolematchesjobtitle",
       "test_job_matching_test_test"
     ],
-    "19": [
-      "frontend_package_devdependencies",
-      "frontend_package_devdependencies_autoprefixer",
-      "frontend_package_devdependencies_oxlint",
-      "frontend_package_devdependencies_postcss",
-      "frontend_package_devdependencies_tailwindcss",
-      "frontend_package_devdependencies_tailwindcss_vite",
-      "frontend_package_devdependencies_types_react",
-      "frontend_package_devdependencies_types_react_dom",
-      "frontend_package_devdependencies_vite",
-      "frontend_package_devdependencies_vitejs_plugin_react"
-    ],
     "20": [
-      "lib_azure_createpool",
-      "lib_pending_answers",
-      "lib_pending_answers_clearexpiredpendingquestions",
-      "lib_pending_answers_createpool",
-      "lib_pending_answers_findactivependingquestion",
-      "lib_pending_answers_getanswerforquestion",
-      "lib_pending_answers_recordpendinganswer",
-      "lib_pending_answers_savependingquestion",
-      "start_worker_createtelegramquestionprompt"
+      "lib_dashboard_server_sync_cooldown_ms",
+      "lib_dashboard_server_synccooldowns",
+      "test_sync_pipeline_test",
+      "test_sync_pipeline_test_assert",
+      "test_sync_pipeline_test_createdashboardserver_synccooldowns_sync_cooldown_ms",
+      "test_sync_pipeline_test_crypto",
+      "test_sync_pipeline_test_getyesterdaydate_runsyncdaily",
+      "test_sync_pipeline_test_invokeserver",
+      "test_sync_pipeline_test_stream",
+      "test_sync_pipeline_test_test"
     ],
     "21": [
-      "lib_job_application_db",
-      "lib_job_application_db_applyqueue",
-      "lib_job_application_db_azure",
-      "lib_job_application_db_createapplyqueue",
-      "lib_job_application_db_createserviceclient_createpool",
-      "lib_job_application_db_getclientidforchat",
-      "lib_job_application_db_getclientprefix_getjobdisplay",
-      "users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue",
-      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat"
+      "lib_dice_apply_questions_isvisibleenabled",
+      "lib_job_application_db_patchjobproof",
+      "lib_s3_screenshot",
+      "lib_s3_screenshot_gets3client",
+      "lib_s3_screenshot_hasawss3config",
+      "lib_s3_screenshot_s3client_putobjectcommand",
+      "lib_s3_screenshot_uploadscreenshot",
+      "ref_aws_sdk_client_s3",
+      "start_worker_applytojobonpage",
+      "start_worker_sessionexpirederror"
     ],
     "22": [
-      "lib_apply_queue",
-      "lib_apply_queue_createpool",
-      "test_apply_timeout_test",
-      "test_apply_timeout_test_assert",
-      "test_apply_timeout_test_createapplyqueue",
-      "test_apply_timeout_test_from",
-      "test_apply_timeout_test_startapplyworkers",
-      "test_apply_timeout_test_test"
+      "ref_http",
+      "ref_stream",
+      "test_bot_webhook_test",
+      "test_bot_webhook_test_assert",
+      "test_bot_webhook_test_bot",
+      "test_bot_webhook_test_createwebhookserver",
+      "test_bot_webhook_test_http",
+      "test_bot_webhook_test_invokeserver",
+      "test_bot_webhook_test_stream",
+      "test_bot_webhook_test_test"
     ],
     "23": [
+      "lib_azure_assertidentifier",
       "lib_azure_createquerybuilder",
       "lib_azure_createquerybuilder_addfilter",
       "lib_azure_createquerybuilder_builder",
@@ -662,6 +618,39 @@
       "lib_azure_createquerybuilder_execute"
     ],
     "24": [
+      "lib_azure_createpool",
+      "lib_pending_answers",
+      "lib_pending_answers_clearexpiredpendingquestions",
+      "lib_pending_answers_createpool",
+      "lib_pending_answers_findactivependingquestion",
+      "lib_pending_answers_getanswerforquestion",
+      "lib_pending_answers_recordpendinganswer",
+      "lib_pending_answers_savependingquestion",
+      "start_worker_createtelegramquestionprompt"
+    ],
+    "25": [
+      "lib_job_application_db",
+      "lib_job_application_db_applyqueue",
+      "lib_job_application_db_azure",
+      "lib_job_application_db_createapplyqueue",
+      "lib_job_application_db_createserviceclient_createpool",
+      "lib_job_application_db_getclientidforchat",
+      "lib_job_application_db_getclientprefix_getjobdisplay",
+      "users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue",
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat"
+    ],
+    "26": [
+      "lib_mailer",
+      "lib_mailer_getaccesstoken",
+      "lib_mailer_getauthconfig",
+      "lib_mailer_sendemail",
+      "ref_node_assert",
+      "test_mailer_test",
+      "test_mailer_test_assert",
+      "test_mailer_test_getauthconfig_sendemail",
+      "test_mailer_test_test"
+    ],
+    "27": [
       "lib_dice_session_getsessionspendinglogin",
       "lib_dice_session_savesession",
       "start_worker_audit",
@@ -671,7 +660,27 @@
       "start_worker_typewithhumandelay",
       "start_worker_waitrandom"
     ],
-    "25": [
+    "28": [
+      "lib_dice_session_linktelegramchat",
+      "start_bot_deleteotp",
+      "start_bot_finduserbyemail",
+      "start_bot_generateotp",
+      "start_bot_handleconversationmessage",
+      "start_bot_hashotp",
+      "start_bot_saveotp",
+      "start_bot_verifyotp"
+    ],
+    "29": [
+      "lib_dice_session_storagestateisvalid",
+      "lib_job_scanner_newday_lookback_ms",
+      "test_service_split_test",
+      "test_service_split_test_assert",
+      "test_service_split_test_newday_lookback_ms",
+      "test_service_split_test_storagestateisvalid",
+      "test_service_split_test_test",
+      "users_sharan_desktop_dice_scaling_copy_lib_dice_session_storagestateisvalid"
+    ],
+    "30": [
       "start_dashboard",
       "start_dashboard_createdashboardserver",
       "start_dashboard_createpool",
@@ -681,7 +690,7 @@
       "start_dashboard_server",
       "start_dashboard_shutdown"
     ],
-    "26": [
+    "31": [
       "test_apply_queue_test",
       "test_apply_queue_test_acquire",
       "test_apply_queue_test_assert",
@@ -691,16 +700,26 @@
       "test_apply_queue_test_release",
       "test_apply_queue_test_test"
     ],
-    "27": [
-      "start_bot_deleteotp",
-      "start_bot_finduserbyemail",
-      "start_bot_generateotp",
-      "start_bot_handleconversationmessage",
-      "start_bot_hashotp",
-      "start_bot_saveotp",
-      "start_bot_verifyotp"
+    "32": [
+      "test_manager_role_test",
+      "test_manager_role_test_assert",
+      "test_manager_role_test_createdashboardserver",
+      "test_manager_role_test_crypto",
+      "test_manager_role_test_derivemanagerlinks_runsyncdaily",
+      "test_manager_role_test_invokeserver",
+      "test_manager_role_test_stream",
+      "test_manager_role_test_test"
     ],
-    "28": [
+    "33": [
+      "lib_due_work_ticker_createdueworkticker",
+      "lib_due_work_ticker_createdueworkticker_persistworkflowpatch",
+      "lib_due_work_ticker_createdueworkticker_processduechat",
+      "lib_due_work_ticker_createdueworkticker_start",
+      "lib_due_work_ticker_createdueworkticker_stop",
+      "lib_due_work_ticker_createdueworkticker_tick",
+      "lib_due_work_ticker_listdueworkflowchats"
+    ],
+    "34": [
       "frontend_oxlintrc",
       "frontend_oxlintrc_plugins",
       "frontend_oxlintrc_rules",
@@ -708,7 +727,7 @@
       "frontend_oxlintrc_rules_react_rules_of_hooks",
       "frontend_oxlintrc_schema"
     ],
-    "29": [
+    "35": [
       "lib_dice_apply_questions_loadapplyprofile",
       "lib_dice_apply_questions_readtotalstepcount",
       "start_worker_acquirepreflight",
@@ -716,147 +735,149 @@
       "start_worker_prevalidatejob",
       "start_worker_releasepreflight"
     ],
-    "30": [
-      "lib_s3_screenshot",
-      "lib_s3_screenshot_gets3client",
-      "lib_s3_screenshot_hasawss3config",
-      "lib_s3_screenshot_s3client_putobjectcommand",
-      "lib_s3_screenshot_uploadscreenshot",
-      "ref_aws_sdk_client_s3"
-    ],
-    "31": [
+    "36": [
       "database_migrations_009_create_dice_archived_jobs",
       "database_migrations_009_create_dice_archived_jobs_dice_archieved_jobs",
       "database_migrations_009_create_dice_archived_jobs_dice_archived_jobs",
       "database_migrations_009_create_dice_archived_jobs_idx_archived_jobs_applywizz_id",
       "database_migrations_009_create_dice_archived_jobs_idx_archived_jobs_scraped_at"
     ],
-    "32": [
+    "37": [
       "start_bot_audit",
       "start_bot_handlejobcallback",
       "start_bot_persistworkflowpatch",
       "start_bot_processcallbackupdate",
       "start_bot_sendotpemail"
     ],
-    "33": [
+    "38": [
       "test_match",
       "test_match_companytokens",
       "test_match_subjecttokens",
       "test_match_titletokens",
       "test_match_tokenize"
     ],
-    "34": [
+    "39": [
+      "lib_logger",
+      "lib_logger_clientcache",
+      "lib_logger_createpool",
+      "lib_logger_jobcache"
+    ],
+    "40": [
       "scripts_create_operator",
       "scripts_create_operator_args",
       "scripts_create_operator_createpool",
       "scripts_create_operator_email"
     ],
-    "35": [
+    "41": [
       "database_migrations_006_preflight_status",
       "database_migrations_006_preflight_status_idx_scraped_jobs_preflight",
       "dice_scraped_jobs"
     ],
-    "36": [
+    "42": [
       "database_migrations_007_pending_answers",
       "database_migrations_007_pending_answers_dice_pending_answers",
       "database_migrations_007_pending_answers_idx_pending_answers_chat_token"
     ],
-    "37": [
+    "43": [
       "test_date",
       "test_date_emaildate"
     ],
-    "38": [
-      "clients_additional_info"
-    ],
-    "39": [
-      "database_migrations_008_update_queue_status_check"
-    ],
-    "40": [
-      "database_migrations_010_workflow_conversation"
-    ],
-    "41": [
-      "database_migrations_011_bifurcate_failed_status"
-    ],
-    "42": [
-      "database_migrations_012_application_proof"
-    ],
-    "43": [
-      "database_migrations_012_preflight_step_count"
-    ],
     "44": [
-      "dice_applied_jobs"
+      "test_regex",
+      "test_regex_match"
     ],
     "45": [
-      "dice_apply_queue"
+      "clients_additional_info"
     ],
     "46": [
-      "dice_workflow_sessions"
+      "database_migrations_008_update_queue_status_check"
     ],
     "47": [
-      "lib_browser_usebrowserbase"
+      "database_migrations_010_workflow_conversation"
     ],
     "48": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision"
+      "database_migrations_011_bifurcate_failed_status"
     ],
     "49": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes"
+      "database_migrations_012_application_proof"
     ],
     "50": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt"
+      "database_migrations_012_preflight_step_count"
     ],
     "51": [
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase"
+      "dice_applied_jobs"
     ],
     "52": [
-      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker"
+      "dice_apply_queue"
     ],
     "53": [
+      "dice_workflow_sessions"
+    ],
+    "54": [
+      "lib_browser_usebrowserbase"
+    ],
+    "55": [
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision"
+    ],
+    "56": [
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes"
+    ],
+    "57": [
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt"
+    ],
+    "58": [
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase"
+    ],
+    "59": [
+      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker"
+    ],
+    "60": [
       "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight"
     ]
   },
   "cohesion": {
-    "0": 0.08106219426974144,
-    "1": 0.06547619047619048,
-    "2": 0.06292517006802721,
-    "3": 0.05612244897959184,
-    "4": 0.09830866807610994,
-    "5": 0.05,
-    "6": 0.05263157894736842,
-    "7": 0.08558558558558559,
-    "8": 0.1051693404634581,
-    "9": 0.058823529411764705,
-    "10": 0.09879032258064516,
-    "11": 0.125,
-    "12": 0.2,
-    "13": 0.17582417582417584,
-    "14": 0.15384615384615385,
-    "15": 0.18681318681318682,
-    "16": 0.3181818181818182,
+    "0": 0.05084745762711865,
+    "1": 0.07878787878787878,
+    "2": 0.08776595744680851,
+    "3": 0.05,
+    "4": 0.05263157894736842,
+    "5": 0.08558558558558559,
+    "6": 0.05714285714285714,
+    "7": 0.10984848484848485,
+    "8": 0.10227272727272728,
+    "9": 0.13970588235294118,
+    "10": 0.125,
+    "11": 0.17142857142857143,
+    "12": 0.1978021978021978,
+    "13": 0.15384615384615385,
+    "14": 0.21978021978021978,
+    "15": 0.1794871794871795,
+    "16": 0.28205128205128205,
     "17": 0.25757575757575757,
-    "18": 0.32727272727272727,
-    "19": 0.2,
-    "20": 0.3888888888888889,
-    "21": 0.2222222222222222,
-    "22": 0.25,
-    "23": 0.39285714285714285,
-    "24": 0.25,
-    "25": 0.25,
-    "26": 0.32142857142857145,
-    "27": 0.38095238095238093,
-    "28": 0.3333333333333333,
-    "29": 0.3333333333333333,
-    "30": 0.5333333333333333,
-    "31": 0.7,
-    "32": 0.4,
-    "33": 0.4,
-    "34": 0.5,
-    "35": 0.6666666666666666,
-    "36": 1.0,
-    "37": 1.0,
-    "38": 1.0,
-    "39": 1.0,
-    "40": 1.0,
-    "41": 1.0,
+    "18": 0.25757575757575757,
+    "19": 0.32727272727272727,
+    "20": 0.2,
+    "21": 0.28888888888888886,
+    "22": 0.2,
+    "23": 0.3611111111111111,
+    "24": 0.3888888888888889,
+    "25": 0.2222222222222222,
+    "26": 0.3611111111111111,
+    "27": 0.25,
+    "28": 0.32142857142857145,
+    "29": 0.25,
+    "30": 0.25,
+    "31": 0.32142857142857145,
+    "32": 0.25,
+    "33": 0.47619047619047616,
+    "34": 0.3333333333333333,
+    "35": 0.3333333333333333,
+    "36": 0.7,
+    "37": 0.4,
+    "38": 0.4,
+    "39": 0.5,
+    "40": 0.5,
+    "41": 0.6666666666666666,
     "42": 1.0,
     "43": 1.0,
     "44": 1.0,
@@ -868,7 +889,14 @@
     "50": 1.0,
     "51": 1.0,
     "52": 1.0,
-    "53": 1.0
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0
   },
   "gods": [
     {
