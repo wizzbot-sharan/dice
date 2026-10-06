@@ -228,13 +228,16 @@ async function prevalidateJob(chatId, job, storageState = null) {
 
       // --- Detect step count ---
       const stepCount = await readTotalStepCount(applicationPage).catch(() => null);
+      console.log(`[pre-flight] Detected step count: ${stepCount} for ${jobName}`);
 
       if (stepCount !== 3) {
         // 2-step (or unknown): existing behaviour
+        console.log(`[pre-flight] Job is a ${stepCount || 'unknown'}-step process. Skipping Step 2 extraction.`);
         return { ok: true, jobName, stepCount: stepCount || 2 };
       }
 
       // --- 3-step: navigate to Step 2 and extract unknown questions ---
+      console.log(`[pre-flight] Job is a 3-step process. Navigating to Step 2 to search for unknown questions...`);
       const clientId = await getClientIdForChat(chatId).catch(() => null);
       const applyProfile = clientId
         ? await loadApplyProfile(azure, clientId).catch(() => ({}))
@@ -245,18 +248,22 @@ async function prevalidateJob(chatId, job, storageState = null) {
         await nextButton.first().isVisible().catch(() => false);
 
       if (!nextVisible) {
+        console.log(`[pre-flight] Could not find the Next button to reach Step 2!`);
         return { ok: false, reason: 'preflight_extraction_failed: next_button_not_found', jobName };
       }
 
       await nextButton.first().click();
       await applicationPage.waitForLoadState('domcontentloaded', { timeout: 20000 }).catch(() => {});
 
+      console.log(`[pre-flight] Reached Step 2. Extracting questions using Hugging Face...`);
       const extraction = await extractPreflightQuestions(applicationPage, applyProfile, { dbPool: pool });
 
       if (!extraction.ok) {
+        console.log(`[pre-flight] Extraction failed: ${extraction.reason}`);
         return { ok: false, reason: extraction.reason, jobName };
       }
 
+      console.log(`[pre-flight] Extraction successful! Found ${extraction.unknownQuestions?.length || 0} unknown questions.`);
       return { ok: true, jobName, stepCount: 3, unknownQuestions: extraction.unknownQuestions };
     } catch (error) {
       console.warn(`[pre-flight] Validation error for ${job.url}:`, error.message);

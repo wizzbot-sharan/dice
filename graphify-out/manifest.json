@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1791267833.7491622,
-    "seen": 1791268800.361469,
-    "ast_hash": "d00e9e19dd188aa653de982d29d6e85d",
-    "semantic_hash": "d00e9e19dd188aa653de982d29d6e85d"
+    "mtime": 1791279667.108992,
+    "seen": 1791279956.961683,
+    "ast_hash": "10bd1ef7be1d51bcd37a9c86cdee58c0",
+    "semantic_hash": "10bd1ef7be1d51bcd37a9c86cdee58c0"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,
@@ -396,10 +396,10 @@
     "semantic_hash": "5a0388e85e7053b6b96b48dd24bd1a53"
   },
   "lib/zoho-mail-reader.js": {
-    "mtime": 1791277672.700937,
-    "seen": 1791277834.473684,
-    "ast_hash": "afb717ec3537de07680a210d768e6168",
-    "semantic_hash": "afb717ec3537de07680a210d768e6168"
+    "mtime": 1791279922.326284,
+    "seen": 1791279956.9615638,
+    "ast_hash": "1ace1b05ad9603976bd759967803b904",
+    "semantic_hash": "1ace1b05ad9603976bd759967803b904"
   },
   "scratch-migrate.js": {
     "mtime": 1791265045.9792182,
@@ -418,5 +418,17 @@
     "seen": 1791266250.187351,
     "ast_hash": "126d3ed2b923a0ea62b4202dcebaac23",
     "semantic_hash": "126d3ed2b923a0ea62b4202dcebaac23"
+  },
+  "test-date.js": {
+    "mtime": 1791278930.1555066,
+    "seen": 1791279956.961684,
+    "ast_hash": "d6b6beb274f22c39e2852f38b6bfc765",
+    "semantic_hash": "d6b6beb274f22c39e2852f38b6bfc765"
+  },
+  "test-match.js": {
+    "mtime": 1791279806.9529345,
+    "seen": 1791279956.961684,
+    "ast_hash": "9222674f161d0bc00e15f0e14c024646",
+    "semantic_hash": "9222674f161d0bc00e15f0e14c024646"
   }
 }
