@@ -997,7 +997,7 @@
     },
     {
       "type": "isolated_nodes",
-      "question": "What connects `{ classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }`, `{ findKnownAnswer, saveKnownAnswer }`, `{ getCandidateResumeData, getExperienceForSkill, searchResumeForAnswer }` to the rest of the system?",
+      "question": "What connects `INTENTS`, `LABELS`, `QUESTION_MAPPINGS` to the rest of the system?",
       "why": "263 weakly-connected nodes found - possible documentation gaps or missing edges."
     },
     {
