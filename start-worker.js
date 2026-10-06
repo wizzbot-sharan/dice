@@ -213,13 +213,16 @@ async function prevalidateJob(chatId, job, storageState = null) {
         .waitForEvent('page', { timeout: 4000 })
         .catch(() => null);
 
-      await applyButton.first().click().catch(() => {});
+      await applyButton.first().scrollIntoViewIfNeeded().catch(() => {});
+      await applyButton.first().click({ force: true }).catch(() => {});
 
       const applicationPage = await Promise.race([
         popupPromise,
         new Promise((resolve) => setTimeout(() => resolve(null), 4000)),
       ]) || page;
 
+      // Wait for the actual application form wizard to load on the screen
+      await applicationPage.waitForSelector('seds-job-apply-wizard, apply-wizard-job-step', { timeout: 8000 }).catch(() => {});
       await applicationPage.waitForLoadState('domcontentloaded').catch(() => {});
 
       if (!applicationPage.url().includes('dice.com')) {
@@ -618,7 +621,10 @@ async function executeQueuedApply(job, { signal } = {}) {
         }
 
         const jobName = await getJobName(page);
-        await applyToJobOnPage(page, jobName, url, chatId);
+        const applyResult = await applyToJobOnPage(page, jobName, url, chatId);
+        if (applyResult === false) {
+          throw new Error('Application process returned false (failed to apply)');
+        }
       } catch (error) {
         if (signal?.aborted) {
           console.warn(`${await getClientPrefix(chatId)} Application to ${url} aborted due to timeout.`);
