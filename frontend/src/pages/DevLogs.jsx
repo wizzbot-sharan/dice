@@ -898,6 +898,25 @@ export default function DevLogs() {
                                 'bg-blue-500/10 text-blue-400 border-blue-500/20'
                               }`}>{job.status}</span>
                             </td>
+                            {popupJobFilter === 'completed' && (
+                              <td className="px-4 md:px-6 py-3 md:py-4">
+                                <div className="flex gap-2">
+                                  <button
+                                    onClick={() => setProofModal({ show: true, type: 'screenshot', data: job.screenshot_link })}
+                                    disabled={!job.screenshot_link}
+                                    className={`px-2 py-1 rounded text-[10px] uppercase font-bold ${job.screenshot_link ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' : 'bg-white/5 text-zinc-600 cursor-not-allowed'}`}
+                                  >
+                                    Screenshot
+                                  </button>
+                                  <button
+                                    onClick={() => setProofModal({ show: true, type: 'email', data: job.email_json })}
+                                    className="px-2 py-1 rounded text-[10px] uppercase font-bold bg-green-500/20 text-green-400 hover:bg-green-500/30"
+                                  >
+                                    Email Proof
+                                  </button>
+                                </div>
+                              </td>
+                            )}
                           </tr>
                         ))}
                       </tbody>

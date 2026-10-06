@@ -60,10 +60,10 @@
     "semantic_hash": "450033fbefca236a35bf6c3766383bee"
   },
   "frontend/src/pages/DevLogs.jsx": {
-    "mtime": 1791262458.476102,
-    "seen": 1791262809.6088672,
-    "ast_hash": "2470c62ae8fc8d4fdad5241d0a2e4806",
-    "semantic_hash": "2470c62ae8fc8d4fdad5241d0a2e4806"
+    "mtime": 1791263430.3779044,
+    "seen": 1791263583.633804,
+    "ast_hash": "1f9359e8ec1063cb23f510604b6995ec",
+    "semantic_hash": "1f9359e8ec1063cb23f510604b6995ec"
   },
   "frontend/src/pages/Login.jsx": {
     "mtime": 1790053471.0049765,
