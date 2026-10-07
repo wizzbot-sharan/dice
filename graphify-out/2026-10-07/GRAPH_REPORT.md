@@ -4,12 +4,12 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 734 nodes · 1363 edges · 41 communities (23 shown, 18 thin omitted)
+- 736 nodes · 1363 edges · 43 communities (23 shown, 20 thin omitted)
 - Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 152 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `aefbacfc`
+- Built from commit: `147d64c2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,6 +41,7 @@
 - 007_pending_answers.sql
 - clients_additional_info
 - dice_applied_jobs
+- dice_applied_jobs_v2
 - dice_apply_queue
 - dice_workflow_sessions
 - lib_browser_usebrowserbase
@@ -78,7 +79,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (41 total, 18 thin omitted)
+## Communities (43 total, 20 thin omitted)
 
 ### Community 0 - "frontend/package.json"
 Cohesion: 0.05
@@ -174,8 +175,8 @@ Nodes (4): dice_archieved_jobs, dice_archived_jobs, idx_archived_jobs_applywizz_
 
 ## Knowledge Gaps
 - **274 isolated node(s):** `axios`, `lucide-react`, `react`, `react-dom`, `react-router-dom` (+269 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 360 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 362 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

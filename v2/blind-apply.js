@@ -3,6 +3,8 @@ const { createPool } = require('../lib/azure');
 const { uploadScreenshot } = require('../lib/s3-screenshot');
 const { refreshLogin } = require('./login');
 
+const waitRandom = (min, max) => new Promise(r => setTimeout(r, Math.floor(Math.random() * (max - min + 1) + min) * 1000));
+
 async function getStorageState(applywizzId) {
   const pool = createPool();
   const res = await pool.query(
@@ -45,7 +47,10 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
     console.log(`[V2 Blind Apply] [${applywizzId}] Navigating to ${jobUrl}`);
     await page.goto(jobUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
-    await page.waitForTimeout(3000); // Let UI settle
+    
+    // 1. Initial Page Load Wait (10-15s)
+    console.log(`[V2 Blind Apply] [${applywizzId}] Waiting 10-15 seconds for page load...`);
+    await waitRandom(10, 15);
 
     // Check if Dice redirected us to the login page (Session Expired)
     if (page.url().includes('/login') && !retryAfterLogin) {
@@ -62,7 +67,10 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
     const applyButton = page.locator('button:has-text("Apply now"), button[aria-label="Apply to this job"]');
     if (await applyButton.isVisible()) {
       await applyButton.click();
-      await page.waitForTimeout(3000);
+      
+      // 2. Wait after clicking apply (10-15s)
+      console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Apply, waiting 10-15 seconds...`);
+      await waitRandom(10, 15);
     } else {
       // PREFLIGHT FAILED
       return { success: false, errorType: 'preflight_failed', error: 'Apply button not found or not visible (already applied, expired, or third-party)' };
@@ -72,12 +80,14 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
     let loopCount = 0;
     while (loopCount < 10) { // Safety limit to avoid infinite loop
       loopCount++;
-      await page.waitForTimeout(2000);
 
       const submitButton = page.locator('button:has-text("Submit"), button[aria-label="Submit"]');
       if (await submitButton.isVisible() && await submitButton.isEnabled()) {
         console.log(`[V2 Blind Apply] [${applywizzId}] Submit button found. Clicking Submit!`);
         await submitButton.click();
+        
+        // 3. Wait after submit (5s as requested)
+        console.log(`[V2 Blind Apply] [${applywizzId}] Submitted, waiting 5 seconds for success screen...`);
         await page.waitForTimeout(5000);
         
         // Take screenshot
@@ -97,7 +107,10 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
         if (await nextButton.isEnabled()) {
           console.log(`[V2 Blind Apply] [${applywizzId}] Clicking Next...`);
           await nextButton.click();
-          await page.waitForTimeout(2000);
+          
+          // 4. Wait after clicking Next (10-15s)
+          console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Next, waiting 10-15 seconds...`);
+          await waitRandom(10, 15);
         } else {
           return { success: false, errorType: 'apply_failed', error: 'Next button is disabled (Mandatory fields likely blocked it)' };
         }

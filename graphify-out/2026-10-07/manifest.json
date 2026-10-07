@@ -402,16 +402,10 @@
     "semantic_hash": "3bbbdd8b4a0eb0ffa58066dbaebdf40a"
   },
   "v2/blind-apply.js": {
-    "mtime": 1791376970.9875915,
-    "seen": 1791376982.547041,
-    "ast_hash": "44337c323f2490ab83a8845b7ae11ba0",
-    "semantic_hash": "44337c323f2490ab83a8845b7ae11ba0"
-  },
-  "v2/email-verifier.js": {
-    "mtime": 1791376060.7163444,
-    "seen": 1791376084.031256,
-    "ast_hash": "2331746c8f9840edd098d0500da5ef59",
-    "semantic_hash": "2331746c8f9840edd098d0500da5ef59"
+    "mtime": 1791378696.71834,
+    "seen": 1791378729.340066,
+    "ast_hash": "c803c0d77651d3737b4f672f0fa41a07",
+    "semantic_hash": "c803c0d77651d3737b4f672f0fa41a07"
   },
   "v2/sql/001_v2_tables.sql": {
     "mtime": 1791376067.978076,
@@ -420,10 +414,10 @@
     "semantic_hash": "fed0852027cb535ab4daa1584395c4ca"
   },
   "v2/start-v2.js": {
-    "mtime": 1791374398.916301,
-    "seen": 1791374432.086151,
-    "ast_hash": "cc67419c8711643724873d6b1f7706c9",
-    "semantic_hash": "cc67419c8711643724873d6b1f7706c9"
+    "mtime": 1791378722.825025,
+    "seen": 1791378729.340102,
+    "ast_hash": "b02006cae381ce53ba7e9e77b494cd88",
+    "semantic_hash": "b02006cae381ce53ba7e9e77b494cd88"
   },
   "v2/ticker.js": {
     "mtime": 1791374361.1309242,
@@ -432,10 +426,10 @@
     "semantic_hash": "a92b784a510cff2e7f820548fbe31b8e"
   },
   "v2/worker.js": {
-    "mtime": 1791376049.735453,
-    "seen": 1791376084.031317,
-    "ast_hash": "1ca0a2be83decf09deafa55ce3f8edcf",
-    "semantic_hash": "1ca0a2be83decf09deafa55ce3f8edcf"
+    "mtime": 1791378712.7229571,
+    "seen": 1791378729.340113,
+    "ast_hash": "cf18d9f2c397eb5b8d5c1f3f59ed21b7",
+    "semantic_hash": "cf18d9f2c397eb5b8d5c1f3f59ed21b7"
   },
   "v2/login.js": {
     "mtime": 1791377351.4983532,
