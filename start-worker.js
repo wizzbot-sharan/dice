@@ -213,20 +213,28 @@ async function prevalidateJob(chatId, job, storageState = null) {
         .waitForEvent('page', { timeout: 10000 })
         .catch(() => null);
 
+      console.log(`[pre-flight][nav] Clicking Apply button for ${jobName}...`);
       await applyButton.first().scrollIntoViewIfNeeded().catch(() => {});
       await applyButton.first().click({ force: true }).catch(() => {});
 
-      const applicationPage = await Promise.race([
+      const resolvedPopup = await Promise.race([
         popupPromise,
         new Promise((resolve) => setTimeout(() => resolve(null), 10000)),
-      ]) || page;
+      ]);
+      const applicationPage = resolvedPopup || page;
+      const isPopup = applicationPage !== page;
+      console.log(`[pre-flight][nav] applicationPage resolved — isPopup=${isPopup}, URL=${applicationPage.url()}`);
 
       // Wait for the page to fully load — both DOM and all resources (scripts, web components).
       // This mirrors what the apply flow does before interacting with the form.
+      console.log(`[pre-flight][nav] Waiting for domcontentloaded...`);
       await applicationPage.waitForLoadState('domcontentloaded').catch(() => {});
+      console.log(`[pre-flight][nav] domcontentloaded done. Waiting for load (30 s)...`);
       await applicationPage.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
+      console.log(`[pre-flight][nav] load done. URL now: ${applicationPage.url()}`);
       // Give the Dice Angular/web-component shell extra time to hydrate step indicator.
       await applicationPage.waitForTimeout(3000);
+      console.log(`[pre-flight][nav] Hydration wait done. Final URL: ${applicationPage.url()}`);
 
       if (!applicationPage.url().includes('dice.com')) {
         return { ok: false, reason: 'external', jobName };
