@@ -30,25 +30,26 @@ async function processQueueItem(workerId) {
 
   if (result.success) {
     await pool.query(`UPDATE dice_apply_queue_v2 SET status = 'success' WHERE id = $1`, [job.id]);
+    
+    // Insert into applied_jobs_v2. Status is pending_email so the verifier picks it up.
     await pool.query(`
-      INSERT INTO dice_applied_jobs_v2 (applywizz_id, job_id, job_url, status, screenshot_url)
-      VALUES ($1, $2, $3, 'pending_email', $4)
-    `, [job.applywizz_id, job.job_id, job.job_url, result.screenshotUrl]);
+      INSERT INTO dice_applied_jobs_v2 (applywizz_id, job_id, job_url, status, screenshot_url, error_message)
+      VALUES ($1, $2, $3, 'pending_email', $4, $5)
+    `, [job.applywizz_id, job.job_id, job.job_url, result.screenshotUrl || null, result.screenshotError || null]);
+    
     console.log(`[V2 Worker ${workerId}] Successfully applied for ${job.applywizz_id} to ${job.job_url}`);
   } else {
-    // result.errorType will be either 'preflight_failed' or 'failed'
+    // result.errorType will be either 'preflight_failed' or 'apply_failed'
     await pool.query(
       `UPDATE dice_apply_queue_v2 SET status = $1, error_message = $2 WHERE id = $3`, 
       [result.errorType, result.error, job.id]
     );
     
-    // Update the scraped jobs table so the ticker knows it failed preflight if necessary
-    if (result.errorType === 'preflight_failed') {
-       await pool.query(
-         `UPDATE dice_scraped_jobs SET preflight_status = 'failed' WHERE url = $1 AND applywizz_id = $2`,
-         [job.job_url, job.applywizz_id]
-       );
-    }
+    // Insert the failed attempt into dice_applied_jobs_v2 so we track it there instead of dice_scraped_jobs
+    await pool.query(`
+      INSERT INTO dice_applied_jobs_v2 (applywizz_id, job_id, job_url, status, error_message)
+      VALUES ($1, $2, $3, $4, $5)
+    `, [job.applywizz_id, job.job_id, job.job_url, result.errorType, result.error]);
     
     console.log(`[V2 Worker ${workerId}] ${result.errorType.toUpperCase()} for ${job.applywizz_id}: ${result.error}`);
   }

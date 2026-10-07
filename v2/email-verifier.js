@@ -5,7 +5,7 @@ async function runEmailVerifier() {
   const pool = createPool();
   try {
     const res = await pool.query(`
-      SELECT a.id, a.applywizz_id, a.job_url, a.email_verification_attempts,
+      SELECT a.id, a.applywizz_id, a.job_url, a.email_verification_attempts, a.error_message,
              j.company_email, j.company, j.title
       FROM dice_applied_jobs_v2 a
       JOIN dice_scraped_jobs j ON a.job_url = j.url AND a.applywizz_id = j.applywizz_id
@@ -27,7 +27,7 @@ async function runEmailVerifier() {
         if (isVerified) {
           console.log(`[V2 Email Verifier] Verified ${job.applywizz_id} - ${job.company}`);
           await pool.query(
-            `UPDATE dice_applied_jobs_v2 SET status = 'verified_email', verified_at = CURRENT_TIMESTAMP WHERE id = $1`,
+            `UPDATE dice_applied_jobs_v2 SET status = 'completed', verified_at = CURRENT_TIMESTAMP WHERE id = $1`,
             [job.id]
           );
         }
@@ -36,9 +36,15 @@ async function runEmailVerifier() {
       }
     }
 
+    // Mark those that exceeded 10 attempts as completed, but append 'Zoho failed' to the error_message
     await pool.query(`
       UPDATE dice_applied_jobs_v2 
-      SET status = 'failed', error_message = 'Email verification timed out after 10 attempts (no Zoho email received)' 
+      SET 
+        status = 'completed', 
+        error_message = CASE 
+                          WHEN error_message IS NULL OR error_message = '' THEN 'Zoho verification failed'
+                          ELSE error_message || ' | Zoho verification failed'
+                        END
       WHERE status = 'pending_email' AND email_verification_attempts >= 10
     `);
 

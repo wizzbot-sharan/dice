@@ -901,7 +901,7 @@
       "file_type": "code",
       "norm_label": "startemailverifier()",
       "source_file": "v2/email-verifier.js",
-      "source_location": "L50"
+      "source_location": "L56"
     },
     {
       "id": "v2_start_v2_main",
@@ -1309,7 +1309,7 @@
       "file_type": "code",
       "norm_label": "startworkers()",
       "source_file": "v2/worker.js",
-      "source_location": "L73"
+      "source_location": "L74"
     },
     {
       "id": "v2_worker_workerloop",
@@ -1321,7 +1321,7 @@
       "file_type": "code",
       "norm_label": "workerloop()",
       "source_file": "v2/worker.js",
-      "source_location": "L59"
+      "source_location": "L60"
     },
     {
       "id": "lib_workflow_state_createworkflowstatestore",
@@ -12632,7 +12632,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L100",
+      "source_location": "L101",
       "weight": 1.0
     },
     {
@@ -12644,7 +12644,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -12656,7 +12656,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -12668,7 +12668,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L67",
+      "source_location": "L68",
       "weight": 1.0
     },
     {
@@ -12716,7 +12716,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/email-verifier.js",
-      "source_location": "L52",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -12812,7 +12812,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L76",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -12824,7 +12824,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L62",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -22128,17 +22128,6 @@
     },
     {
       "source": "v2_worker",
-      "target": "v2_worker_workerloop",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "v2/worker.js",
-      "source_location": "L59",
-      "weight": 1.0
-    },
-    {
-      "source": "v2_worker",
       "target": "v2_worker_processqueueitem",
       "relation": "contains",
       "_origin": "ast",
@@ -22146,6 +22135,17 @@
       "confidence_score": 1.0,
       "source_file": "v2/worker.js",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "v2_worker",
+      "target": "v2_worker_workerloop",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "v2/worker.js",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -24038,7 +24038,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -24050,7 +24050,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/email-verifier.js",
-      "source_location": "L56",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -24062,7 +24062,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/email-verifier.js",
-      "source_location": "L56",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -24098,10 +24098,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/worker.js",
-      "source_location": "L80",
+      "source_location": "L81",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "5863243f1e793ce2151f87d46e2b16010aca8ac7"
+  "built_at_commit": "7ba1197e58276f7e08655475c2954ab82dcb7deb"
 }
