@@ -673,7 +673,7 @@
       "file_type": "code",
       "norm_label": "shutdown()",
       "source_file": "start-worker.js",
-      "source_location": "L731"
+      "source_location": "L733"
     },
     {
       "id": "lib_apply_queue_createapplyqueue",
@@ -1261,7 +1261,7 @@
       "file_type": "code",
       "norm_label": "applytojobonpage()",
       "source_file": "start-worker.js",
-      "source_location": "L388"
+      "source_location": "L390"
     },
     {
       "id": "start_worker_executequeuedapply",
@@ -1273,7 +1273,7 @@
       "file_type": "code",
       "norm_label": "executequeuedapply()",
       "source_file": "start-worker.js",
-      "source_location": "L595"
+      "source_location": "L597"
     },
     {
       "id": "start_worker_refreshlogin",
@@ -1933,7 +1933,7 @@
       "file_type": "code",
       "norm_label": "createtelegramquestionprompt()",
       "source_file": "start-worker.js",
-      "source_location": "L346"
+      "source_location": "L348"
     },
     {
       "id": "test_apply_timeout_test_from",
@@ -2161,7 +2161,7 @@
       "file_type": "code",
       "norm_label": "runpendingloginsloop()",
       "source_file": "start-worker.js",
-      "source_location": "L304"
+      "source_location": "L306"
     },
     {
       "id": "start_worker_typewithhumandelay",
@@ -6339,7 +6339,7 @@
       "file_type": "code",
       "norm_label": "loginattempts",
       "source_file": "start-worker.js",
-      "source_location": "L300"
+      "source_location": "L302"
     },
     {
       "id": "start_worker_openbrowser_closebrowser_closesharedbrowser_maxconcurrent",
@@ -11935,7 +11935,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L689",
+      "source_location": "L691",
       "weight": 1.0
     },
     {
@@ -11947,7 +11947,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L696",
+      "source_location": "L698",
       "weight": 1.0
     },
     {
@@ -11959,7 +11959,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L711",
+      "source_location": "L713",
       "weight": 1.0
     },
     {
@@ -11971,7 +11971,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L724",
+      "source_location": "L726",
       "weight": 1.0
     },
     {
@@ -11983,7 +11983,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L389",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -11995,36 +11995,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L420",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
       "source": "start_worker_applytojobonpage",
       "target": "lib_logger_getclientprefix",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "start-worker.js",
-      "source_location": "L423",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker_applytojobonpage",
-      "target": "lib_job_application_db_saveappliedjob",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "start-worker.js",
-      "source_location": "L424",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker_applytojobonpage",
-      "target": "lib_telegram_notify_sendmessage",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12036,6 +12012,30 @@
     },
     {
       "source": "start_worker_applytojobonpage",
+      "target": "lib_job_application_db_saveappliedjob",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "start-worker.js",
+      "source_location": "L426",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker_applytojobonpage",
+      "target": "lib_telegram_notify_sendmessage",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "start-worker.js",
+      "source_location": "L427",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker_applytojobonpage",
       "target": "lib_dice_session_getclientidforchat",
       "relation": "calls",
       "_origin": "ast",
@@ -12043,7 +12043,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L429",
+      "source_location": "L431",
       "weight": 1.0
     },
     {
@@ -12055,7 +12055,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L430",
+      "source_location": "L432",
       "weight": 1.0
     },
     {
@@ -12067,7 +12067,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L462",
+      "source_location": "L464",
       "weight": 1.0
     },
     {
@@ -12079,7 +12079,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L463",
+      "source_location": "L465",
       "weight": 1.0
     },
     {
@@ -12091,7 +12091,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L479",
+      "source_location": "L481",
       "weight": 1.0
     },
     {
@@ -12103,7 +12103,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L534",
+      "source_location": "L536",
       "weight": 1.0
     },
     {
@@ -12115,7 +12115,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L541",
+      "source_location": "L543",
       "weight": 1.0
     },
     {
@@ -12127,7 +12127,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L565",
+      "source_location": "L567",
       "weight": 1.0
     },
     {
@@ -12139,7 +12139,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L583",
+      "source_location": "L585",
       "weight": 1.0
     },
     {
@@ -12151,7 +12151,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L351",
+      "source_location": "L353",
       "weight": 1.0
     },
     {
@@ -12163,7 +12163,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L368",
+      "source_location": "L370",
       "weight": 1.0
     },
     {
@@ -12175,7 +12175,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L374",
+      "source_location": "L376",
       "weight": 1.0
     },
     {
@@ -12187,7 +12187,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L603",
+      "source_location": "L605",
       "weight": 1.0
     },
     {
@@ -12199,7 +12199,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L605",
+      "source_location": "L607",
       "weight": 1.0
     },
     {
@@ -12211,7 +12211,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L607",
+      "source_location": "L609",
       "weight": 1.0
     },
     {
@@ -12223,7 +12223,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L610",
+      "source_location": "L612",
       "weight": 1.0
     },
     {
@@ -12235,7 +12235,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L614",
+      "source_location": "L616",
       "weight": 1.0
     },
     {
@@ -12247,7 +12247,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L619",
+      "source_location": "L621",
       "weight": 1.0
     },
     {
@@ -12259,7 +12259,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L647",
+      "source_location": "L649",
       "weight": 1.0
     },
     {
@@ -12271,7 +12271,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L648",
+      "source_location": "L650",
       "weight": 1.0
     },
     {
@@ -12283,7 +12283,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L655",
+      "source_location": "L657",
       "weight": 1.0
     },
     {
@@ -12331,7 +12331,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L194",
+      "source_location": "L196",
       "weight": 1.0
     },
     {
@@ -12343,7 +12343,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L247",
+      "source_location": "L249",
       "weight": 1.0
     },
     {
@@ -12355,7 +12355,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L258",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -12367,7 +12367,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L260",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -12379,7 +12379,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L276",
+      "source_location": "L278",
       "weight": 1.0
     },
     {
@@ -12391,7 +12391,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L290",
+      "source_location": "L292",
       "weight": 1.0
     },
     {
@@ -12403,7 +12403,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L294",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -12547,7 +12547,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L307",
+      "source_location": "L309",
       "weight": 1.0
     },
     {
@@ -12559,7 +12559,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L318",
+      "source_location": "L320",
       "weight": 1.0
     },
     {
@@ -12571,7 +12571,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L324",
+      "source_location": "L326",
       "weight": 1.0
     },
     {
@@ -12583,7 +12583,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L735",
+      "source_location": "L737",
       "weight": 1.0
     },
     {
@@ -12727,7 +12727,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L304",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -20753,7 +20753,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
-      "source_location": "L300",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -20764,7 +20764,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
-      "source_location": "L346",
+      "source_location": "L348",
       "weight": 1.0
     },
     {
@@ -20780,17 +20780,6 @@
     },
     {
       "source": "start_worker",
-      "target": "start_worker_applytojobonpage",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "start-worker.js",
-      "source_location": "L388",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker",
       "target": "start_worker_pool",
       "relation": "contains",
       "_origin": "ast",
@@ -20798,6 +20787,17 @@
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker",
+      "target": "start_worker_applytojobonpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "start-worker.js",
+      "source_location": "L390",
       "weight": 1.0
     },
     {
@@ -21944,7 +21944,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "start-worker.js",
-      "source_location": "L740",
+      "source_location": "L742",
       "weight": 1.0
     },
     {
@@ -23612,7 +23612,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-worker.js",
-      "source_location": "L691",
+      "source_location": "L693",
       "weight": 1.0
     },
     {
@@ -23624,10 +23624,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-worker.js",
-      "source_location": "L706",
+      "source_location": "L708",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "63eb3006f4a2cd6d450d98dc7ef6e12758373e26"
+  "built_at_commit": "248ddecf50b188a490c0b556e20df4239869297b"
 }

@@ -672,7 +672,7 @@
       "file_type": "code",
       "norm_label": "shutdown()",
       "source_file": "start-worker.js",
-      "source_location": "L731"
+      "source_location": "L733"
     },
     {
       "id": "lib_apply_queue_createapplyqueue",
@@ -699,6 +699,18 @@
       "source_location": "L315"
     },
     {
+      "id": "lib_apply_queue_createapplyqueue_countactivequeueitems",
+      "label": "countActiveQueueItems()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "createApplyQueue",
+      "file_type": "code",
+      "norm_label": "countactivequeueitems()",
+      "source_file": "lib/apply-queue.js",
+      "source_location": "L359"
+    },
+    {
       "id": "lib_apply_queue_createapplyqueue_countqueuedahead",
       "label": "countQueuedAhead()",
       "_callable": true,
@@ -709,6 +721,18 @@
       "norm_label": "countqueuedahead()",
       "source_file": "lib/apply-queue.js",
       "source_location": "L153"
+    },
+    {
+      "id": "lib_apply_queue_createapplyqueue_enqueueapplyjob",
+      "label": "enqueueApplyJob()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "createApplyQueue",
+      "file_type": "code",
+      "norm_label": "enqueueapplyjob()",
+      "source_file": "lib/apply-queue.js",
+      "source_location": "L4"
     },
     {
       "id": "lib_apply_queue_createapplyqueue_getqueueposition",
@@ -795,6 +819,18 @@
       "source_location": "L216"
     },
     {
+      "id": "lib_apply_queue_createapplyqueue_recoverstuckjobs",
+      "label": "recoverStuckJobs()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "createApplyQueue",
+      "file_type": "code",
+      "norm_label": "recoverstuckjobs()",
+      "source_file": "lib/apply-queue.js",
+      "source_location": "L389"
+    },
+    {
       "id": "lib_apply_queue_createapplyqueue_resetstalepreflightpassedjobs",
       "label": "resetStalePreflightPassedJobs()",
       "_callable": true,
@@ -831,48 +867,12 @@
       "source_location": "L320"
     },
     {
-      "id": "lib_apply_queue_createapplyqueue_countactivequeueitems",
-      "label": "countActiveQueueItems()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "createPool",
-      "file_type": "code",
-      "norm_label": "countactivequeueitems()",
-      "source_file": "lib/apply-queue.js",
-      "source_location": "L359"
-    },
-    {
-      "id": "lib_apply_queue_createapplyqueue_enqueueapplyjob",
-      "label": "enqueueApplyJob()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "createPool",
-      "file_type": "code",
-      "norm_label": "enqueueapplyjob()",
-      "source_file": "lib/apply-queue.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "lib_apply_queue_createapplyqueue_recoverstuckjobs",
-      "label": "recoverStuckJobs()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "createPool",
-      "file_type": "code",
-      "norm_label": "recoverstuckjobs()",
-      "source_file": "lib/apply-queue.js",
-      "source_location": "L389"
-    },
-    {
       "id": "lib_workflow_state_createworkflowstatestore",
       "label": "createWorkflowStateStore()",
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "createworkflowstatestore()",
       "source_file": "lib/workflow-state.js",
@@ -884,7 +884,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "claimtelegramupdate()",
       "source_file": "lib/workflow-state.js",
@@ -896,7 +896,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "clearconversation()",
       "source_file": "lib/workflow-state.js",
@@ -908,7 +908,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "get()",
       "source_file": "lib/workflow-state.js",
@@ -920,7 +920,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "log()",
       "source_file": "lib/workflow-state.js",
@@ -932,7 +932,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "recorddecision()",
       "source_file": "lib/workflow-state.js",
@@ -944,7 +944,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "recordprompt()",
       "source_file": "lib/workflow-state.js",
@@ -956,7 +956,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "save()",
       "source_file": "lib/workflow-state.js",
@@ -968,7 +968,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "from()",
       "source_file": "test/workflow-state-webhook.test.js",
@@ -1071,6 +1071,54 @@
       "source_location": "L26"
     },
     {
+      "id": "lib_azure_createquerybuilder",
+      "label": "createQueryBuilder()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "azure.js",
+      "file_type": "code",
+      "norm_label": "createquerybuilder()",
+      "source_file": "lib/azure.js",
+      "source_location": "L42"
+    },
+    {
+      "id": "lib_azure_createquerybuilder_addfilter",
+      "label": "addFilter()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "azure.js",
+      "file_type": "code",
+      "norm_label": "addfilter()",
+      "source_file": "lib/azure.js",
+      "source_location": "L56"
+    },
+    {
+      "id": "lib_azure_createquerybuilder_buildwhere",
+      "label": "buildWhere()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "azure.js",
+      "file_type": "code",
+      "norm_label": "buildwhere()",
+      "source_file": "lib/azure.js",
+      "source_location": "L61"
+    },
+    {
+      "id": "lib_azure_createquerybuilder_execute",
+      "label": "execute()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "azure.js",
+      "file_type": "code",
+      "norm_label": "execute()",
+      "source_file": "lib/azure.js",
+      "source_location": "L78"
+    },
+    {
       "id": "lib_azure_parsecolumns",
       "label": "parseColumns()",
       "_callable": true,
@@ -1088,59 +1136,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "createPool",
+      "community_name": "azure.js",
       "file_type": "code",
       "norm_label": "requiredatabaseurl()",
       "source_file": "lib/azure.js",
       "source_location": "L5"
-    },
-    {
-      "id": "lib_azure_createquerybuilder",
-      "label": "createQueryBuilder()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "execute",
-      "file_type": "code",
-      "norm_label": "createquerybuilder()",
-      "source_file": "lib/azure.js",
-      "source_location": "L42"
-    },
-    {
-      "id": "lib_azure_createquerybuilder_addfilter",
-      "label": "addFilter()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "execute",
-      "file_type": "code",
-      "norm_label": "addfilter()",
-      "source_file": "lib/azure.js",
-      "source_location": "L56"
-    },
-    {
-      "id": "lib_azure_createquerybuilder_buildwhere",
-      "label": "buildWhere()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "execute",
-      "file_type": "code",
-      "norm_label": "buildwhere()",
-      "source_file": "lib/azure.js",
-      "source_location": "L61"
-    },
-    {
-      "id": "lib_azure_createquerybuilder_execute",
-      "label": "execute()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "execute",
-      "file_type": "code",
-      "norm_label": "execute()",
-      "source_file": "lib/azure.js",
-      "source_location": "L78"
     },
     {
       "id": "lib_dice_apply_questions_isvisibleenabled",
@@ -1191,6 +1191,18 @@
       "source_location": "L24"
     },
     {
+      "id": "lib_dice_session_savesession",
+      "label": "saveSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "getClientPrefix",
+      "file_type": "code",
+      "norm_label": "savesession()",
+      "source_file": "lib/dice-session.js",
+      "source_location": "L51"
+    },
+    {
       "id": "lib_job_application_db_hashandledjob",
       "label": "hasHandledJob()",
       "_callable": true,
@@ -1239,18 +1251,6 @@
       "source_location": "L14"
     },
     {
-      "id": "lib_dice_session_savesession",
-      "label": "saveSession()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "runLogin",
-      "file_type": "code",
-      "norm_label": "savesession()",
-      "source_file": "lib/dice-session.js",
-      "source_location": "L51"
-    },
-    {
       "id": "start_worker_applytojobonpage",
       "label": "applyToJobOnPage()",
       "_callable": true,
@@ -1259,7 +1259,7 @@
       "file_type": "code",
       "norm_label": "applytojobonpage()",
       "source_file": "start-worker.js",
-      "source_location": "L388"
+      "source_location": "L390"
     },
     {
       "id": "start_worker_executequeuedapply",
@@ -1270,7 +1270,7 @@
       "file_type": "code",
       "norm_label": "executequeuedapply()",
       "source_file": "start-worker.js",
-      "source_location": "L595"
+      "source_location": "L597"
     },
     {
       "id": "start_worker_refreshlogin",
@@ -1317,18 +1317,6 @@
       "norm_label": "storagestateisvalid()",
       "source_file": "lib/dice-session.js",
       "source_location": "L6"
-    },
-    {
-      "id": "start_bot_handlependinganswermessage",
-      "label": "handlePendingAnswerMessage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "pending-answers.js",
-      "file_type": "code",
-      "norm_label": "handlependinganswermessage()",
-      "source_file": "start-bot.js",
-      "source_location": "L314"
     },
     {
       "id": "lib_telegram_notify_getbot",
@@ -1391,6 +1379,18 @@
       "source_location": "L286"
     },
     {
+      "id": "start_bot_handlependinganswermessage",
+      "label": "handlePendingAnswerMessage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "sendMessage",
+      "file_type": "code",
+      "norm_label": "handlependinganswermessage()",
+      "source_file": "start-bot.js",
+      "source_location": "L314"
+    },
+    {
       "id": "start_bot_processmessageupdate",
       "label": "processMessageUpdate()",
       "_callable": true,
@@ -1420,7 +1420,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "companyisexcluded()",
       "source_file": "lib/job-matching.js",
@@ -1432,7 +1432,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "jobmatchesprofile()",
       "source_file": "lib/job-matching.js",
@@ -1444,7 +1444,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "normalizetext()",
       "source_file": "lib/job-matching.js",
@@ -1456,7 +1456,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "rolematchesjobtitle()",
       "source_file": "lib/job-matching.js",
@@ -1468,7 +1468,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "tokens()",
       "source_file": "lib/job-matching.js",
@@ -1480,7 +1480,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "claimnextjob()",
       "source_file": "lib/apply-queue.js",
@@ -1492,7 +1492,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "readjoburls()",
       "source_file": "lib/job-scanner.js",
@@ -1504,7 +1504,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "updatejobpreflightstatus()",
       "source_file": "lib/job-scanner.js",
@@ -1516,7 +1516,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "run()",
       "source_file": "scratch-migrate.js",
@@ -1864,7 +1864,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "clearexpiredpendingquestions()",
       "source_file": "lib/pending-answers.js",
@@ -1876,7 +1876,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "findactivependingquestion()",
       "source_file": "lib/pending-answers.js",
@@ -1888,7 +1888,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "getanswerforquestion()",
       "source_file": "lib/pending-answers.js",
@@ -1900,7 +1900,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "recordpendinganswer()",
       "source_file": "lib/pending-answers.js",
@@ -1912,7 +1912,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "savependingquestion()",
       "source_file": "lib/pending-answers.js",
@@ -1927,7 +1927,7 @@
       "file_type": "code",
       "norm_label": "createtelegramquestionprompt()",
       "source_file": "start-worker.js",
-      "source_location": "L346"
+      "source_location": "L348"
     },
     {
       "id": "test_apply_timeout_test_from",
@@ -1935,7 +1935,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "from()",
       "source_file": "test/apply-timeout.test.js",
@@ -2151,7 +2151,7 @@
       "file_type": "code",
       "norm_label": "runpendingloginsloop()",
       "source_file": "start-worker.js",
-      "source_location": "L304"
+      "source_location": "L306"
     },
     {
       "id": "start_worker_typewithhumandelay",
@@ -2285,7 +2285,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "ref_node_assert",
+      "community_name": "sync-daily-pipeline.js",
       "file_type": "code",
       "norm_label": "getaccesstoken()",
       "source_file": "lib/mailer.js",
@@ -2297,7 +2297,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "ref_node_assert",
+      "community_name": "sync-daily-pipeline.js",
       "file_type": "code",
       "norm_label": "getauthconfig()",
       "source_file": "lib/mailer.js",
@@ -2309,7 +2309,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "ref_node_assert",
+      "community_name": "sync-daily-pipeline.js",
       "file_type": "code",
       "norm_label": "sendemail()",
       "source_file": "lib/mailer.js",
@@ -2441,23 +2441,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "handleConversationMessage",
+      "community_name": "handleJobCallback",
       "file_type": "code",
       "norm_label": "audit()",
       "source_file": "start-bot.js",
       "source_location": "L60"
-    },
-    {
-      "id": "start_bot_sendotpemail",
-      "label": "sendOTPEmail()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "handleConversationMessage",
-      "file_type": "code",
-      "norm_label": "sendotpemail()",
-      "source_file": "start-bot.js",
-      "source_location": "L109"
     },
     {
       "id": "start_bot_handlejobcallback",
@@ -2465,7 +2453,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "pending-answers.js",
+      "community_name": "handleJobCallback",
       "file_type": "code",
       "norm_label": "handlejobcallback()",
       "source_file": "start-bot.js",
@@ -2477,7 +2465,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "pending-answers.js",
+      "community_name": "handleJobCallback",
       "file_type": "code",
       "norm_label": "persistworkflowpatch()",
       "source_file": "start-bot.js",
@@ -2489,11 +2477,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 31,
-      "community_name": "pending-answers.js",
+      "community_name": "handleJobCallback",
       "file_type": "code",
       "norm_label": "processcallbackupdate()",
       "source_file": "start-bot.js",
       "source_location": "L407"
+    },
+    {
+      "id": "start_bot_sendotpemail",
+      "label": "sendOTPEmail()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "handleJobCallback",
+      "file_type": "code",
+      "norm_label": "sendotpemail()",
+      "source_file": "start-bot.js",
+      "source_location": "L109"
     },
     {
       "id": "test_match_tokenize",
@@ -2969,7 +2969,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "createserviceclient()",
       "source_file": "lib/azure.js",
@@ -2981,7 +2981,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "run()",
       "source_file": "scratch-test-error.js",
@@ -2993,23 +2993,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "run()",
       "source_file": "scratch-test-jsonb.js",
       "source_location": "L4"
-    },
-    {
-      "id": "scripts_verify_client_lookup_main",
-      "label": "main()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "azure.js",
-      "file_type": "code",
-      "norm_label": "main()",
-      "source_file": "scripts/verify-client-lookup.js",
-      "source_location": "L7"
     },
     {
       "id": "scripts_import_clients_importrecords",
@@ -3178,6 +3166,18 @@
       "norm_label": "unwraprecord()",
       "source_file": "scripts/map-client-record.js",
       "source_location": "L79"
+    },
+    {
+      "id": "scripts_verify_client_lookup_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "map-client-record.js",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "scripts/verify-client-lookup.js",
+      "source_location": "L7"
     },
     {
       "id": "frontend_package",
@@ -4053,7 +4053,7 @@
       "label": "workflow-state.js",
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "workflow-state.js",
       "source_file": "lib/workflow-state.js",
@@ -4064,7 +4064,7 @@
       "label": "workflow-state-webhook.test.js",
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "workflow-state-webhook.test.js",
       "source_file": "test/workflow-state-webhook.test.js",
@@ -4075,7 +4075,7 @@
       "label": "assert",
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "assert",
       "source_file": "test/workflow-state-webhook.test.js",
@@ -4086,7 +4086,7 @@
       "label": "{ createWorkflowStateStore }",
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "{ createworkflowstatestore }",
       "source_file": "test/workflow-state-webhook.test.js",
@@ -4097,7 +4097,7 @@
       "label": "test",
       "_origin": "ast",
       "community": 12,
-      "community_name": "ref_node_assert",
+      "community_name": "createWorkflowStateStore",
       "file_type": "code",
       "norm_label": "test",
       "source_file": "test/workflow-state-webhook.test.js",
@@ -4192,22 +4192,11 @@
       "source_location": "L1"
     },
     {
-      "id": "lib_azure_pool",
-      "label": "{ Pool }",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "azure.js",
-      "file_type": "code",
-      "norm_label": "{ pool }",
-      "source_file": "lib/azure.js",
-      "source_location": "L1"
-    },
-    {
       "id": "lib_azure_createquerybuilder_builder",
       "label": "builder",
       "_origin": "ast",
       "community": 14,
-      "community_name": "execute",
+      "community_name": "azure.js",
       "file_type": "code",
       "norm_label": "builder",
       "source_file": "lib/azure.js",
@@ -4218,7 +4207,7 @@
       "label": ".catch()",
       "_origin": "ast",
       "community": 14,
-      "community_name": "execute",
+      "community_name": "azure.js",
       "file_type": "code",
       "norm_label": ".catch()",
       "source_file": "lib/azure.js",
@@ -4229,7 +4218,7 @@
       "label": ".finally()",
       "_origin": "ast",
       "community": 14,
-      "community_name": "execute",
+      "community_name": "azure.js",
       "file_type": "code",
       "norm_label": ".finally()",
       "source_file": "lib/azure.js",
@@ -4240,11 +4229,22 @@
       "label": ".then()",
       "_origin": "ast",
       "community": 14,
-      "community_name": "execute",
+      "community_name": "azure.js",
       "file_type": "code",
       "norm_label": ".then()",
       "source_file": "lib/azure.js",
       "source_location": "L216"
+    },
+    {
+      "id": "lib_azure_pool",
+      "label": "{ Pool }",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "azure.js",
+      "file_type": "code",
+      "norm_label": "{ pool }",
+      "source_file": "lib/azure.js",
+      "source_location": "L1"
     },
     {
       "id": "lib_dice_session",
@@ -4394,7 +4394,7 @@
       "label": "job-matching.js",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "job-matching.js",
       "source_file": "lib/job-matching.js",
@@ -4405,7 +4405,7 @@
       "label": "STOP_WORDS",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "stop_words",
       "source_file": "lib/job-matching.js",
@@ -4416,7 +4416,7 @@
       "label": "job-matching.test.js",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "job-matching.test.js",
       "source_file": "test/job-matching.test.js",
@@ -4427,7 +4427,7 @@
       "label": "assert",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "assert",
       "source_file": "test/job-matching.test.js",
@@ -4438,7 +4438,7 @@
       "label": "{ companyIsExcluded, jobMatchesProfile, roleMatchesJobTitle }",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "{ companyisexcluded, jobmatchesprofile, rolematchesjobtitle }",
       "source_file": "test/job-matching.test.js",
@@ -4449,7 +4449,7 @@
       "label": "test",
       "_origin": "ast",
       "community": 18,
-      "community_name": "ref_node_assert",
+      "community_name": "job-matching.test.js",
       "file_type": "code",
       "norm_label": "test",
       "source_file": "test/job-matching.test.js",
@@ -4460,7 +4460,7 @@
       "label": "job-scanner.js",
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "job-scanner.js",
       "source_file": "lib/job-scanner.js",
@@ -4471,7 +4471,7 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "lib/job-scanner.js",
@@ -4482,7 +4482,7 @@
       "label": "scratch-migrate.js",
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "scratch-migrate.js",
       "source_file": "scratch-migrate.js",
@@ -4493,7 +4493,7 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "scratch-migrate.js",
@@ -4757,7 +4757,7 @@
       "label": "pending-answers.js",
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "pending-answers.js",
       "source_file": "lib/pending-answers.js",
@@ -4768,7 +4768,7 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 20,
-      "community_name": "pending-answers.js",
+      "community_name": "createPool",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "lib/pending-answers.js",
@@ -4856,7 +4856,7 @@
       "label": "apply-queue.js",
       "_origin": "ast",
       "community": 22,
-      "community_name": "apply-queue.test.js",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "apply-queue.js",
       "source_file": "lib/apply-queue.js",
@@ -4867,7 +4867,7 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 22,
-      "community_name": "apply-queue.test.js",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "lib/apply-queue.js",
@@ -4878,7 +4878,7 @@
       "label": "apply-timeout.test.js",
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "apply-timeout.test.js",
       "source_file": "test/apply-timeout.test.js",
@@ -4889,7 +4889,7 @@
       "label": "assert",
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "assert",
       "source_file": "test/apply-timeout.test.js",
@@ -4900,7 +4900,7 @@
       "label": "{ createApplyQueue }",
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "{ createapplyqueue }",
       "source_file": "test/apply-timeout.test.js",
@@ -4911,7 +4911,7 @@
       "label": "{ startApplyWorkers }",
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "{ startapplyworkers }",
       "source_file": "test/apply-timeout.test.js",
@@ -4922,7 +4922,7 @@
       "label": "test",
       "_origin": "ast",
       "community": 22,
-      "community_name": "ref_node_assert",
+      "community_name": "apply-timeout.test.js",
       "file_type": "code",
       "norm_label": "test",
       "source_file": "test/apply-timeout.test.js",
@@ -5149,105 +5149,6 @@
       "source_location": "L18"
     },
     {
-      "id": "lib_mailer",
-      "label": "mailer.js",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "mailer.js",
-      "source_file": "lib/mailer.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_mailer_test",
-      "label": "mailer.test.js",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "mailer.test.js",
-      "source_file": "test/mailer.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_mailer_test_assert",
-      "label": "assert",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "test/mailer.test.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "test_mailer_test_getauthconfig_sendemail",
-      "label": "{ getAuthConfig, sendEmail }",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "{ getauthconfig, sendemail }",
-      "source_file": "test/mailer.test.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "test_mailer_test_test",
-      "label": "test",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "test",
-      "source_file": "test/mailer.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_preflight_questions_test",
-      "label": "preflight-questions.test.js",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "preflight-questions.test.js",
-      "source_file": "test/preflight-questions.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_preflight_questions_test_assert",
-      "label": "assert",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "test/preflight-questions.test.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "test_preflight_questions_test_sendjobprompt_applypromptdecision",
-      "label": "{ sendJobPrompt, applyPromptDecision }",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "{ sendjobprompt, applypromptdecision }",
-      "source_file": "test/preflight-questions.test.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "test_preflight_questions_test_test",
-      "label": "test",
-      "_origin": "ast",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "file_type": "code",
-      "norm_label": "test",
-      "source_file": "test/preflight-questions.test.js",
-      "source_location": "L1"
-    },
-    {
       "id": "lib_dashboard_server_synccooldowns",
       "label": "syncCooldowns",
       "_origin": "ast",
@@ -5257,6 +5158,17 @@
       "norm_label": "synccooldowns",
       "source_file": "lib/dashboard-server.js",
       "source_location": "L18"
+    },
+    {
+      "id": "lib_mailer",
+      "label": "mailer.js",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "mailer.js",
+      "source_file": "lib/mailer.js",
+      "source_location": "L1"
     },
     {
       "id": "scripts_sync_daily_pipeline",
@@ -5380,6 +5292,50 @@
       "source_location": "L1"
     },
     {
+      "id": "test_mailer_test",
+      "label": "mailer.test.js",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "mailer.test.js",
+      "source_file": "test/mailer.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "test_mailer_test_assert",
+      "label": "assert",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "assert",
+      "source_file": "test/mailer.test.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "test_mailer_test_getauthconfig_sendemail",
+      "label": "{ getAuthConfig, sendEmail }",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "{ getauthconfig, sendemail }",
+      "source_file": "test/mailer.test.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "test_mailer_test_test",
+      "label": "test",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "test",
+      "source_file": "test/mailer.test.js",
+      "source_location": "L1"
+    },
+    {
       "id": "test_manager_role_test",
       "label": "manager-role.test.js",
       "_origin": "ast",
@@ -5454,6 +5410,50 @@
       "file_type": "code",
       "norm_label": "test",
       "source_file": "test/manager-role.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "test_preflight_questions_test",
+      "label": "preflight-questions.test.js",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "preflight-questions.test.js",
+      "source_file": "test/preflight-questions.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "test_preflight_questions_test_assert",
+      "label": "assert",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "assert",
+      "source_file": "test/preflight-questions.test.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "test_preflight_questions_test_sendjobprompt_applypromptdecision",
+      "label": "{ sendJobPrompt, applyPromptDecision }",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "{ sendjobprompt, applypromptdecision }",
+      "source_file": "test/preflight-questions.test.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "test_preflight_questions_test_test",
+      "label": "test",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "file_type": "code",
+      "norm_label": "test",
+      "source_file": "test/preflight-questions.test.js",
       "source_location": "L1"
     },
     {
@@ -6311,7 +6311,7 @@
       "file_type": "code",
       "norm_label": "loginattempts",
       "source_file": "start-worker.js",
-      "source_location": "L300"
+      "source_location": "L302"
     },
     {
       "id": "start_worker_openbrowser_closebrowser_closesharedbrowser_maxconcurrent",
@@ -7307,7 +7307,7 @@
       "label": "scratch-test-error.js",
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "scratch-test-error.js",
       "source_file": "scratch-test-error.js",
@@ -7318,7 +7318,7 @@
       "label": "{ createServiceClient }",
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "{ createserviceclient }",
       "source_file": "scratch-test-error.js",
@@ -7329,7 +7329,7 @@
       "label": "scratch-test-jsonb.js",
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "scratch-test-jsonb.js",
       "source_file": "scratch-test-jsonb.js",
@@ -7340,44 +7340,11 @@
       "label": "{ createServiceClient }",
       "_origin": "ast",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "file_type": "code",
       "norm_label": "{ createserviceclient }",
       "source_file": "scratch-test-jsonb.js",
       "source_location": "L2"
-    },
-    {
-      "id": "scripts_verify_client_lookup",
-      "label": "verify-client-lookup.js",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "azure.js",
-      "file_type": "code",
-      "norm_label": "verify-client-lookup.js",
-      "source_file": "scripts/verify-client-lookup.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "scripts_verify_client_lookup_createserviceclient",
-      "label": "{ createServiceClient }",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "azure.js",
-      "file_type": "code",
-      "norm_label": "{ createserviceclient }",
-      "source_file": "scripts/verify-client-lookup.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "scripts_verify_client_lookup_email",
-      "label": "email",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "azure.js",
-      "file_type": "code",
-      "norm_label": "email",
-      "source_file": "scripts/verify-client-lookup.js",
-      "source_location": "L5"
     },
     {
       "id": "scripts_import_clients",
@@ -7455,6 +7422,39 @@
       "norm_label": "crypto",
       "source_file": "scripts/map-client-record.js",
       "source_location": "L1"
+    },
+    {
+      "id": "scripts_verify_client_lookup",
+      "label": "verify-client-lookup.js",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "map-client-record.js",
+      "file_type": "code",
+      "norm_label": "verify-client-lookup.js",
+      "source_file": "scripts/verify-client-lookup.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_verify_client_lookup_createserviceclient",
+      "label": "{ createServiceClient }",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "map-client-record.js",
+      "file_type": "code",
+      "norm_label": "{ createserviceclient }",
+      "source_file": "scripts/verify-client-lookup.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "scripts_verify_client_lookup_email",
+      "label": "email",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "map-client-record.js",
+      "file_type": "code",
+      "norm_label": "email",
+      "source_file": "scripts/verify-client-lookup.js",
+      "source_location": "L5"
     },
     {
       "id": "frontend_src_index",
@@ -7629,7 +7629,7 @@
       "label": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "_origin": "semantic",
       "community": 19,
-      "community_name": "createPool",
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_azure_createpool",
@@ -7709,30 +7709,6 @@
       "type": "external"
     },
     {
-      "id": "ref_node_assert",
-      "label": "ref_node_assert",
-      "_origin": "semantic",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_node_assert",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "ref_node_test",
-      "label": "ref_node_test",
-      "_origin": "semantic",
-      "community": 3,
-      "community_name": "ref_node_assert",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "ref_node_test",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "lib_dashboard_server_sync_cooldown_ms",
       "label": "lib_dashboard_server_sync_cooldown_ms",
       "_origin": "semantic",
@@ -7753,6 +7729,30 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "ref_http",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_node_assert",
+      "label": "ref_node_assert",
+      "_origin": "semantic",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_node_assert",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_node_test",
+      "label": "ref_node_test",
+      "_origin": "semantic",
+      "community": 3,
+      "community_name": "sync-daily-pipeline.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_node_test",
       "source_file": "",
       "type": "external"
     },
@@ -7889,6 +7889,66 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
+      "_origin": "semantic",
+      "community": 5,
+      "community_name": "start-worker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionspendinglogin",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_session_getsessionspendinglogin",
       "_origin": "semantic",
@@ -7993,66 +8053,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_zoho_mail_reader_verifyjobapplicationemail",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "_origin": "semantic",
-      "community": 5,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_extractpreflightquestions",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
-      "_origin": "semantic",
-      "community": 5,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_fillcurrentstep",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
-      "_origin": "semantic",
-      "community": 5,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_isvisibleenabled",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
-      "_origin": "semantic",
-      "community": 5,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_loadapplyprofile",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
-      "_origin": "semantic",
-      "community": 5,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_apply_questions_readtotalstepcount",
       "source_file": "",
       "type": "external"
     },
@@ -8249,6 +8249,18 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
+      "_origin": "semantic",
+      "community": 6,
+      "community_name": "start-bot.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessagewithbuttons",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessagewithbuttons",
       "_origin": "semantic",
@@ -8273,23 +8285,11 @@
       "type": "external"
     },
     {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
-      "_origin": "semantic",
-      "community": 6,
-      "community_name": "start-worker.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_telegram_notify_sendmessage",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient",
       "_origin": "semantic",
       "community": 9,
-      "community_name": "azure.js",
+      "community_name": "map-client-record.js",
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_azure_createserviceclient",
@@ -11895,7 +11895,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L689",
+      "source_location": "L691",
       "weight": 1.0
     },
     {
@@ -11907,7 +11907,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L696",
+      "source_location": "L698",
       "weight": 1.0
     },
     {
@@ -11919,7 +11919,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L711",
+      "source_location": "L713",
       "weight": 1.0
     },
     {
@@ -11931,7 +11931,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L724",
+      "source_location": "L726",
       "weight": 1.0
     },
     {
@@ -11943,7 +11943,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L389",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -11955,36 +11955,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L420",
+      "source_location": "L422",
       "weight": 1.0
     },
     {
       "source": "start_worker_applytojobonpage",
       "target": "lib_logger_getclientprefix",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "start-worker.js",
-      "source_location": "L423",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker_applytojobonpage",
-      "target": "lib_job_application_db_saveappliedjob",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "start-worker.js",
-      "source_location": "L424",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker_applytojobonpage",
-      "target": "lib_telegram_notify_sendmessage",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11996,6 +11972,30 @@
     },
     {
       "source": "start_worker_applytojobonpage",
+      "target": "lib_job_application_db_saveappliedjob",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "start-worker.js",
+      "source_location": "L426",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker_applytojobonpage",
+      "target": "lib_telegram_notify_sendmessage",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "start-worker.js",
+      "source_location": "L427",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker_applytojobonpage",
       "target": "lib_dice_session_getclientidforchat",
       "relation": "calls",
       "_origin": "ast",
@@ -12003,7 +12003,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L429",
+      "source_location": "L431",
       "weight": 1.0
     },
     {
@@ -12015,7 +12015,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L430",
+      "source_location": "L432",
       "weight": 1.0
     },
     {
@@ -12027,7 +12027,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L462",
+      "source_location": "L464",
       "weight": 1.0
     },
     {
@@ -12039,7 +12039,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L463",
+      "source_location": "L465",
       "weight": 1.0
     },
     {
@@ -12051,7 +12051,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L479",
+      "source_location": "L481",
       "weight": 1.0
     },
     {
@@ -12063,7 +12063,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L534",
+      "source_location": "L536",
       "weight": 1.0
     },
     {
@@ -12075,7 +12075,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L541",
+      "source_location": "L543",
       "weight": 1.0
     },
     {
@@ -12087,7 +12087,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L565",
+      "source_location": "L567",
       "weight": 1.0
     },
     {
@@ -12099,7 +12099,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L583",
+      "source_location": "L585",
       "weight": 1.0
     },
     {
@@ -12111,7 +12111,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L351",
+      "source_location": "L353",
       "weight": 1.0
     },
     {
@@ -12123,7 +12123,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L368",
+      "source_location": "L370",
       "weight": 1.0
     },
     {
@@ -12135,7 +12135,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L374",
+      "source_location": "L376",
       "weight": 1.0
     },
     {
@@ -12147,7 +12147,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L603",
+      "source_location": "L605",
       "weight": 1.0
     },
     {
@@ -12159,7 +12159,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L605",
+      "source_location": "L607",
       "weight": 1.0
     },
     {
@@ -12171,7 +12171,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L607",
+      "source_location": "L609",
       "weight": 1.0
     },
     {
@@ -12183,7 +12183,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L610",
+      "source_location": "L612",
       "weight": 1.0
     },
     {
@@ -12195,7 +12195,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L614",
+      "source_location": "L616",
       "weight": 1.0
     },
     {
@@ -12207,7 +12207,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L619",
+      "source_location": "L621",
       "weight": 1.0
     },
     {
@@ -12219,7 +12219,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L647",
+      "source_location": "L649",
       "weight": 1.0
     },
     {
@@ -12231,7 +12231,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L648",
+      "source_location": "L650",
       "weight": 1.0
     },
     {
@@ -12243,7 +12243,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L655",
+      "source_location": "L657",
       "weight": 1.0
     },
     {
@@ -12291,7 +12291,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L194",
+      "source_location": "L196",
       "weight": 1.0
     },
     {
@@ -12303,7 +12303,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L247",
+      "source_location": "L249",
       "weight": 1.0
     },
     {
@@ -12315,7 +12315,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L258",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -12327,7 +12327,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L260",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -12339,7 +12339,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L276",
+      "source_location": "L278",
       "weight": 1.0
     },
     {
@@ -12351,7 +12351,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L290",
+      "source_location": "L292",
       "weight": 1.0
     },
     {
@@ -12363,7 +12363,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L294",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -12507,7 +12507,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L307",
+      "source_location": "L309",
       "weight": 1.0
     },
     {
@@ -12519,7 +12519,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L318",
+      "source_location": "L320",
       "weight": 1.0
     },
     {
@@ -12531,7 +12531,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L324",
+      "source_location": "L326",
       "weight": 1.0
     },
     {
@@ -12543,7 +12543,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L735",
+      "source_location": "L737",
       "weight": 1.0
     },
     {
@@ -12687,7 +12687,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "start-worker.js",
-      "source_location": "L304",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -20713,7 +20713,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
-      "source_location": "L300",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -20724,7 +20724,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
-      "source_location": "L346",
+      "source_location": "L348",
       "weight": 1.0
     },
     {
@@ -20740,17 +20740,6 @@
     },
     {
       "source": "start_worker",
-      "target": "start_worker_applytojobonpage",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "start-worker.js",
-      "source_location": "L388",
-      "weight": 1.0
-    },
-    {
-      "source": "start_worker",
       "target": "start_worker_pool",
       "relation": "contains",
       "_origin": "ast",
@@ -20758,6 +20747,17 @@
       "confidence_score": 1.0,
       "source_file": "start-worker.js",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "start_worker",
+      "target": "start_worker_applytojobonpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "start-worker.js",
+      "source_location": "L390",
       "weight": 1.0
     },
     {
@@ -21904,7 +21904,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "start-worker.js",
-      "source_location": "L740",
+      "source_location": "L742",
       "weight": 1.0
     },
     {
@@ -23572,7 +23572,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-worker.js",
-      "source_location": "L691",
+      "source_location": "L693",
       "weight": 1.0
     },
     {
@@ -23584,10 +23584,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "start-worker.js",
-      "source_location": "L706",
+      "source_location": "L708",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "63eb3006f4a2cd6d450d98dc7ef6e12758373e26"
+  "built_at_commit": "248ddecf50b188a490c0b556e20df4239869297b"
 }

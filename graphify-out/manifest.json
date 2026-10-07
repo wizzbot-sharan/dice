@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1791353978.6676223,
-    "seen": 1791354124.595039,
-    "ast_hash": "10f5e98cbd51040bbdba04a622bf559b",
-    "semantic_hash": "10f5e98cbd51040bbdba04a622bf559b"
+    "mtime": 1791354296.1796188,
+    "seen": 1791354421.610611,
+    "ast_hash": "cf3a7c8a69bc5b12e2416c1312ad21af",
+    "semantic_hash": "cf3a7c8a69bc5b12e2416c1312ad21af"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,

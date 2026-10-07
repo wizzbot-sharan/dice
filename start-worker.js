@@ -190,6 +190,8 @@ async function prevalidateJob(chatId, job, storageState = null) {
       const { page } = handle;
       await page.goto(job.url, { waitUntil: 'domcontentloaded', timeout: 30000 });
       await page.waitForLoadState('load', { timeout: 45000 }).catch(() => {});
+      // Give the job detail page a moment to render the Apply button (banners, lazy load, etc.)
+      await page.waitForTimeout(3000);
 
       const jobName = await getJobName(page).catch(() => job.title || 'Unknown Job');
 

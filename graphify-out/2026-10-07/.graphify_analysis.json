@@ -952,17 +952,6 @@
   ],
   "surprises": [
     {
-      "source": "run()",
-      "target": "createPool()",
-      "source_files": [
-        "scratch-migrate.js",
-        "lib/azure.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities; peripheral node `run()` unexpectedly reaches hub `createPool()`"
-    },
-    {
       "source": "handleJobCallback()",
       "target": "getClientIdForChat()",
       "source_files": [
@@ -986,18 +975,29 @@
     },
     {
       "source": "handleJobCallback()",
-      "target": "getAnswerForQuestion()",
+      "target": "sendMessage()",
       "source_files": [
         "start-bot.js",
-        "lib/pending-answers.js"
+        "lib/telegram-notify.js"
       ],
       "confidence": "INFERRED",
       "relation": "indirect_call",
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
     },
     {
+      "source": "run()",
+      "target": "createPool()",
+      "source_files": [
+        "scratch-migrate.js",
+        "lib/azure.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities; peripheral node `run()` unexpectedly reaches hub `createPool()`"
+    },
+    {
       "source": "handleJobCallback()",
-      "target": "savePendingQuestion()",
+      "target": "getAnswerForQuestion()",
       "source_files": [
         "start-bot.js",
         "lib/pending-answers.js"
