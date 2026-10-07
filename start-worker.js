@@ -217,13 +217,16 @@ async function prevalidateJob(chatId, job, storageState = null) {
       await applyButton.first().scrollIntoViewIfNeeded().catch(() => {});
       await applyButton.first().click({ force: true }).catch(() => {});
 
+      // Wait for either a new tab (popup) or an in‑page navigation (URL change).
+      const navigationPromise = page.waitForNavigation({ waitUntil: 'load', timeout: 15000 }).catch(() => null);
       const resolvedPopup = await Promise.race([
         popupPromise,
-        new Promise((resolve) => setTimeout(() => resolve(null), 10000)),
+        navigationPromise,
+        new Promise((resolve) => setTimeout(() => resolve(null), 15000)),
       ]);
       const applicationPage = resolvedPopup || page;
-      const isPopup = applicationPage !== page;
-      console.log(`[pre-flight][nav] applicationPage resolved — isPopup=${isPopup}, URL=${applicationPage.url()}`);
+      const isPopup = resolvedPopup && resolvedPopup !== page;
+      console.log(`[pre-flight][nav] applicationPage resolved — isPopup=${isPopup}, URL=${applicationPage.url()}, navigationResolved=${!!navigationPromise}`);
 
       // Wait for the page to fully load — both DOM and all resources (scripts, web components).
       // This mirrors what the apply flow does before interacting with the form.
