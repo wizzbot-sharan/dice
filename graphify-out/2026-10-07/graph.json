@@ -880,30 +880,6 @@
       "source_location": "L733"
     },
     {
-      "id": "v2_email_verifier_runemailverifier",
-      "label": "runEmailVerifier()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "start-v2.js",
-      "file_type": "code",
-      "norm_label": "runemailverifier()",
-      "source_file": "v2/email-verifier.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "v2_email_verifier_startemailverifier",
-      "label": "startEmailVerifier()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "start-v2.js",
-      "file_type": "code",
-      "norm_label": "startemailverifier()",
-      "source_file": "v2/email-verifier.js",
-      "source_location": "L50"
-    },
-    {
       "id": "v2_start_v2_main",
       "label": "main()",
       "_callable": true,
@@ -938,6 +914,28 @@
       "norm_label": "startticker()",
       "source_file": "v2/ticker.js",
       "source_location": "L82"
+    },
+    {
+      "id": "v2_email_verifier_runemailverifier",
+      "label": "runEmailVerifier()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "runemailverifier()",
+      "source_file": "v2/email-verifier.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "v2_email_verifier_startemailverifier",
+      "label": "startEmailVerifier()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "startemailverifier()",
+      "source_file": "v2/email-verifier.js",
+      "source_location": "L50"
     },
     {
       "id": "lib_dice_apply_questions_isvisibleenabled",
@@ -1269,7 +1267,6 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "blindapply()",
       "source_file": "v2/blind-apply.js",
@@ -1281,7 +1278,6 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "getstoragestate()",
       "source_file": "v2/blind-apply.js",
@@ -1293,11 +1289,10 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "processqueueitem()",
       "source_file": "v2/worker.js",
-      "source_location": "L7"
+      "source_location": "L6"
     },
     {
       "id": "v2_worker_startworkers",
@@ -1305,11 +1300,10 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "startworkers()",
       "source_file": "v2/worker.js",
-      "source_location": "L64"
+      "source_location": "L73"
     },
     {
       "id": "v2_worker_workerloop",
@@ -1317,11 +1311,10 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "workerloop()",
       "source_file": "v2/worker.js",
-      "source_location": "L50"
+      "source_location": "L59"
     },
     {
       "id": "lib_workflow_state_createworkflowstatestore",
@@ -4410,39 +4403,6 @@
       "source_location": "L1"
     },
     {
-      "id": "v2_email_verifier",
-      "label": "email-verifier.js",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "start-v2.js",
-      "file_type": "code",
-      "norm_label": "email-verifier.js",
-      "source_file": "v2/email-verifier.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "v2_email_verifier_createpool",
-      "label": "{ createPool }",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "start-v2.js",
-      "file_type": "code",
-      "norm_label": "{ createpool }",
-      "source_file": "v2/email-verifier.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "v2_email_verifier_verifyjobapplicationemail",
-      "label": "{ verifyJobApplicationEmail }",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "start-v2.js",
-      "file_type": "code",
-      "norm_label": "{ verifyjobapplicationemail }",
-      "source_file": "v2/email-verifier.js",
-      "source_location": "L2"
-    },
-    {
       "id": "v2_start_v2",
       "label": "start-v2.js",
       "_origin": "ast",
@@ -4540,6 +4500,36 @@
       "norm_label": "v2_daily_limit",
       "source_file": "v2/ticker.js",
       "source_location": "L3"
+    },
+    {
+      "id": "v2_email_verifier",
+      "label": "email-verifier.js",
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "email-verifier.js",
+      "source_file": "v2/email-verifier.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "v2_email_verifier_createpool",
+      "label": "{ createPool }",
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "{ createpool }",
+      "source_file": "v2/email-verifier.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "v2_email_verifier_verifyjobapplicationemail",
+      "label": "{ verifyJobApplicationEmail }",
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "{ verifyjobapplicationemail }",
+      "source_file": "v2/email-verifier.js",
+      "source_location": "L2"
     },
     {
       "id": "lib_dice_session",
@@ -4733,7 +4723,6 @@
       "label": "blind-apply.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "blind-apply.js",
       "source_file": "v2/blind-apply.js",
@@ -4744,7 +4733,6 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "v2/blind-apply.js",
@@ -4755,7 +4743,6 @@
       "label": "{ openBrowser, closeBrowser }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "{ openbrowser, closebrowser }",
       "source_file": "v2/blind-apply.js",
@@ -4766,7 +4753,6 @@
       "label": "{ uploadScreenshot }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "{ uploadscreenshot }",
       "source_file": "v2/blind-apply.js",
@@ -4777,7 +4763,6 @@
       "label": "worker.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "worker.js",
       "source_file": "v2/worker.js",
@@ -4788,7 +4773,6 @@
       "label": "{ blindApply }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "{ blindapply }",
       "source_file": "v2/worker.js",
@@ -4799,7 +4783,6 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "blind-apply.js",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "v2/worker.js",
@@ -5305,7 +5288,6 @@
       "label": "001_v2_tables.sql",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "001_v2_tables.sql",
       "source_file": "v2/sql/001_v2_tables.sql",
@@ -5316,7 +5298,6 @@
       "label": "dice_applied_jobs_v2",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "dice_applied_jobs_v2",
       "source_file": "v2/sql/001_v2_tables.sql",
@@ -5327,7 +5308,6 @@
       "label": "dice_apply_queue_v2",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "dice_apply_queue_v2",
       "source_file": "v2/sql/001_v2_tables.sql",
@@ -5338,44 +5318,40 @@
       "label": "idx_applied_jobs_v2_applywizz_id",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "idx_applied_jobs_v2_applywizz_id",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_applied_jobs_v2_status",
       "label": "idx_applied_jobs_v2_status",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "idx_applied_jobs_v2_status",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_apply_queue_v2_applywizz_id",
       "label": "idx_apply_queue_v2_applywizz_id",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "idx_apply_queue_v2_applywizz_id",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_apply_queue_v2_status",
       "label": "idx_apply_queue_v2_status",
       "_origin": "ast",
       "community": 24,
-      "community_name": "001_v2_tables.sql",
       "file_type": "code",
       "norm_label": "idx_apply_queue_v2_status",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "frontend_oxlintrc",
@@ -12625,6 +12601,18 @@
     },
     {
       "source": "v2_blind_apply_blindapply",
+      "target": "lib_browser_closebrowser",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "v2_blind_apply_blindapply",
       "target": "v2_blind_apply_getstoragestate",
       "relation": "calls",
       "_origin": "ast",
@@ -12656,19 +12644,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L65",
-      "weight": 1.0
-    },
-    {
-      "source": "v2_blind_apply_blindapply",
-      "target": "lib_browser_closebrowser",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L94",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -12788,7 +12764,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L32",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -12800,7 +12776,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -12812,7 +12788,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L67",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -12824,7 +12800,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L53",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -21980,7 +21956,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -21991,7 +21967,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -22002,7 +21978,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -22013,7 +21989,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -22134,7 +22110,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/worker.js",
-      "source_location": "L50",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -22145,7 +22121,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/worker.js",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -22209,7 +22185,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -22220,7 +22196,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -22231,7 +22207,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -22242,7 +22218,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -24038,7 +24014,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L99",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -24098,10 +24074,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/worker.js",
-      "source_location": "L71",
+      "source_location": "L80",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a8f5af237c66a9bed4ab6d9ee6adc1eca1627839"
+  "built_at_commit": "5863243f1e793ce2151f87d46e2b16010aca8ac7"
 }

@@ -1,13 +1,11 @@
 const { createPool } = require('../lib/azure');
 const { blindApply } = require('./blind-apply');
 
-// We have 5 workers to handle the queue concurrently
 const WORKER_COUNT = 5;
 
 async function processQueueItem(workerId) {
   const pool = createPool();
   
-  // Using FOR UPDATE SKIP LOCKED to prevent workers from picking the same job
   const res = await pool.query(`
     UPDATE dice_apply_queue_v2
     SET status = 'processing', processed_at = CURRENT_TIMESTAMP
@@ -22,16 +20,14 @@ async function processQueueItem(workerId) {
   `);
 
   if (res.rows.length === 0) {
-    return false; // No jobs
+    return false;
   }
 
   const job = res.rows[0];
   console.log(`[V2 Worker ${workerId}] processing queue item ${job.id} for ${job.applywizz_id}`);
 
-  // 2. Do the blind apply
   const result = await blindApply(job.applywizz_id, job.job_url, job.job_id);
 
-  // 3. Update states
   if (result.success) {
     await pool.query(`UPDATE dice_apply_queue_v2 SET status = 'success' WHERE id = $1`, [job.id]);
     await pool.query(`
@@ -40,11 +36,24 @@ async function processQueueItem(workerId) {
     `, [job.applywizz_id, job.job_id, job.job_url, result.screenshotUrl]);
     console.log(`[V2 Worker ${workerId}] Successfully applied for ${job.applywizz_id} to ${job.job_url}`);
   } else {
-    await pool.query(`UPDATE dice_apply_queue_v2 SET status = 'failed', error_message = $1 WHERE id = $2`, [result.error, job.id]);
-    console.log(`[V2 Worker ${workerId}] Failed apply for ${job.applywizz_id}: ${result.error}`);
+    // result.errorType will be either 'preflight_failed' or 'failed'
+    await pool.query(
+      `UPDATE dice_apply_queue_v2 SET status = $1, error_message = $2 WHERE id = $3`, 
+      [result.errorType, result.error, job.id]
+    );
+    
+    // Update the scraped jobs table so the ticker knows it failed preflight if necessary
+    if (result.errorType === 'preflight_failed') {
+       await pool.query(
+         `UPDATE dice_scraped_jobs SET preflight_status = 'failed' WHERE url = $1 AND applywizz_id = $2`,
+         [job.job_url, job.applywizz_id]
+       );
+    }
+    
+    console.log(`[V2 Worker ${workerId}] ${result.errorType.toUpperCase()} for ${job.applywizz_id}: ${result.error}`);
   }
 
-  return true; // We processed a job, maybe there are more
+  return true;
 }
 
 async function workerLoop(workerId) {

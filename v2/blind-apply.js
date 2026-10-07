@@ -27,7 +27,7 @@ async function blindApply(applywizzId, jobUrl, jobId) {
   try {
     const storageState = await getStorageState(applywizzId);
     if (!storageState) {
-      throw new Error(`No valid session storage state found for ${applywizzId}`);
+      return { success: false, errorType: 'failed', error: `No valid session storage state found for ${applywizzId}` };
     }
 
     handle = await openBrowser({ storageState, headless: true });
@@ -38,16 +38,17 @@ async function blindApply(applywizzId, jobUrl, jobId) {
     await page.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
     await page.waitForTimeout(3000); // Let UI settle
 
-    // 1. Initial Apply
+    // 1. Initial Apply - PREFLIGHT CHECK
     const applyButton = page.locator('button:has-text("Apply now"), button[aria-label="Apply to this job"]');
     if (await applyButton.isVisible()) {
       await applyButton.click();
       await page.waitForTimeout(3000);
     } else {
-      throw new Error('Apply button not found or not visible. (Maybe third-party apply)');
+      // PREFLIGHT FAILED
+      return { success: false, errorType: 'preflight_failed', error: 'Apply button not found or not visible (already applied, expired, or third-party)' };
     }
 
-    // 2. Loop "Next" until "Submit"
+    // 2. Loop "Next" until "Submit" - APPLY FLOW (failures here are 'failed')
     let loopCount = 0;
     while (loopCount < 10) { // Safety limit to avoid infinite loop
       loopCount++;
@@ -60,9 +61,14 @@ async function blindApply(applywizzId, jobUrl, jobId) {
         await page.waitForTimeout(5000);
         
         // Take screenshot
-        const buffer = await page.screenshot({ fullPage: true });
-        const key = `dice-success/${applywizzId}-${jobId}-${Date.now()}.png`;
-        screenshotUrl = await uploadScreenshot(buffer, key);
+        try {
+          const buffer = await page.screenshot({ fullPage: true });
+          const key = `dice-success/${applywizzId}-${jobId}-${Date.now()}.png`;
+          screenshotUrl = await uploadScreenshot(buffer, key);
+        } catch (screenshotError) {
+           return { success: false, errorType: 'failed', error: 'Submission successful but failed to capture/upload screenshot: ' + screenshotError.message };
+        }
+        
         break; // Success!
       }
 
@@ -73,22 +79,22 @@ async function blindApply(applywizzId, jobUrl, jobId) {
           await nextButton.click();
           await page.waitForTimeout(2000);
         } else {
-          throw new Error('Next button is disabled (Mandatory fields likely blocked it).');
+          return { success: false, errorType: 'failed', error: 'Next button is disabled (Mandatory fields likely blocked it)' };
         }
       } else {
-        throw new Error('Neither Next nor Submit button found in modal.');
+        return { success: false, errorType: 'failed', error: 'Neither Next nor Submit button found in modal' };
       }
     }
 
     if (loopCount >= 10 && !screenshotUrl) {
-      throw new Error('Exceeded maximum number of Next clicks (10).');
+      return { success: false, errorType: 'failed', error: 'Exceeded maximum number of Next clicks (10)' };
     }
 
     return { success: true, screenshotUrl };
 
   } catch (err) {
     console.error(`[V2 Blind Apply] [${applywizzId}] Failed:`, err.message);
-    return { success: false, error: err.message };
+    return { success: false, errorType: 'failed', error: err.message };
   } finally {
     if (handle) {
       await closeBrowser(handle);

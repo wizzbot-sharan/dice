@@ -1297,7 +1297,7 @@
       "file_type": "code",
       "norm_label": "processqueueitem()",
       "source_file": "v2/worker.js",
-      "source_location": "L7"
+      "source_location": "L6"
     },
     {
       "id": "v2_worker_startworkers",
@@ -1309,7 +1309,7 @@
       "file_type": "code",
       "norm_label": "startworkers()",
       "source_file": "v2/worker.js",
-      "source_location": "L64"
+      "source_location": "L73"
     },
     {
       "id": "v2_worker_workerloop",
@@ -1321,7 +1321,7 @@
       "file_type": "code",
       "norm_label": "workerloop()",
       "source_file": "v2/worker.js",
-      "source_location": "L50"
+      "source_location": "L59"
     },
     {
       "id": "lib_workflow_state_createworkflowstatestore",
@@ -5342,7 +5342,7 @@
       "file_type": "code",
       "norm_label": "idx_applied_jobs_v2_applywizz_id",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_applied_jobs_v2_status",
@@ -5353,7 +5353,7 @@
       "file_type": "code",
       "norm_label": "idx_applied_jobs_v2_status",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_apply_queue_v2_applywizz_id",
@@ -5364,7 +5364,7 @@
       "file_type": "code",
       "norm_label": "idx_apply_queue_v2_applywizz_id",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "v2_sql_001_v2_tables_idx_apply_queue_v2_status",
@@ -5375,7 +5375,7 @@
       "file_type": "code",
       "norm_label": "idx_apply_queue_v2_status",
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "frontend_oxlintrc",
@@ -12625,6 +12625,18 @@
     },
     {
       "source": "v2_blind_apply_blindapply",
+      "target": "lib_browser_closebrowser",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "v2_blind_apply_blindapply",
       "target": "v2_blind_apply_getstoragestate",
       "relation": "calls",
       "_origin": "ast",
@@ -12656,19 +12668,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L65",
-      "weight": 1.0
-    },
-    {
-      "source": "v2_blind_apply_blindapply",
-      "target": "lib_browser_closebrowser",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L94",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -12788,7 +12788,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L32",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -12800,7 +12800,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -12812,7 +12812,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L67",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -12824,7 +12824,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/worker.js",
-      "source_location": "L53",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -21980,7 +21980,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -21991,7 +21991,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -22002,7 +22002,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -22013,7 +22013,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -22134,7 +22134,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/worker.js",
-      "source_location": "L50",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -22145,7 +22145,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/worker.js",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -22209,7 +22209,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -22220,7 +22220,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -22231,7 +22231,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -22242,7 +22242,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "v2/sql/001_v2_tables.sql",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -24038,7 +24038,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L99",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -24098,10 +24098,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/worker.js",
-      "source_location": "L71",
+      "source_location": "L80",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a8f5af237c66a9bed4ab6d9ee6adc1eca1627839"
+  "built_at_commit": "5863243f1e793ce2151f87d46e2b16010aca8ac7"
 }

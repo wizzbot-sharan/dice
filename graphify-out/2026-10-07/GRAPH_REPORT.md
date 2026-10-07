@@ -203,7 +203,7 @@ Cohesion: 0.70
 Nodes (4): dice_archieved_jobs, dice_archived_jobs, idx_archived_jobs_applywizz_id, idx_archived_jobs_scraped_at
 
 ## Knowledge Gaps
-- **271 isolated node(s):** `autoprefixer`, `oxlint`, `postcss`, `tailwindcss`, `@tailwindcss/vite` (+266 more)
+- **271 isolated node(s):** `axios`, `lucide-react`, `react`, `react-dom`, `react-router-dom` (+266 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 357 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -216,7 +216,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.035) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?**
   _`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `autoprefixer`, `oxlint`, `postcss` to the rest of the system?**
+- **What connects `axios`, `lucide-react`, `react` to the rest of the system?**
   _271 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `frontend/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.05084745762711865 - nodes in this community are weakly interconnected._

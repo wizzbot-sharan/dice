@@ -38,7 +38,7 @@ async function runEmailVerifier() {
 
     await pool.query(`
       UPDATE dice_applied_jobs_v2 
-      SET status = 'failed' 
+      SET status = 'failed', error_message = 'Email verification timed out after 10 attempts (no Zoho email received)' 
       WHERE status = 'pending_email' AND email_verification_attempts >= 10
     `);
 

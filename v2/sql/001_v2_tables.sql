@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS dice_apply_queue_v2 (
     applywizz_id VARCHAR(255) NOT NULL,
     job_id VARCHAR(255) NOT NULL,
     job_url TEXT NOT NULL,
-    status VARCHAR(50) DEFAULT 'pending', -- pending, processing, failed, success
+    status VARCHAR(50) DEFAULT 'pending', -- pending, processing, preflight_failed, failed, success
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     processed_at TIMESTAMP WITH TIME ZONE,
     error_message TEXT
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS dice_applied_jobs_v2 (
     job_url TEXT NOT NULL,
     status VARCHAR(50) DEFAULT 'pending_email', -- pending_email, verified_email, failed
     screenshot_url TEXT,
+    error_message TEXT,
     applied_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     verified_at TIMESTAMP WITH TIME ZONE,
     email_verification_attempts INT DEFAULT 0
