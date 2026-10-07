@@ -108,10 +108,10 @@
     "semantic_hash": "38d758a34c64efff580358b93389c656"
   },
   "lib/dice-apply-questions.js": {
-    "mtime": 1791351206.8685613,
-    "seen": 1791351281.310497,
-    "ast_hash": "42023184a7f66a3e3cb37c6001eb7391",
-    "semantic_hash": "42023184a7f66a3e3cb37c6001eb7391"
+    "mtime": 1791367628.2654853,
+    "seen": 1791367669.957309,
+    "ast_hash": "faad14979dccbc631c73a116f2598c59",
+    "semantic_hash": "faad14979dccbc631c73a116f2598c59"
   },
   "lib/dice-session.js": {
     "mtime": 1790744138.6365688,

@@ -910,13 +910,13 @@
       "degree": 22
     },
     {
-      "id": "lib_dice_apply_questions_resolvequestionanswer",
-      "label": "resolveQuestionAnswer()",
+      "id": "lib_logger_getclientprefix",
+      "label": "getClientPrefix()",
       "degree": 21
     },
     {
-      "id": "lib_logger_getclientprefix",
-      "label": "getClientPrefix()",
+      "id": "lib_dice_apply_questions_resolvequestionanswer",
+      "label": "resolveQuestionAnswer()",
       "degree": 21
     },
     {
@@ -930,13 +930,13 @@
       "degree": 19
     },
     {
-      "id": "lib_dashboard_server_sendjson",
-      "label": "sendJson()",
+      "id": "start_worker_applytojobonpage",
+      "label": "applyToJobOnPage()",
       "degree": 16
     },
     {
-      "id": "start_worker_applytojobonpage",
-      "label": "applyToJobOnPage()",
+      "id": "lib_dashboard_server_sendjson",
+      "label": "sendJson()",
       "degree": 16
     },
     {
@@ -945,8 +945,8 @@
       "degree": 14
     },
     {
-      "id": "lib_dice_apply_questions_fillcheckboxgroups",
-      "label": "fillCheckboxGroups()",
+      "id": "lib_dice_session_getclientidforchat",
+      "label": "getClientIdForChat()",
       "degree": 11
     }
   ],
