@@ -922,12 +922,23 @@
       "degree": 15
     },
     {
-      "id": "lib_due_work_ticker_createdueworkticker_processduechat",
-      "label": "processDueChat()",
+      "id": "lib_browser_closebrowser",
+      "label": "closeBrowser()",
       "degree": 11
     }
   ],
   "surprises": [
+    {
+      "source": "handleJobCallback()",
+      "target": "saveKnownAnswer()",
+      "source_files": [
+        "start-bot.js",
+        "lib/unknown-questions.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "indirect_call",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
     {
       "source": "handleJobCallback()",
       "target": "getClientIdForChat()",
@@ -964,17 +975,6 @@
     {
       "source": "handleJobCallback()",
       "target": "getAnswerForQuestion()",
-      "source_files": [
-        "start-bot.js",
-        "lib/pending-answers.js"
-      ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "handleJobCallback()",
-      "target": "savePendingQuestion()",
       "source_files": [
         "start-bot.js",
         "lib/pending-answers.js"

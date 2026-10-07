@@ -420,10 +420,10 @@
     "semantic_hash": "b02006cae381ce53ba7e9e77b494cd88"
   },
   "v2/ticker.js": {
-    "mtime": 1791374361.1309242,
-    "seen": 1791374432.0861518,
-    "ast_hash": "a92b784a510cff2e7f820548fbe31b8e",
-    "semantic_hash": "a92b784a510cff2e7f820548fbe31b8e"
+    "mtime": 1791378996.8409665,
+    "seen": 1791379016.5991738,
+    "ast_hash": "e463157c513dca3e4c46b1a616adc1b8",
+    "semantic_hash": "e463157c513dca3e4c46b1a616adc1b8"
   },
   "v2/worker.js": {
     "mtime": 1791378712.7229571,

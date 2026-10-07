@@ -1165,7 +1165,7 @@
       "file_type": "code",
       "norm_label": "startticker()",
       "source_file": "v2/ticker.js",
-      "source_location": "L82"
+      "source_location": "L91"
     },
     {
       "id": "v2_worker_startworkers",
@@ -7615,6 +7615,18 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
+      "label": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
+      "_origin": "semantic",
+      "community": 0,
+      "community_name": "browser.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "frontend_src_index",
       "label": "frontend_src_index",
       "_origin": "semantic",
@@ -7659,6 +7671,18 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_dice_session_storagestateisvalid",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
+      "label": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
+      "_origin": "semantic",
+      "community": 16,
+      "community_name": "ticker.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
       "source_file": "",
       "type": "external"
     },
@@ -8391,28 +8415,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_workflow_state_createworkflowstatestore",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
-      "label": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
-      "community": 0,
-      "community_name": "browser.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
-      "label": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
-      "community": 16,
-      "community_name": "ticker.js",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker",
       "source_file": "",
       "type": "external"
     }
@@ -12855,7 +12857,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/ticker.js",
-      "source_location": "L84",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -24211,7 +24213,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/ticker.js",
-      "source_location": "L88",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -24223,7 +24225,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/ticker.js",
-      "source_location": "L88",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -24240,5 +24242,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "258713e4dd6fd4b9e87fb524832dc825bc8e3b78"
+  "built_at_commit": "028bcf966aa54ae226f441d211700c7105c37816"
 }

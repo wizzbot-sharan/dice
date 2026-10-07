@@ -7,6 +7,15 @@ const V2_COOLDOWN_MAX = parseInt(process.env.V2_COOLDOWN_MAX || '30', 10);
 async function runTicker() {
   const pool = createPool();
   try {
+    // 0. RESCUE OPERATION: If a worker crashed while a job was 'processing' (e.g. Railway restarted), 
+    // reset it back to 'pending' after 15 minutes so it doesn't block the user forever.
+    await pool.query(`
+      UPDATE dice_apply_queue_v2
+      SET status = 'pending', processed_at = NULL
+      WHERE status = 'processing' 
+        AND processed_at < CURRENT_TIMESTAMP - INTERVAL '15 minutes'
+    `);
+
     // 1. Get all active clients
     const clientsResult = await pool.query(`SELECT applywizz_id FROM clients_additional_info WHERE applywizz_id IS NOT NULL`);
     const applywizzIds = clientsResult.rows.map(r => r.applywizz_id).filter(Boolean);
@@ -18,7 +27,7 @@ async function runTicker() {
         [applywizzId]
       );
       if (queuedResult.rows.length > 0) {
-        // Already in queue, skip
+        // Already in queue, skip pulling from scraped jobs
         continue;
       }
 
