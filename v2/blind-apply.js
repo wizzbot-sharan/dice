@@ -69,17 +69,13 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
       
       console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Apply, waiting 10-15 seconds...`);
       await waitRandom(10, 15);
+
+      // Log URL after clicking apply to see if it redirected out of Dice (3rd party)
+      console.log(`[V2 Blind Apply] [${applywizzId}] URL after clicking apply is: ${page.url()}`);
+
     } else {
-      console.log(`[V2 Blind Apply] [${applywizzId}] Apply button not visible! Taking debug screenshot...`);
-      let debugUrl = 'Screenshot failed';
-      try {
-        const buffer = await page.screenshot({ fullPage: true });
-        debugUrl = await uploadScreenshot(buffer, `dice-error/preflight-${applywizzId}-${jobId}-${Date.now()}.png`);
-        console.log(`[V2 Blind Apply] [DEBUG URL]: ${debugUrl}`);
-      } catch (e) {
-        console.error(`[V2 Blind Apply] Debug screenshot failed:`, e.message);
-      }
-      return { success: false, errorType: 'preflight_failed', error: `Apply button not found or not visible. Debug image: ${debugUrl}` };
+      console.log(`[V2 Blind Apply] [${applywizzId}] Apply button not visible! URL: ${page.url()}`);
+      return { success: false, errorType: 'preflight_failed', error: `Apply button not found on URL: ${page.url()}` };
     }
 
     // 2. Loop "Next" until "Submit" - APPLY FLOW
@@ -115,15 +111,15 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
           console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Next, waiting 10-15 seconds...`);
           await waitRandom(10, 15);
         } else {
-          return { success: false, errorType: 'apply_failed', error: 'Next button is disabled (Mandatory fields likely blocked it)' };
+          return { success: false, errorType: 'apply_failed', error: `Next button is disabled. Current URL: ${page.url()}` };
         }
       } else {
-        return { success: false, errorType: 'apply_failed', error: 'Neither Next nor Submit button found in modal' };
+        return { success: false, errorType: 'apply_failed', error: `Neither Next nor Submit button found in modal. Current URL: ${page.url()}` };
       }
     }
 
     if (loopCount >= 10 && !screenshotUrl && !screenshotError) {
-      return { success: false, errorType: 'apply_failed', error: 'Exceeded maximum number of Next clicks (10)' };
+      return { success: false, errorType: 'apply_failed', error: `Exceeded maximum number of Next clicks (10). Current URL: ${page.url()}` };
     }
 
     return { success: true, screenshotUrl, screenshotError };
