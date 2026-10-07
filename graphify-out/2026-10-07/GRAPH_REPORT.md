@@ -1,4 +1,4 @@
-# Graph Report - Dice_scaling copy  (2026-10-06)
+# Graph Report - Dice_scaling copy  (2026-10-07)
 
 ## Corpus Check
 - cluster-only mode — file stats not available
@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f4df5705`
+- Built from commit: `8e88d24b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -221,7 +221,7 @@ Cohesion: 0.50
 Nodes (3): args, { createPool }, email
 
 ## Knowledge Gaps
-- **266 isolated node(s):** `{ createPool }`, `crypto`, `{ getClientPrefix, getJobDisplay }`, `{ applyPromptDecision, sendJobPrompt, randomMinutes }`, `{ createPool }` (+261 more)
+- **266 isolated node(s):** `crypto`, `{ getClientPrefix, getJobDisplay }`, `{ openBrowser, closeBrowser, maxConcurrent }`, `{ createPool }`, `crypto` (+261 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 358 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -234,7 +234,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?**
   _`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `{ createPool }`, `crypto`, `{ getClientPrefix, getJobDisplay }` to the rest of the system?**
+- **What connects `crypto`, `{ getClientPrefix, getJobDisplay }`, `{ openBrowser, closeBrowser, maxConcurrent }` to the rest of the system?**
   _266 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `due-work-ticker.js` be split into smaller, more focused modules?**
   _Cohesion score 0.05669199298655757 - nodes in this community are weakly interconnected._

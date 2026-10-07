@@ -108,10 +108,10 @@
     "semantic_hash": "38d758a34c64efff580358b93389c656"
   },
   "lib/dice-apply-questions.js": {
-    "mtime": 1791348458.7757716,
-    "seen": 1791348510.617196,
-    "ast_hash": "e761db59d172006792a9548972ffdbcd",
-    "semantic_hash": "e761db59d172006792a9548972ffdbcd"
+    "mtime": 1791349379.4563842,
+    "seen": 1791349457.8571131,
+    "ast_hash": "7cbc2ad5516049bb47efe8d057448858",
+    "semantic_hash": "7cbc2ad5516049bb47efe8d057448858"
   },
   "lib/dice-session.js": {
     "mtime": 1790744138.6365688,
@@ -240,10 +240,10 @@
     "semantic_hash": "3afe62c3200a1766a3b5eda6521a44ee"
   },
   "start-worker.js": {
-    "mtime": 1791285580.4900463,
-    "seen": 1791285997.834501,
-    "ast_hash": "78e9b22b7633ea6ea14b28e217f2ee87",
-    "semantic_hash": "78e9b22b7633ea6ea14b28e217f2ee87"
+    "mtime": 1791349271.1902351,
+    "seen": 1791349457.857399,
+    "ast_hash": "70bb763d998483be12bcafe635b82df1",
+    "semantic_hash": "70bb763d998483be12bcafe635b82df1"
   },
   "test/apply-queue.test.js": {
     "mtime": 1789631643.4700131,

@@ -210,7 +210,7 @@ async function prevalidateJob(chatId, job, storageState = null) {
       }
 
       const popupPromise = page.context()
-        .waitForEvent('page', { timeout: 4000 })
+        .waitForEvent('page', { timeout: 10000 })
         .catch(() => null);
 
       await applyButton.first().scrollIntoViewIfNeeded().catch(() => {});
@@ -218,12 +218,15 @@ async function prevalidateJob(chatId, job, storageState = null) {
 
       const applicationPage = await Promise.race([
         popupPromise,
-        new Promise((resolve) => setTimeout(() => resolve(null), 4000)),
+        new Promise((resolve) => setTimeout(() => resolve(null), 10000)),
       ]) || page;
 
-      // Wait for the actual application form wizard to load on the screen
-      await applicationPage.waitForSelector('seds-job-apply-wizard, apply-wizard-job-step', { timeout: 8000 }).catch(() => {});
+      // Wait for the page to fully load — both DOM and all resources (scripts, web components).
+      // This mirrors what the apply flow does before interacting with the form.
       await applicationPage.waitForLoadState('domcontentloaded').catch(() => {});
+      await applicationPage.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
+      // Give the Dice Angular/web-component shell extra time to hydrate step indicator.
+      await applicationPage.waitForTimeout(3000);
 
       if (!applicationPage.url().includes('dice.com')) {
         return { ok: false, reason: 'external', jobName };
