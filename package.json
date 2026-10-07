@@ -12,7 +12,7 @@
     "start-dashboard": "node start-dashboard.js",
     "test": "node --test test/*.test.js",
     "verify-client": "node scripts/verify-client-lookup.js",
-    "update-docs": "npx repomix && graphify . --code-only && graphify cluster-only .",
+    "update-docs": "graphify . --code-only && graphify cluster-only .",
     "prepare": "husky || true"
   },
   "dependencies": {
