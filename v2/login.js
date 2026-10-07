@@ -10,18 +10,19 @@ async function refreshLogin(applywizzId) {
   }
 
   const pool = createPool();
-  // Fetch the email for this applywizzId
+  // Fetch the email for this applywizzId from dice_sessions (which holds their login email)
   const userRes = await pool.query(`
-    SELECT dice_email, client_id 
-    FROM clients_additional_info 
+    SELECT email, client_id 
+    FROM dice_sessions 
     WHERE applywizz_id = $1
+    LIMIT 1
   `, [applywizzId]);
 
-  if (userRes.rows.length === 0 || !userRes.rows[0].dice_email) {
-    throw new Error(`No dice_email found in clients_additional_info for ${applywizzId}`);
+  if (userRes.rows.length === 0 || !userRes.rows[0].email) {
+    throw new Error(`No email found in dice_sessions for ${applywizzId}`);
   }
 
-  const email = userRes.rows[0].dice_email;
+  const email = userRes.rows[0].email;
   console.log(`[V2 Login Manager] Starting autonomous login for ${applywizzId} (${email})...`);
   
   const handle = await openBrowser({ headless: true });

@@ -892,13 +892,13 @@
       "degree": 19
     },
     {
-      "id": "lib_dashboard_server_sendjson",
-      "label": "sendJson()",
+      "id": "start_worker_applytojobonpage",
+      "label": "applyToJobOnPage()",
       "degree": 16
     },
     {
-      "id": "start_worker_applytojobonpage",
-      "label": "applyToJobOnPage()",
+      "id": "lib_dashboard_server_sendjson",
+      "label": "sendJson()",
       "degree": 16
     },
     {
@@ -907,8 +907,8 @@
       "degree": 15
     },
     {
-      "id": "lib_browser_closebrowser",
-      "label": "closeBrowser()",
+      "id": "lib_due_work_ticker_createdueworkticker_processduechat",
+      "label": "processDueChat()",
       "degree": 11
     }
   ],
