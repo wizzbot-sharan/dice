@@ -244,42 +244,6 @@
       "source_location": "L733"
     },
     {
-      "id": "v2_blind_apply_blindapply",
-      "label": "blindApply()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "blindapply()",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L26"
-    },
-    {
-      "id": "v2_blind_apply_getstoragestate",
-      "label": "getStorageState()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "getstoragestate()",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "v2_blind_apply_waitrandom",
-      "label": "waitRandom()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "waitrandom()",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L6"
-    },
-    {
       "id": "v2_login_refreshlogin",
       "label": "refreshLogin()",
       "_callable": true,
@@ -314,6 +278,39 @@
       "norm_label": "workerloop()",
       "source_file": "v2/worker.js",
       "source_location": "L85"
+    },
+    {
+      "id": "v2_blind_apply_blindapply",
+      "label": "blindApply()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "blindapply()",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L26"
+    },
+    {
+      "id": "v2_blind_apply_getstoragestate",
+      "label": "getStorageState()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "getstoragestate()",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "v2_blind_apply_waitrandom",
+      "label": "waitRandom()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "waitrandom()",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_app_app",
@@ -1144,23 +1141,12 @@
       "source_location": "L4"
     },
     {
-      "id": "v2_worker_startworkers",
-      "label": "startWorkers()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 16,
-      "community_name": "ticker.js",
-      "file_type": "code",
-      "norm_label": "startworkers()",
-      "source_file": "v2/worker.js",
-      "source_location": "L99"
-    },
-    {
       "id": "v2_ticker_runticker",
       "label": "runTicker()",
       "_callable": true,
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "runticker()",
       "source_file": "v2/ticker.js",
@@ -1172,10 +1158,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "startticker()",
       "source_file": "v2/ticker.js",
       "source_location": "L91"
+    },
+    {
+      "id": "v2_worker_startworkers",
+      "label": "startWorkers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "ticker.js",
+      "file_type": "code",
+      "norm_label": "startworkers()",
+      "source_file": "v2/worker.js",
+      "source_location": "L99"
     },
     {
       "id": "lib_telegram_notify_getbot",
@@ -3418,61 +3417,6 @@
       "source_location": "L1"
     },
     {
-      "id": "v2_blind_apply",
-      "label": "blind-apply.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "blind-apply.js",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "v2_blind_apply_createpool",
-      "label": "{ createPool }",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "{ createpool }",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "v2_blind_apply_openbrowser_closebrowser",
-      "label": "{ openBrowser, closeBrowser }",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "{ openbrowser, closebrowser }",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "v2_blind_apply_refreshlogin",
-      "label": "{ refreshLogin }",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "{ refreshlogin }",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "v2_blind_apply_uploadscreenshot",
-      "label": "{ uploadScreenshot }",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "browser.js",
-      "file_type": "code",
-      "norm_label": "{ uploadscreenshot }",
-      "source_file": "v2/blind-apply.js",
-      "source_location": "L3"
-    },
-    {
       "id": "v2_login",
       "label": "login.js",
       "_origin": "ast",
@@ -3559,6 +3503,56 @@
       "norm_label": "@aws-sdk/client-s3",
       "source_file": "package.json",
       "source_location": "L19"
+    },
+    {
+      "id": "v2_blind_apply",
+      "label": "blind-apply.js",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "blind-apply.js",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "v2_blind_apply_createpool",
+      "label": "{ createPool }",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "{ createpool }",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "v2_blind_apply_openbrowser_closebrowser",
+      "label": "{ openBrowser, closeBrowser }",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "{ openbrowser, closebrowser }",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "v2_blind_apply_refreshlogin",
+      "label": "{ refreshLogin }",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "{ refreshlogin }",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "v2_blind_apply_uploadscreenshot",
+      "label": "{ uploadScreenshot }",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "{ uploadscreenshot }",
+      "source_file": "v2/blind-apply.js",
+      "source_location": "L3"
     },
     {
       "id": "frontend_package",
@@ -5050,6 +5044,7 @@
       "label": "ticker.js",
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "ticker.js",
       "source_file": "v2/ticker.js",
@@ -5060,6 +5055,7 @@
       "label": "{ createPool }",
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "{ createpool }",
       "source_file": "v2/ticker.js",
@@ -5070,6 +5066,7 @@
       "label": "V2_COOLDOWN_MAX",
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "v2_cooldown_max",
       "source_file": "v2/ticker.js",
@@ -5080,6 +5077,7 @@
       "label": "V2_COOLDOWN_MIN",
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "v2_cooldown_min",
       "source_file": "v2/ticker.js",
@@ -5090,6 +5088,7 @@
       "label": "V2_DAILY_LIMIT",
       "_origin": "ast",
       "community": 16,
+      "community_name": "ticker.js",
       "file_type": "code",
       "norm_label": "v2_daily_limit",
       "source_file": "v2/ticker.js",
@@ -12694,7 +12693,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L37",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -12706,7 +12705,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L44",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -12718,7 +12717,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L53",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -12730,7 +12729,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L58",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -12742,7 +12741,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L63",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -12754,7 +12753,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L97",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -24182,7 +24181,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L138",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -24235,5 +24234,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "028bcf966aa54ae226f441d211700c7105c37816"
+  "built_at_commit": "4dccfb973a356abbb4e4cd9617b61296eba909ee"
 }

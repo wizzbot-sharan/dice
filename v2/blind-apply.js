@@ -31,7 +31,6 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
   try {
     let storageState = await getStorageState(applywizzId);
     
-    // Auto-login if no storage state exists at all
     if (!storageState && !retryAfterLogin) {
       console.log(`[V2 Blind Apply] No storage state found for ${applywizzId}. Attempting auto-login...`);
       storageState = await refreshLogin(applywizzId);
@@ -48,37 +47,44 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
     await page.goto(jobUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForLoadState('load', { timeout: 30000 }).catch(() => {});
     
-    // 1. Initial Page Load Wait (10-15s)
     console.log(`[V2 Blind Apply] [${applywizzId}] Waiting 10-15 seconds for page load...`);
     await waitRandom(10, 15);
 
-    // Check if Dice redirected us to the login page (Session Expired)
+    console.log(`[V2 Blind Apply] [${applywizzId}] Page loaded. Current URL is: ${page.url()}`);
+
     if (page.url().includes('/login') && !retryAfterLogin) {
        console.log(`[V2 Blind Apply] [${applywizzId}] Session expired! Redirected to login. Running auto-login...`);
        await closeBrowser(handle);
-       handle = null; // Prevent double close in finally
-       
+       handle = null;
        await refreshLogin(applywizzId);
-       // Recursively retry once after a successful login
        return await blindApply(applywizzId, jobUrl, jobId, true);
     }
 
     // 1. Initial Apply - PREFLIGHT CHECK
     const applyButton = page.locator('button:has-text("Apply now"), button[aria-label="Apply to this job"]');
+    
     if (await applyButton.isVisible()) {
+      console.log(`[V2 Blind Apply] [${applywizzId}] Found Apply button! Clicking it...`);
       await applyButton.click();
       
-      // 2. Wait after clicking apply (10-15s)
       console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Apply, waiting 10-15 seconds...`);
       await waitRandom(10, 15);
     } else {
-      // PREFLIGHT FAILED
-      return { success: false, errorType: 'preflight_failed', error: 'Apply button not found or not visible (already applied, expired, or third-party)' };
+      console.log(`[V2 Blind Apply] [${applywizzId}] Apply button not visible! Taking debug screenshot...`);
+      let debugUrl = 'Screenshot failed';
+      try {
+        const buffer = await page.screenshot({ fullPage: true });
+        debugUrl = await uploadScreenshot(buffer, `dice-error/preflight-${applywizzId}-${jobId}-${Date.now()}.png`);
+        console.log(`[V2 Blind Apply] [DEBUG URL]: ${debugUrl}`);
+      } catch (e) {
+        console.error(`[V2 Blind Apply] Debug screenshot failed:`, e.message);
+      }
+      return { success: false, errorType: 'preflight_failed', error: `Apply button not found or not visible. Debug image: ${debugUrl}` };
     }
 
-    // 2. Loop "Next" until "Submit" - APPLY FLOW (failures here are 'apply_failed')
+    // 2. Loop "Next" until "Submit" - APPLY FLOW
     let loopCount = 0;
-    while (loopCount < 10) { // Safety limit to avoid infinite loop
+    while (loopCount < 10) { 
       loopCount++;
 
       const submitButton = page.locator('button:has-text("Submit"), button[aria-label="Submit"]');
@@ -86,11 +92,9 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
         console.log(`[V2 Blind Apply] [${applywizzId}] Submit button found. Clicking Submit!`);
         await submitButton.click();
         
-        // 3. Wait after submit (5s as requested)
         console.log(`[V2 Blind Apply] [${applywizzId}] Submitted, waiting 5 seconds for success screen...`);
         await page.waitForTimeout(5000);
         
-        // Take screenshot
         try {
           const buffer = await page.screenshot({ fullPage: true });
           const key = `dice-success/${applywizzId}-${jobId}-${Date.now()}.png`;
@@ -108,7 +112,6 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
           console.log(`[V2 Blind Apply] [${applywizzId}] Clicking Next...`);
           await nextButton.click();
           
-          // 4. Wait after clicking Next (10-15s)
           console.log(`[V2 Blind Apply] [${applywizzId}] Clicked Next, waiting 10-15 seconds...`);
           await waitRandom(10, 15);
         } else {
