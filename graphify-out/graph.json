@@ -6050,10 +6050,21 @@
       "source_location": ""
     },
     {
+      "id": "dice_applied_jobs_v2",
+      "label": "dice_applied_jobs_v2",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "dice_applied_jobs_v2",
+      "file_type": "code",
+      "norm_label": "dice_applied_jobs_v2",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "dice_apply_queue",
       "label": "dice_apply_queue",
       "_origin": "ast",
-      "community": 32,
+      "community": 33,
       "community_name": "dice_apply_queue",
       "file_type": "code",
       "norm_label": "dice_apply_queue",
@@ -6064,7 +6075,7 @@
       "id": "dice_workflow_sessions",
       "label": "dice_workflow_sessions",
       "_origin": "ast",
-      "community": 33,
+      "community": 34,
       "community_name": "dice_workflow_sessions",
       "file_type": "code",
       "norm_label": "dice_workflow_sessions",
@@ -6301,6 +6312,17 @@
       "norm_label": "test",
       "source_file": "test/operator-auth.test.js",
       "source_location": "L1"
+    },
+    {
+      "id": "v2_sql_002_add_error_message",
+      "label": "002_add_error_message.sql",
+      "_origin": "ast",
+      "community": 42,
+      "community_name": "002_add_error_message.sql",
+      "file_type": "code",
+      "norm_label": "002_add_error_message.sql",
+      "source_file": "v2/sql/002_add_error_message.sql",
+      "source_location": null
     },
     {
       "id": "lib_browser",
@@ -7857,7 +7879,7 @@
       "id": "lib_browser_usebrowserbase",
       "label": "lib_browser_usebrowserbase",
       "_origin": "semantic",
-      "community": 34,
+      "community": 35,
       "community_name": "lib_browser_usebrowserbase",
       "external": true,
       "file_type": "concept",
@@ -7869,7 +7891,7 @@
       "id": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
       "_origin": "semantic",
-      "community": 35,
+      "community": 36,
       "community_name": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision",
       "external": true,
       "file_type": "concept",
@@ -7881,7 +7903,7 @@
       "id": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes",
       "_origin": "semantic",
-      "community": 36,
+      "community": 37,
       "community_name": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes",
       "external": true,
       "file_type": "concept",
@@ -7893,7 +7915,7 @@
       "id": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt",
       "_origin": "semantic",
-      "community": 37,
+      "community": 38,
       "community_name": "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt",
       "external": true,
       "file_type": "concept",
@@ -7905,23 +7927,11 @@
       "id": "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
       "_origin": "semantic",
-      "community": 38,
+      "community": 39,
       "community_name": "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
       "external": true,
       "file_type": "concept",
       "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "_origin": "semantic",
-      "community": 39,
-      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
       "source_file": "",
       "type": "external"
     },
@@ -7974,10 +7984,22 @@
       "type": "external"
     },
     {
+      "id": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "_origin": "semantic",
+      "community": 40,
+      "community_name": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight",
       "label": "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight",
       "_origin": "semantic",
-      "community": 40,
+      "community": 41,
       "community_name": "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight",
       "external": true,
       "file_type": "concept",
@@ -24348,5 +24370,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "aefbacfc794624639f219e6d956d11bd9cf5a3b6"
+  "built_at_commit": "147d64c224e098121c18a9b8f4a6cbd06066d481"
 }

@@ -790,31 +790,37 @@
       "dice_applied_jobs"
     ],
     "32": [
-      "dice_apply_queue"
+      "dice_applied_jobs_v2"
     ],
     "33": [
-      "dice_workflow_sessions"
+      "dice_apply_queue"
     ],
     "34": [
-      "lib_browser_usebrowserbase"
+      "dice_workflow_sessions"
     ],
     "35": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision"
+      "lib_browser_usebrowserbase"
     ],
     "36": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes"
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_applypromptdecision"
     ],
     "37": [
-      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt"
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_randomminutes"
     ],
     "38": [
-      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase"
+      "users_sharan_desktop_dice_scaling_copy_lib_bot_prompt_handler_sendjobprompt"
     ],
     "39": [
-      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker"
+      "users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase"
     ],
     "40": [
+      "users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker"
+    ],
+    "41": [
       "users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight"
+    ],
+    "42": [
+      "v2_sql_002_add_error_message"
     ]
   },
   "cohesion": {
@@ -858,7 +864,9 @@
     "37": 1.0,
     "38": 1.0,
     "39": 1.0,
-    "40": 1.0
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0
   },
   "gods": [
     {

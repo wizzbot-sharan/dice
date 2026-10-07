@@ -442,5 +442,11 @@
     "seen": 1791377846.5508962,
     "ast_hash": "102ba9212e9de7a12c8896fcf9783db3",
     "semantic_hash": "102ba9212e9de7a12c8896fcf9783db3"
+  },
+  "v2/sql/002_add_error_message.sql": {
+    "mtime": 1791378180.3068197,
+    "seen": 1791378201.6701062,
+    "ast_hash": "d21b98c5065c083e29ff0e4e4b19954d",
+    "semantic_hash": "d21b98c5065c083e29ff0e4e4b19954d"
   }
 }
