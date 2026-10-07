@@ -10,16 +10,16 @@ async function refreshLogin(applywizzId) {
   }
 
   const pool = createPool();
-  // Fetch the email for this applywizzId from dice_sessions (which holds their login email)
+  // Fetch the email for this applywizzId from clients_additional_info
   const userRes = await pool.query(`
-    SELECT email, client_id 
-    FROM dice_sessions 
+    SELECT company_email as email, client_id 
+    FROM clients_additional_info 
     WHERE applywizz_id = $1
     LIMIT 1
   `, [applywizzId]);
 
   if (userRes.rows.length === 0 || !userRes.rows[0].email) {
-    throw new Error(`No email found in dice_sessions for ${applywizzId}`);
+    throw new Error(`No company_email found in clients_additional_info for ${applywizzId}`);
   }
 
   const email = userRes.rows[0].email;
