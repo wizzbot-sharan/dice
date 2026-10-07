@@ -950,13 +950,13 @@
       "degree": 22
     },
     {
-      "id": "lib_dice_apply_questions_resolvequestionanswer",
-      "label": "resolveQuestionAnswer()",
+      "id": "lib_logger_getclientprefix",
+      "label": "getClientPrefix()",
       "degree": 21
     },
     {
-      "id": "lib_logger_getclientprefix",
-      "label": "getClientPrefix()",
+      "id": "lib_dice_apply_questions_resolvequestionanswer",
+      "label": "resolveQuestionAnswer()",
       "degree": 21
     },
     {
@@ -970,13 +970,13 @@
       "degree": 19
     },
     {
-      "id": "start_worker_applytojobonpage",
-      "label": "applyToJobOnPage()",
+      "id": "lib_dashboard_server_sendjson",
+      "label": "sendJson()",
       "degree": 16
     },
     {
-      "id": "lib_dashboard_server_sendjson",
-      "label": "sendJson()",
+      "id": "start_worker_applytojobonpage",
+      "label": "applyToJobOnPage()",
       "degree": 16
     },
     {
@@ -985,12 +985,23 @@
       "degree": 15
     },
     {
-      "id": "lib_dice_apply_questions_fillcheckboxgroups",
-      "label": "fillCheckboxGroups()",
+      "id": "lib_due_work_ticker_createdueworkticker_processduechat",
+      "label": "processDueChat()",
       "degree": 11
     }
   ],
   "surprises": [
+    {
+      "source": "run()",
+      "target": "createPool()",
+      "source_files": [
+        "scratch-migrate.js",
+        "lib/azure.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities; peripheral node `run()` unexpectedly reaches hub `createPool()`"
+    },
     {
       "source": "handleJobCallback()",
       "target": "getClientIdForChat()",
@@ -1012,17 +1023,6 @@
       "confidence": "INFERRED",
       "relation": "indirect_call",
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "run()",
-      "target": "createPool()",
-      "source_files": [
-        "scratch-migrate.js",
-        "lib/azure.js"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities; peripheral node `run()` unexpectedly reaches hub `createPool()`"
     },
     {
       "source": "handleJobCallback()",

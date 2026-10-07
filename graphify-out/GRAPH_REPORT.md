@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `95fa4a52`
+- Built from commit: `7667736b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -240,7 +240,7 @@ Cohesion: 0.40
 Nodes (3): companyTokens, subjectTokens, titleTokens
 
 ## Knowledge Gaps
-- **287 isolated node(s):** `{ createPool }`, `assert`, `{ createApplyQueue }`, `{ startApplyWorkers }`, `test` (+282 more)
+- **287 isolated node(s):** `{ createPool }`, `crypto`, `{ getClientPrefix, getJobDisplay }`, `{ openBrowser, closeBrowser, maxConcurrent }`, `{ createPool }` (+282 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 380 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -253,7 +253,7 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.035) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?**
   _`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `{ createPool }`, `assert`, `{ createApplyQueue }` to the rest of the system?**
+- **What connects `{ createPool }`, `crypto`, `{ getClientPrefix, getJobDisplay }` to the rest of the system?**
   _287 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `due-work-ticker.js` be split into smaller, more focused modules?**
   _Cohesion score 0.05028248587570622 - nodes in this community are weakly interconnected._
