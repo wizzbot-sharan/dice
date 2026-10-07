@@ -1,25 +1,25 @@
 {
   "database/migrations/006_preflight_status.sql": {
-    "mtime": 1789977848.7498753,
-    "seen": 1790142967.144913,
+    "mtime": 1791374105.880267,
+    "seen": 1791374432.0855849,
     "ast_hash": "3282f6796ee0f7c5150572cc1e727988",
     "semantic_hash": "3282f6796ee0f7c5150572cc1e727988"
   },
   "database/migrations/007_pending_answers.sql": {
-    "mtime": 1789977853.0474532,
-    "seen": 1790142967.1449149,
+    "mtime": 1791374105.8804295,
+    "seen": 1791374432.0855858,
     "ast_hash": "7e8685410ec0527e911444efd70388d1",
     "semantic_hash": "7e8685410ec0527e911444efd70388d1"
   },
   "database/migrations/008_update_queue_status_check.sql": {
-    "mtime": 1790165339.912017,
-    "seen": 1790223954.5651672,
+    "mtime": 1791374105.8805392,
+    "seen": 1791374432.0855858,
     "ast_hash": "9a52909dd0a954a5308d94c0a1625a95",
     "semantic_hash": "9a52909dd0a954a5308d94c0a1625a95"
   },
   "database/migrations/009_create_dice_archived_jobs.sql": {
-    "mtime": 1790056144.605696,
-    "seen": 1790142967.144917,
+    "mtime": 1791374105.880644,
+    "seen": 1791374432.085587,
     "ast_hash": "9eef8179b866881a1c74a869a74d2762",
     "semantic_hash": "9eef8179b866881a1c74a869a74d2762"
   },
@@ -108,8 +108,8 @@
     "semantic_hash": "38d758a34c64efff580358b93389c656"
   },
   "lib/dice-apply-questions.js": {
-    "mtime": 1791367628.2654853,
-    "seen": 1791367669.957309,
+    "mtime": 1791374125.1687315,
+    "seen": 1791374432.0857532,
     "ast_hash": "faad14979dccbc631c73a116f2598c59",
     "semantic_hash": "faad14979dccbc631c73a116f2598c59"
   },
@@ -180,10 +180,10 @@
     "semantic_hash": "0ee8220e0511e540fd0bf1efd076e28e"
   },
   "package.json": {
-    "mtime": 1790850946.0730183,
-    "seen": 1790852702.8129358,
-    "ast_hash": "50c90dc22b0a4cc5174dbfc423b08b63",
-    "semantic_hash": "50c90dc22b0a4cc5174dbfc423b08b63"
+    "mtime": 1791374414.2789993,
+    "seen": 1791374432.0859,
+    "ast_hash": "eb0c9742e28706413d6f299b9d65a68c",
+    "semantic_hash": "eb0c9742e28706413d6f299b9d65a68c"
   },
   "scripts/create-operator.js": {
     "mtime": 1789041620.778129,
@@ -312,8 +312,8 @@
     "semantic_hash": "6c3724557abd4f27d96fe195e45cdd86"
   },
   "database/migrations/010_workflow_conversation.sql": {
-    "mtime": 1790149107.3303654,
-    "seen": 1790150033.916478,
+    "mtime": 1791374105.8807411,
+    "seen": 1791374432.085587,
     "ast_hash": "f42676fe74f16691241062ce4d1c8c17",
     "semantic_hash": "f42676fe74f16691241062ce4d1c8c17"
   },
@@ -366,14 +366,14 @@
     "semantic_hash": "cf5fcae0e115241bba14cca07509c650"
   },
   "database/migrations/011_bifurcate_failed_status.sql": {
-    "mtime": 1790332937.877198,
-    "seen": 1790333849.18764,
+    "mtime": 1791374105.8808703,
+    "seen": 1791374432.085588,
     "ast_hash": "04f85b04790f68e272cfcc017e5f99dd",
     "semantic_hash": "04f85b04790f68e272cfcc017e5f99dd"
   },
   "database/migrations/012_preflight_step_count.sql": {
-    "mtime": 1790839253.7261953,
-    "seen": 1790840142.0265899,
+    "mtime": 1791374105.8810916,
+    "seen": 1791374432.085588,
     "ast_hash": "a52ab026d51201af3bd8a342fdd7e581",
     "semantic_hash": "a52ab026d51201af3bd8a342fdd7e581"
   },
@@ -384,8 +384,8 @@
     "semantic_hash": "afac6c609f0f99c4130065a2827a4f81"
   },
   "database/migrations/012_application_proof.sql": {
-    "mtime": 1790850920.2427542,
-    "seen": 1790852702.8126569,
+    "mtime": 1791374105.880988,
+    "seen": 1791374432.085588,
     "ast_hash": "51868d69ca01fe48561c3a30f2eedba8",
     "semantic_hash": "51868d69ca01fe48561c3a30f2eedba8"
   },
@@ -402,75 +402,111 @@
     "semantic_hash": "3bbbdd8b4a0eb0ffa58066dbaebdf40a"
   },
   "scratch-migrate.js": {
-    "mtime": 1791265045.9792182,
-    "seen": 1791266250.18735,
+    "mtime": 1791374105.9034138,
+    "seen": 1791374432.085902,
     "ast_hash": "0f5a9788a2ffed305e6b781376524d4a",
     "semantic_hash": "0f5a9788a2ffed305e6b781376524d4a"
   },
   "scratch-test-error.js": {
-    "mtime": 1791265241.2431602,
-    "seen": 1791266250.18735,
+    "mtime": 1791374105.903505,
+    "seen": 1791374432.085902,
     "ast_hash": "f7f08828f34ab1b80cb8f6965b7486da",
     "semantic_hash": "f7f08828f34ab1b80cb8f6965b7486da"
   },
   "scratch-test-jsonb.js": {
-    "mtime": 1791265084.8988452,
-    "seen": 1791266250.187351,
+    "mtime": 1791374105.903595,
+    "seen": 1791374432.085902,
     "ast_hash": "126d3ed2b923a0ea62b4202dcebaac23",
     "semantic_hash": "126d3ed2b923a0ea62b4202dcebaac23"
   },
   "test-date.js": {
-    "mtime": 1791278930.1555066,
-    "seen": 1791279956.961684,
+    "mtime": 1791374105.9036818,
+    "seen": 1791374432.0859962,
     "ast_hash": "d6b6beb274f22c39e2852f38b6bfc765",
     "semantic_hash": "d6b6beb274f22c39e2852f38b6bfc765"
   },
   "test-match.js": {
-    "mtime": 1791279806.9529345,
-    "seen": 1791279956.961684,
+    "mtime": 1791374105.904264,
+    "seen": 1791374432.085997,
     "ast_hash": "9222674f161d0bc00e15f0e14c024646",
     "semantic_hash": "9222674f161d0bc00e15f0e14c024646"
   },
   "patch-browser.js": {
-    "mtime": 1791283469.7634993,
-    "seen": 1791283529.47173,
+    "mtime": 1791374105.8940916,
+    "seen": 1791374432.085901,
     "ast_hash": "52924903217c7ac4b5978f56538531c4",
     "semantic_hash": "52924903217c7ac4b5978f56538531c4"
   },
   "test-regex.js": {
-    "mtime": 1791283379.848956,
-    "seen": 1791283529.4718678,
+    "mtime": 1791374105.9043815,
+    "seen": 1791374432.085998,
     "ast_hash": "23499d5fbef042a057c04d7800c86741",
     "semantic_hash": "23499d5fbef042a057c04d7800c86741"
   },
   "test-evaluate.js": {
-    "mtime": 1791283896.3230543,
-    "seen": 1791284210.922525,
+    "mtime": 1791374105.9040828,
+    "seen": 1791374432.085997,
     "ast_hash": "facfe0486bda7c0ddb767ce7130d65eb",
     "semantic_hash": "facfe0486bda7c0ddb767ce7130d65eb"
   },
   "patch-proof-split.js": {
-    "mtime": 1791350860.6022282,
-    "seen": 1791350940.36142,
+    "mtime": 1791374105.8943946,
+    "seen": 1791374432.085901,
     "ast_hash": "79fb8a02fb0f41b6a3810d2eef9e688a",
     "semantic_hash": "79fb8a02fb0f41b6a3810d2eef9e688a"
   },
   "patch-proof.js": {
-    "mtime": 1791350388.6431599,
-    "seen": 1791350940.361421,
+    "mtime": 1791374105.894562,
+    "seen": 1791374432.085901,
     "ast_hash": "6c41402df06574b6603a25602c80fe7e",
     "semantic_hash": "6c41402df06574b6603a25602c80fe7e"
   },
   "test-db-constraint.js": {
-    "mtime": 1791350062.01558,
-    "seen": 1791350940.36154,
+    "mtime": 1791374105.9038415,
+    "seen": 1791374432.0859962,
     "ast_hash": "584834a680812e4045bb9b33b4b9f6dc",
     "semantic_hash": "584834a680812e4045bb9b33b4b9f6dc"
   },
   "test-db-constraint2.js": {
-    "mtime": 1791350595.6051135,
-    "seen": 1791350940.361541,
+    "mtime": 1791374105.9039402,
+    "seen": 1791374432.085997,
     "ast_hash": "8eb3597648d81a8969114daff9c70acb",
     "semantic_hash": "8eb3597648d81a8969114daff9c70acb"
+  },
+  "v2/blind-apply.js": {
+    "mtime": 1791374372.4985285,
+    "seen": 1791374432.08615,
+    "ast_hash": "c07cb3a0355e0b51e0fa0f9ad50a1d85",
+    "semantic_hash": "c07cb3a0355e0b51e0fa0f9ad50a1d85"
+  },
+  "v2/email-verifier.js": {
+    "mtime": 1791374393.2014241,
+    "seen": 1791374432.086151,
+    "ast_hash": "b7d49acbea28bb726c45865f2e295c6b",
+    "semantic_hash": "b7d49acbea28bb726c45865f2e295c6b"
+  },
+  "v2/sql/001_v2_tables.sql": {
+    "mtime": 1791374351.06035,
+    "seen": 1791374432.086151,
+    "ast_hash": "ac98e10e0e2a0b1a52dcfb754cb13e10",
+    "semantic_hash": "ac98e10e0e2a0b1a52dcfb754cb13e10"
+  },
+  "v2/start-v2.js": {
+    "mtime": 1791374398.916301,
+    "seen": 1791374432.086151,
+    "ast_hash": "cc67419c8711643724873d6b1f7706c9",
+    "semantic_hash": "cc67419c8711643724873d6b1f7706c9"
+  },
+  "v2/ticker.js": {
+    "mtime": 1791374361.1309242,
+    "seen": 1791374432.0861518,
+    "ast_hash": "a92b784a510cff2e7f820548fbe31b8e",
+    "semantic_hash": "a92b784a510cff2e7f820548fbe31b8e"
+  },
+  "v2/worker.js": {
+    "mtime": 1791374383.126552,
+    "seen": 1791374432.0861518,
+    "ast_hash": "a6cb6b2180d42de51860ce25b317f3ce",
+    "semantic_hash": "a6cb6b2180d42de51860ce25b317f3ce"
   }
 }
