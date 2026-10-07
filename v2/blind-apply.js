@@ -61,7 +61,8 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
     }
 
     // 1. Initial Apply - PREFLIGHT CHECK
-    const applyButton = page.locator('button:has-text("Apply now"), button[aria-label="Apply to this job"]');
+    // Updated locator based on provided HTML
+    const applyButton = page.locator('[data-testid="apply-button"], button:has-text("Apply now"), button:has-text("Apply")');
     
     if (await applyButton.isVisible()) {
       console.log(`[V2 Blind Apply] [${applywizzId}] Found Apply button! Clicking it...`);

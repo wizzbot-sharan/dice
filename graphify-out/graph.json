@@ -12761,7 +12761,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -24189,7 +24189,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "v2/blind-apply.js",
-      "source_location": "L137",
+      "source_location": "L138",
       "weight": 1.0
     },
     {
@@ -24242,5 +24242,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6dbba86fb13121ae273312201a7f4d281e3f21d8"
+  "built_at_commit": "58b66d8f41fe0351ea98de2afcf103a66ea31db2"
 }
