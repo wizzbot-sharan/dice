@@ -102,10 +102,10 @@
     "semantic_hash": "c833189daedcd67404562f8415481bcb"
   },
   "lib/dashboard-server.js": {
-    "mtime": 1791262428.3149807,
-    "seen": 1791262809.6089358,
-    "ast_hash": "38d758a34c64efff580358b93389c656",
-    "semantic_hash": "38d758a34c64efff580358b93389c656"
+    "mtime": 1791429355.696569,
+    "seen": 1791429376.726775,
+    "ast_hash": "06aa603f44c4772811337d44481f5ed5",
+    "semantic_hash": "06aa603f44c4772811337d44481f5ed5"
   },
   "lib/dice-apply-questions.js": {
     "mtime": 1791374125.1687315,
@@ -442,5 +442,11 @@
     "seen": 1791378201.6701062,
     "ast_hash": "d21b98c5065c083e29ff0e4e4b19954d",
     "semantic_hash": "d21b98c5065c083e29ff0e4e4b19954d"
+  },
+  "patch_dashboard.js": {
+    "mtime": 1791429300.3948596,
+    "seen": 1791429376.726947,
+    "ast_hash": "7baeaa1b24753998976dd1daf58d8cf5",
+    "semantic_hash": "7baeaa1b24753998976dd1daf58d8cf5"
   }
 }

@@ -1,47 +1,51 @@
-# Graph Report - Dice_scaling copy  (2026-10-07)
+# Graph Report - Dice_scaling copy  (2026-10-08)
 
 ## Corpus Check
 - cluster-only mode — file stats not available
 
 ## Summary
-- 734 nodes · 1354 edges · 46 communities (25 shown, 21 thin omitted)
+- 734 nodes · 1354 edges · 51 communities (30 shown, 21 thin omitted)
 - Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 150 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `58b66d8f`
+- Built from commit: `bd660d8f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- browser.js
 - frontend/package.json
+- dashboard-server.js
 - azure.js
 - dice-apply-questions.js
-- dashboard-server.js
 - ref_node_assert
-- due-work-ticker.js
 - sync-daily-pipeline.js
-- start-worker.js
 - start-bot.js
+- start-worker.js
 - resume-parser.js
 - scripts
 - map-client-record.js
+- due-work-ticker.js
+- browser.js
 - getClientPrefix
-- dice-session.js
-- import-operators.js
-- ticker.js
+- apply-worker.js
 - sendMessage
+- blind-apply.js
+- createWorkflowStateStore
 - job-application-db.js
+- zoho-mail-reader.js
+- processDueChat
+- ticker.js
 - runLogin
+- worker.js
 - handleConversationMessage
 - 001_v2_tables.sql
 - .oxlintrc.json
+- prevalidateJob
+- s3-screenshot.js
 - 009_create_dice_archived_jobs.sql
-- handleJobCallback
 - idx_scraped_jobs_preflight
 - 007_pending_answers.sql
-- createHttpServer
 - clients_additional_info
 - dice_applied_jobs
 - dice_applied_jobs_v2
@@ -54,6 +58,7 @@
 - users_sharan_desktop_dice_scaling_copy_lib_browser_usebrowserbase
 - users_sharan_desktop_dice_scaling_copy_lib_due_work_ticker_createdueworkticker
 - users_sharan_desktop_dice_scaling_copy_lib_job_scanner_getjobspendingpreflight
+- users_sharan_desktop_dice_scaling_copy_v2_login_refreshlogin
 
 ## God Nodes (most connected - your core abstractions)
 1. `createPool()` - 29 edges
@@ -62,147 +67,167 @@
 4. `resolveQuestionAnswer()` - 21 edges
 5. `sendMessage()` - 20 edges
 6. `createApplyQueue()` - 19 edges
-7. `applyToJobOnPage()` - 16 edges
-8. `sendJson()` - 16 edges
+7. `sendJson()` - 16 edges
+8. `applyToJobOnPage()` - 16 edges
 9. `scripts` - 15 edges
 10. `closeBrowser()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `handleJobCallback()` --indirect_call--> `saveKnownAnswer()`  [INFERRED]
-  start-bot.js → lib/unknown-questions.js
 - `handleJobCallback()` --indirect_call--> `getClientIdForChat()`  [INFERRED]
   start-bot.js → lib/dice-session.js
 - `handleJobCallback()` --indirect_call--> `saveAppliedJob()`  [INFERRED]
   start-bot.js → lib/job-application-db.js
-- `handleJobCallback()` --indirect_call--> `sendMessage()`  [INFERRED]
-  start-bot.js → lib/telegram-notify.js
 - `handleJobCallback()` --indirect_call--> `getAnswerForQuestion()`  [INFERRED]
   start-bot.js → lib/pending-answers.js
+- `handleJobCallback()` --indirect_call--> `savePendingQuestion()`  [INFERRED]
+  start-bot.js → lib/pending-answers.js
+- `handleJobCallback()` --indirect_call--> `saveKnownAnswer()`  [INFERRED]
+  start-bot.js → lib/unknown-questions.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (46 total, 21 thin omitted)
+## Communities (51 total, 21 thin omitted)
 
-### Community 0 - "browser.js"
-Cohesion: 0.06
-Nodes (52): acquireBrowserTicket(), cancelIdleTimeout(), { chromium: localChromium }, closeBrowser(), closeSharedBrowser(), getSharedBrowser(), maxConcurrent, openBrowser() (+44 more)
-
-### Community 1 - "frontend/package.json"
+### Community 0 - "frontend/package.json"
 Cohesion: 0.05
 Nodes (51): dependencies, axios, lucide-react, react, react-dom, react-router-dom, devDependencies, autoprefixer (+43 more)
 
+### Community 1 - "dashboard-server.js"
+Cohesion: 0.07
+Nodes (53): activeSyncs, archiveOldJobs(), authenticate(), authenticateAdmin(), authenticateAdminOrManager(), createDashboardServer(), crypto, DASHBOARD_TIMEZONES (+45 more)
+
 ### Community 2 - "azure.js"
 Cohesion: 0.05
-Nodes (36): createApplyQueue(), claimNextJob(), countActiveQueueItems(), enqueueApplyJob(), recoverStuckJobs(), { createPool }, assertIdentifier(), createPool() (+28 more)
+Nodes (34): createApplyQueue(), claimNextJob(), countActiveQueueItems(), enqueueApplyJob(), recoverStuckJobs(), assertIdentifier(), createPool(), createQueryBuilder() (+26 more)
 
 ### Community 3 - "dice-apply-questions.js"
 Cohesion: 0.08
 Nodes (51): answersToList(), applyQuestionForm(), { classifyQuestionIntent, extractSkillFromQuestion, matchNumericOption, matchBestOption }, clickLabeledControl(), collectCheckboxGroups(), escapeRegExp(), extractPreflightQuestions(), fillCheckboxGroups() (+43 more)
 
-### Community 4 - "dashboard-server.js"
-Cohesion: 0.08
-Nodes (48): activeSyncs, archiveOldJobs(), authenticate(), authenticateAdmin(), authenticateAdminOrManager(), createDashboardServer(), crypto, DASHBOARD_TIMEZONES (+40 more)
-
-### Community 5 - "ref_node_assert"
+### Community 4 - "ref_node_assert"
 Cohesion: 0.07
-Nodes (32): companyIsExcluded(), jobMatchesProfile(), normalizeText(), roleMatchesJobTitle(), STOP_WORDS, tokens(), getAccessToken(), getAuthConfig() (+24 more)
+Nodes (34): storageStateIsValid(), companyIsExcluded(), jobMatchesProfile(), normalizeText(), roleMatchesJobTitle(), STOP_WORDS, tokens(), lib_job_scanner_newday_lookback_ms (+26 more)
 
-### Community 6 - "due-work-ticker.js"
-Cohesion: 0.07
-Nodes (38): crypto, { getClientPrefix, getJobDisplay }, { openBrowser, closeBrowser, maxConcurrent }, sleep(), startApplyWorkers(), workerLoop(), applyPromptDecision(), collectAndSavePreflightAnswer() (+30 more)
-
-### Community 7 - "sync-daily-pipeline.js"
+### Community 5 - "sync-daily-pipeline.js"
 Cohesion: 0.06
-Nodes (32): lib_dashboard_server_sync_cooldown_ms, syncCooldowns, ref_http, ref_stream, { createPool, createServiceClient }, deriveManagerLinks(), fetchJson(), getYesterdayDate() (+24 more)
+Nodes (33): lib_dashboard_server_sync_cooldown_ms, syncCooldowns, ref_crypto, ref_http, ref_stream, { createPool, createServiceClient }, deriveManagerLinks(), fetchJson() (+25 more)
 
-### Community 8 - "start-worker.js"
+### Community 6 - "start-bot.js"
 Cohesion: 0.05
-Nodes (38): APPLY_TIMEOUT_MINUTES, applyQueue, azure, { createApplyQueue }, { createPool, createServiceClient }, { createWorkflowStateStore }, crypto, { fillCurrentStep, isVisibleEnabled, loadApplyProfile, readTotalStepCount, extractPreflightQuestions } (+30 more)
+Nodes (37): { applyPromptDecision }, azure, bot, { createDueWorkTicker }, createHttpServer(), { createServiceClient }, { createWebhookServer }, { createWorkflowStateStore } (+29 more)
 
-### Community 9 - "start-bot.js"
+### Community 7 - "start-worker.js"
 Cohesion: 0.05
-Nodes (35): { applyPromptDecision }, azure, bot, { createDueWorkTicker }, { createServiceClient }, { createWebhookServer }, { createWorkflowStateStore }, crypto (+27 more)
+Nodes (39): APPLY_TIMEOUT_MINUTES, applyQueue, azure, { createApplyQueue }, { createPool, createServiceClient }, { createWorkflowStateStore }, crypto, { fillCurrentStep, isVisibleEnabled, loadApplyProfile, readTotalStepCount, extractPreflightQuestions } (+31 more)
 
-### Community 10 - "resume-parser.js"
+### Community 8 - "resume-parser.js"
 Cohesion: 0.09
 Nodes (32): calculateDurationYears(), clearResumeCache(), extractTextFromBuffer(), extractWorkBlocks(), fetchResumeBuffer(), fs, getCandidateResumeData(), getExperienceForSkill() (+24 more)
 
-### Community 11 - "scripts"
+### Community 9 - "scripts"
 Cohesion: 0.06
 Nodes (35): dependencies, @aws-sdk/client-s3, bcryptjs, dotenv, node-telegram-bot-api, pdf-parse, pg, playwright (+27 more)
 
-### Community 12 - "map-client-record.js"
+### Community 10 - "map-client-record.js"
 Cohesion: 0.15
 Nodes (22): createServiceClient(), { createServiceClient }, fs, importRecords(), { mapImportItem }, path, asBoolean(), asDate() (+14 more)
 
+### Community 11 - "due-work-ticker.js"
+Cohesion: 0.13
+Nodes (19): applyPromptDecision(), collectAndSavePreflightAnswer(), { createPool }, crypto, { getClientPrefix, getJobDisplay }, randomMinutes(), sendJobPrompt(), { applyPromptDecision, sendJobPrompt, randomMinutes } (+11 more)
+
+### Community 12 - "browser.js"
+Cohesion: 0.17
+Nodes (16): acquireBrowserTicket(), cancelIdleTimeout(), { chromium: localChromium }, closeBrowser(), closeSharedBrowser(), getSharedBrowser(), maxConcurrent, openLocalBrowser() (+8 more)
+
 ### Community 13 - "getClientPrefix"
-Cohesion: 0.20
-Nodes (18): isVisibleEnabled(), loadApplyProfile(), readTotalStepCount(), getClientIdForChat(), getSessionRow(), readActiveSession(), hasHandledJob(), patchJobProof() (+10 more)
-
-### Community 14 - "dice-session.js"
-Cohesion: 0.15
-Nodes (11): azure, { createServiceClient }, { getClientPrefix }, storageStateIsValid(), lib_job_scanner_newday_lookback_ms, assert, { NEWDAY_LOOKBACK_MS }, { storageStateIsValid } (+3 more)
-
-### Community 15 - "import-operators.js"
 Cohesion: 0.22
-Nodes (11): { createPool }, fs, importOperators(), { mapOperatorRecord }, path, asBoolean(), asText(), asUuid() (+3 more)
+Nodes (15): isVisibleEnabled(), azure, { createServiceClient }, getClientIdForChat(), { getClientPrefix }, getSessionRow(), linkTelegramChat(), readActiveSession() (+7 more)
 
-### Community 16 - "ticker.js"
+### Community 14 - "apply-worker.js"
+Cohesion: 0.15
+Nodes (12): crypto, { getClientPrefix, getJobDisplay }, { openBrowser, closeBrowser, maxConcurrent }, sleep(), startApplyWorkers(), workerLoop(), assert, { createApplyQueue } (+4 more)
+
+### Community 15 - "sendMessage"
+Cohesion: 0.20
+Nodes (14): { Bot }, getBot(), { getClientPrefix }, sendMessage(), sendMessageWithButtons(), node-telegram-bot-api, audit(), beginSignIn() (+6 more)
+
+### Community 16 - "blind-apply.js"
 Cohesion: 0.19
-Nodes (11): users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker, bootV2(), { startTicker }, { startWorkers }, { createPool }, runTicker(), startTicker(), V2_COOLDOWN_MAX (+3 more)
+Nodes (13): users_sharan_desktop_dice_scaling_copy_lib_browser_closebrowser, users_sharan_desktop_dice_scaling_copy_lib_browser_openbrowser, users_sharan_desktop_dice_scaling_copy_lib_s3_screenshot_uploadscreenshot, blindApply(), { createPool }, getStorageState(), { openBrowser, closeBrowser }, { refreshLogin } (+5 more)
 
-### Community 17 - "sendMessage"
-Cohesion: 0.27
-Nodes (10): { Bot }, getBot(), { getClientPrefix }, sendMessage(), sendMessageWithButtons(), node-telegram-bot-api, beginSignIn(), handleCommand() (+2 more)
+### Community 17 - "createWorkflowStateStore"
+Cohesion: 0.19
+Nodes (8): createWorkflowStateStore(), claimTelegramUpdate(), clearConversation(), get(), save(), assert, { createWorkflowStateStore }, test
 
 ### Community 18 - "job-application-db.js"
-Cohesion: 0.22
-Nodes (8): applyQueue, azure, { createApplyQueue }, { createServiceClient, createPool }, { getClientIdForChat }, { getClientPrefix, getJobDisplay }, users_sharan_desktop_dice_scaling_copy_lib_apply_queue_createapplyqueue, users_sharan_desktop_dice_scaling_copy_lib_dice_session_getclientidforchat
+Cohesion: 0.17
+Nodes (11): { createPool }, applyQueue, azure, { createApplyQueue }, { createServiceClient, createPool }, { getClientIdForChat }, { getClientPrefix, getJobDisplay }, patchJobProof() (+3 more)
 
-### Community 19 - "runLogin"
+### Community 19 - "zoho-mail-reader.js"
+Cohesion: 0.27
+Nodes (11): openBrowser(), fs, getZohoSessionState(), loginToZohoAdmin(), { openBrowser, closeBrowser }, path, saveZohoSessionState(), setupZohoPage() (+3 more)
+
+### Community 20 - "processDueChat"
+Cohesion: 0.23
+Nodes (10): createDueWorkTicker(), persistWorkflowPatch(), processDueChat(), start(), tick(), ENQUEUE_BATCH_CAP, listDueWorkflowChats(), assert (+2 more)
+
+### Community 21 - "ticker.js"
+Cohesion: 0.20
+Nodes (10): users_sharan_desktop_dice_scaling_copy_v2_ticker_startticker, bootV2(), { startTicker }, { startWorkers }, { createPool }, runTicker(), startTicker(), V2_COOLDOWN_MAX (+2 more)
+
+### Community 22 - "runLogin"
 Cohesion: 0.25
 Nodes (8): getSessionsPendingLogin(), saveSession(), audit(), randomDelay(), runLogin(), runPendingLoginsLoop(), typeWithHumanDelay(), waitRandom()
 
-### Community 20 - "handleConversationMessage"
+### Community 23 - "worker.js"
 Cohesion: 0.32
-Nodes (8): linkTelegramChat(), deleteOTP(), findUserByEmail(), generateOTP(), handleConversationMessage(), hashOtp(), saveOTP(), verifyOTP()
+Nodes (7): users_sharan_desktop_dice_scaling_copy_lib_zoho_mail_reader_verifyjobapplicationemail, { blindApply }, { createPool }, processQueueItem(), startWorkers(), { verifyJobApplicationEmail }, workerLoop()
 
-### Community 21 - "001_v2_tables.sql"
+### Community 24 - "handleConversationMessage"
+Cohesion: 0.38
+Nodes (7): deleteOTP(), findUserByEmail(), generateOTP(), handleConversationMessage(), hashOtp(), saveOTP(), verifyOTP()
+
+### Community 25 - "001_v2_tables.sql"
 Cohesion: 0.48
 Nodes (6): dice_applied_jobs_v2, dice_apply_queue_v2, idx_applied_jobs_v2_applywizz_id, idx_applied_jobs_v2_status, idx_apply_queue_v2_applywizz_id, idx_apply_queue_v2_status
 
-### Community 22 - ".oxlintrc.json"
+### Community 26 - ".oxlintrc.json"
 Cohesion: 0.33
 Nodes (5): plugins, rules, react/only-export-components, react/rules-of-hooks, $schema
 
-### Community 23 - "009_create_dice_archived_jobs.sql"
+### Community 27 - "prevalidateJob"
+Cohesion: 0.33
+Nodes (6): loadApplyProfile(), readTotalStepCount(), acquirePreflight(), getJobName(), prevalidateJob(), releasePreflight()
+
+### Community 28 - "s3-screenshot.js"
+Cohesion: 0.53
+Nodes (5): getS3Client(), hasAwsS3Config(), { S3Client, PutObjectCommand }, uploadScreenshot(), @aws-sdk/client-s3
+
+### Community 29 - "009_create_dice_archived_jobs.sql"
 Cohesion: 0.70
 Nodes (4): dice_archieved_jobs, dice_archived_jobs, idx_archived_jobs_applywizz_id, idx_archived_jobs_scraped_at
 
-### Community 24 - "handleJobCallback"
-Cohesion: 0.40
-Nodes (5): audit(), handleJobCallback(), persistWorkflowPatch(), processCallbackUpdate(), sendOTPEmail()
-
 ## Knowledge Gaps
-- **272 isolated node(s):** `{ chromium: localChromium }`, `RECYCLE_THRESHOLD`, `ticketWaiters`, `{ S3Client, PutObjectCommand }`, `fs` (+267 more)
+- **272 isolated node(s):** `axios`, `lucide-react`, `react`, `react-dom`, `react-router-dom` (+267 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 362 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `node-telegram-bot-api` connect `sendMessage` to `start-bot.js`, `scripts`, `sync-daily-pipeline.js`?**
+- **Why does `node-telegram-bot-api` connect `sendMessage` to `scripts`, `sync-daily-pipeline.js`, `start-bot.js`?**
   _High betweenness centrality (0.038) - this node is a cross-community bridge._
-- **Why does `createPool()` connect `azure.js` to `browser.js`, `dashboard-server.js`, `due-work-ticker.js`, `sync-daily-pipeline.js`, `getClientPrefix`, `import-operators.js`, `ticker.js`?**
+- **Why does `createPool()` connect `azure.js` to `dashboard-server.js`, `sync-daily-pipeline.js`, `due-work-ticker.js`, `getClientPrefix`, `blind-apply.js`, `job-application-db.js`, `processDueChat`, `ticker.js`, `worker.js`?**
   _High betweenness centrality (0.034) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?**
   _`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `{ chromium: localChromium }`, `RECYCLE_THRESHOLD`, `ticketWaiters` to the rest of the system?**
+- **What connects `axios`, `lucide-react`, `react` to the rest of the system?**
   _272 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `browser.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.0576271186440678 - nodes in this community are weakly interconnected._
 - **Should `frontend/package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.05084745762711865 - nodes in this community are weakly interconnected._
+- **Should `dashboard-server.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.0701344243132671 - nodes in this community are weakly interconnected._
 - **Should `azure.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.05201636469900643 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05194805194805195 - nodes in this community are weakly interconnected._
