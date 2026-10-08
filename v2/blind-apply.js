@@ -40,7 +40,7 @@ async function blindApply(applywizzId, jobUrl, jobId, retryAfterLogin = false) {
       return { success: false, errorType: 'apply_failed', error: `Could not retrieve or create session for ${applywizzId}` };
     }
 
-    handle = await openBrowser({ storageState, headless: true });
+    handle = await openBrowser({ storageState, headless: process.env.HEADLESS !== 'false' });
     let { page } = handle;
 
     console.log(`[V2 Blind Apply] [${applywizzId}] Navigating to ${jobUrl}`);

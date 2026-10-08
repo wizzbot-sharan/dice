@@ -25,7 +25,7 @@ async function refreshLogin(applywizzId) {
   const email = userRes.rows[0].email;
   console.log(`[V2 Login Manager] Starting autonomous login for ${applywizzId} (${email})...`);
   
-  const handle = await openBrowser({ headless: true });
+  const handle = await openBrowser({ headless: process.env.HEADLESS !== 'false' });
   const { context, page } = handle;
 
   try {

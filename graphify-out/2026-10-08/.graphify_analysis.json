@@ -922,13 +922,13 @@
       "degree": 19
     },
     {
-      "id": "lib_dashboard_server_sendjson",
-      "label": "sendJson()",
+      "id": "start_worker_applytojobonpage",
+      "label": "applyToJobOnPage()",
       "degree": 16
     },
     {
-      "id": "start_worker_applytojobonpage",
-      "label": "applyToJobOnPage()",
+      "id": "lib_dashboard_server_sendjson",
+      "label": "sendJson()",
       "degree": 16
     },
     {
@@ -943,6 +943,17 @@
     }
   ],
   "surprises": [
+    {
+      "source": "handleJobCallback()",
+      "target": "saveKnownAnswer()",
+      "source_files": [
+        "start-bot.js",
+        "lib/unknown-questions.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "indirect_call",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
     {
       "source": "handleJobCallback()",
       "target": "getClientIdForChat()",
@@ -986,54 +997,10 @@
       "confidence": "INFERRED",
       "relation": "indirect_call",
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "handleJobCallback()",
-      "target": "saveKnownAnswer()",
-      "source_files": [
-        "start-bot.js",
-        "lib/unknown-questions.js"
-      ],
-      "confidence": "INFERRED",
-      "relation": "indirect_call",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `node-telegram-bot-api` connect `sendMessage` to `scripts`, `sync-daily-pipeline.js`, `start-bot.js`?",
-      "why": "High betweenness centrality (0.038) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `createPool()` connect `azure.js` to `dashboard-server.js`, `sync-daily-pipeline.js`, `due-work-ticker.js`, `getClientPrefix`, `blind-apply.js`, `job-application-db.js`, `processDueChat`, `ticker.js`, `worker.js`?",
-      "why": "High betweenness centrality (0.034) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 4 inferred relationships involving `sendMessage()` (e.g. with `processDueChat()` and `telegram-notify.js`) actually correct?",
-      "why": "`sendMessage()` has 4 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `axios`, `lucide-react`, `react` to the rest of the system?",
-      "why": "272 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `frontend/package.json` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05084745762711865 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `dashboard-server.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.0701344243132671 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `azure.js` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05194805194805195 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }
